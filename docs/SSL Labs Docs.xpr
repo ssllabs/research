@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="13.2">
+    <meta>
+        <filters directoryPatterns="" filePatterns="" positiveFilePatterns="" showHiddenFiles="false"/>
+        <options/>
+    </meta>
+    <projectTree name="SSL%20Labs%20Docs.xpr">
+        <file name="SSL_Server_Rating_Guide.xml"/>
+        <file name="SSL_TLS_Deployment_Best_Practices.xml"/>
+        <file name="whitepaper.xsl"/>
+    </projectTree>
+</project>

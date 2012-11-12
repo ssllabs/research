@@ -1,0 +1,166 @@
+DocBook XSL NS (namespaced) Stylesheets
+===========================================
+Bob Stayton
+bobs@sagehill.net
+
+This package contains a release of XSL stylesheets for
+processing namespaced DocBook documents (DocBook 5 or
+later). The stylesheets are the same as the concurrent
+stylesheet release except that the templates match on
+elements in the DocBook namespace.
+
+Note, the stylesheets in the directories listed below
+have not yet been converted to use the DocBook
+namespace:
+
+  slides
+  website
+  roundtrip
+
+
+Background
+-------------
+DocBook 5 differs from preceding versions of DocBook because
+its elements are in a namespace, "http://docbook.org/ns/docbook".
+Because the elements are in a namespace, the regular
+DocBook XSL templates do not match on the elements.
+In XSLT, a match attribute must explicitly specify
+the namespace prefix to match an element in that namespace
+(the default namespace does not apply to pattern matches).
+
+The non-namspaced DocBook XSL stylesheets (created
+originally for processing DocBook 4 and earlier documents,
+before DocBook was put into a namespace for the DocBook 5
+release) are able to process a namespaced DocBook document
+by preprocessing the document to strip the namespace.
+
+When the non-namspaced stylesheet detects that the root
+element of a document is in the DocBook namespace, it
+processes the document with mode="stripNS" to copy all the
+nodes to a variable, but without the DocBook namespace.
+Then it converts the variable to a nodeset, and processes
+the nodeset with the regular templates.
+
+The alternative approach is to create a set of templates
+that match on the native namespace of DocBook 5 and
+later documents.  These stylesheets do that.
+
+These stylesheets completely mimic the behavior of the
+existing stylesheets.  These are not XSLT 2.0 stylesheets,
+and they do not have any other significant changes than handling
+the namespaced elements.
+
+The two main advantages of these stylesheets are:
+
+a. You can write customization layers using the DocBook namespace.
+
+b. The xml:base of the root element is not lost during processing
+(so things like images and the olink database can be found
+more easily).
+
+
+How these stylesheets were produced
+----------------------------------------
+These stylesheets were created from a DocBook XSL 
+snapshot.  Each xsl file was processed with a
+Perl script and its output placed in a parallel
+directory tree.  Any non-xsl files were simply copied
+into place.
+
+Perl was used because of its excellent regular expression
+handling, and because Perl is able to preserve all whitespace.
+This retains the pretty-printed format that makes
+the stylesheets easier to read and understand.
+
+The stylesheet transforms each XSL match, select, test,
+count, from, use, and elements attribute to add a "d:"
+prefix to each element referenced in the attribute.
+For example:
+
+  <xsl:template match="para">
+
+becomes:
+
+  <xsl:template match="d:para">
+
+In addition, each stylesheet file has a namespace declaration
+added in its root element:
+
+  <xsl:stylesheet  xslns:d="http://docbook.org/ns/docbook"
+
+The combination of these two changes means that the templates
+now recognize DocBook 5 elements in their native namespace.
+
+
+How to use these stylesheets
+--------------------------------
+DocBook 5 and later documents hav the DocBook namespace
+declaration in the root element, along with the version
+attribute:
+
+  <book xslns="http://docbook.org/ns/docbook" version="5.0">
+
+You can process a namespaced DocBook document with these
+stylesheets using any XSLT processor, including xsltproc,
+Saxon 6 or 8, and Xalan.  Use these stylesheets as you would
+a stylesheet from the regular distribution (except for
+slides, website, and roundtrip).
+
+If you happen to process a DocBook document whose root element
+is without the namespace declaration, the stylesheet
+does not fail.  Rather, it detects that the document
+does not have the namespace, and preprocesses it to add the
+namespace declaration to all elements in the document.
+
+In a manner similar to stripNS, it copies the elements
+to a variable while adding the namespace, converts the
+variable to a nodeset, and then processes the nodeset with
+the namespace-aware templates.
+
+If the stylesheet encounters an element from your file
+for which the stylesheet has no matching template,
+it reports the unmatched element.  In these stylesheets,
+it also reports the namespace URI that the element has.
+
+
+Customizing these stylesheets
+--------------------------------
+These stylesheets are customized with a customization
+layer in the same manner as for the regular stylesheets,
+with two differences.
+
+When you create a customization layer, you must do two things:
+
+a.  Add the namespace declaration (with a prefix of your choice):
+
+  <xsl:stylesheet  xslns:d="http://docbook.org/ns/docbook"
+
+b.  Use the namespace prefix on all DocBook element names:
+
+  <xsl:template match="d:formalpara">
+
+Be sure to include the namespace prefix on all element
+references, including those in match, select, and test
+attributes, even when using an axis specifier.  Here are
+some examples:
+
+  <xsl:if test="d:title">
+
+  <xsl:apply-templates select="d:title" mode="list.title.mode"/>
+
+  <xsl:apply-templates 
+       select="*[not(self::d:listitem or self::d:title 
+               or self::d:titleabbrev)] | 
+               comment()[not(preceding-sibling::d:listitem)] |
+               processing-instruction()[not(preceding-sibling::d:listitem)]"/>
+
+Failure to add the prefix to an element name will cause
+the stylesheet to silently not match the intended element,
+with consequences that are most likely undesirable.
+
+
+Report any problems
+------------------------
+These are new stylesheets and need thorough testing.
+Please report any problems to the docbook-apps
+mailing list or the SourceForge bug tracker.

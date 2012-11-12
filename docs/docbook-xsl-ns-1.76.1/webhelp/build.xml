@@ -1,0 +1,112 @@
+<project default="help" name="mainbuild">
+
+  <dirname property="ant.file.dir" file="${ant.file.mainbuild}"/>
+  <loadproperties srcFile="${ant.file.dir}/build.properties"/>
+  <property name="webhelp.include.search.tab" value="true"/>
+
+  <property name="extensions.dir" value="${ant.file.dir}/../extensions"/>
+
+    <path id="classpath">
+        <pathelement location="${extensions.dir}/webhelpindexer.jar"/>
+	<pathelement location="${extensions.dir}/lucene-analyzers-3.0.0.jar"/>
+	<pathelement location="${extensions.dir}/lucene-core-3.0.0.jar"/>
+    </path>
+
+  <condition property="perform-validation-dtd">
+	<equals arg1="${validate-against-dtd}" arg2="true"/>
+  </condition>
+  <condition property="do-search-indexing">
+	<equals arg1="${webhelp.include.search.tab}" arg2="true"/>
+  </condition>
+
+  <target name="validate" if="perform-validation-dtd">
+    <xmlvalidate file="${input-xml}" classname="org.apache.xerces.parsers.SAXParser"/>
+  </target>
+
+  <target name="chunk" depends="clean">
+	
+	<mkdir dir="${output-dir}"/>
+	<xslt
+	  in="${input-xml}"
+	  out="${output-dir}/dummy.html"
+	  style="${stylesheet-path}"
+	  scanincludeddirectories="false"
+	  classpath="${xslt-processor-classpath}">
+	  <param name="webhelp.include.search.tab" expression="${webhelp.include.search.tab}"
+		if="webhelp.include.search.tab"/>
+	  <param name="output_file_name" expression="${output_file_name}"/>
+	  <param name="webhelp.base.dir" expression="${output-dir}" if="output-dir"/>
+	  <param name="webhelp.indexer.language" expression="${webhelp.indexer.language}" if="webhelp.indexer.language"/>
+	</xslt>
+	
+	<delete file="${output-dir}/dummy.html"/>
+
+	<!-- Copy common content such as js files of tree, css etc. to template folder. They will be copied to doc folder. They are NOT page specific! -->
+	<copy todir="${output-dir}">
+	  <fileset dir="${ant.file.dir}/template">
+		<include name="**/*"/>
+		<exclude name="**/content/search/**"/>
+	  </fileset>
+	</copy>
+
+	<!-- Very simple-minded copy to handle the source document's images -->
+	<!-- TODO: Look at html help code that produces a manifest file...list of images -->
+	<!--       Customize webhelp.xsl to produce ant file to copy images actually used? -->
+	<dirname property="input-images-basedir" file="${input-xml}"/>
+	<copy todir="${output-dir}/content" failonerror="false">
+	  <fileset dir="${input-images-basedir}" includes="${input-images-dirs}" />
+	</copy>
+  </target>
+
+  <target name="index" if="do-search-indexing">
+
+	<copy todir="${output-dir}">
+	  <fileset dir="${ant.file.dir}/template">
+		<include name="**/*"/>
+		<exclude name="**/content/search/*.props"/>
+		<exclude name="**/content/search/stemmers/*"/>
+	  </fileset>
+	</copy>
+
+	<!-- We separate this out so we only copy the stopwords list and stemmer for the indexer language -->
+	<copy todir="${output-dir}">
+	  <fileset dir="${ant.file.dir}/template">
+		<include name="**/content/search/default.props"/>
+		<include name="**/content/search/punctuation.props"/>
+		<include name="**/content/search/${webhelp.indexer.language}*.props"/>
+		<include name="**/content/search/stemmers/${webhelp.indexer.language}_stemmer.js"/>
+	  </fileset>
+	</copy>
+ 
+	<taskdef name="indexertask"
+	  classname="com.nexwave.nquindexer.IndexerTask">
+	  <classpath refid="classpath"/>
+	</taskdef>
+
+	<echo>Indexing html files in ${output-dir}/content</echo>
+
+	<indexertask htmldir="${output-dir}/content" indexerLanguage="${webhelp.indexer.language}"/>
+
+	<delete>
+	  <fileset dir="${output-dir}/content/search" includes="*.props"/>
+	</delete>
+
+  </target>
+
+  <target name="webhelp" depends="validate,chunk,index"/>
+
+
+  <target name="clean">
+	<delete dir="${output-dir}"/>
+  </target>
+
+  <target name="help">
+	<echo>
+Usage:
+webhelp:       Generates the document in webhelp format and indexes the content.
+clean:         Deletes webhelp output directory.
+index:         Indexes the content.
+	</echo>
+  </target>
+
+</project>
