@@ -23,8 +23,7 @@
     <!-- The following must be enabled to prevent a FOP exception, not sure why -->
     <xsl:param name="fop1.extensions">1</xsl:param>
 
-    <xsl:param name="draft.mode">1</xsl:param>
-    <xsl:param name="draft.watermark.image"/>
+    <xsl:param name="admon.graphics">0</xsl:param>
 
     <!-- Page formatting -->
     <xsl:param name="paper.type">A4</xsl:param>
@@ -52,7 +51,7 @@
     <xsl:param name="body.font.master">11</xsl:param>
     <xsl:param name="body.start.indent">0pt</xsl:param>
     <xsl:param name="body.space-before.optimum">10pt</xsl:param>
-    <xsl:param name="line-height">1.4</xsl:param>
+    <xsl:param name="line-height">1.5</xsl:param>
 
     <xsl:param name="default.table.width">100%</xsl:param>
 
