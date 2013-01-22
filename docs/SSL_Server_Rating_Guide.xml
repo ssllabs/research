@@ -3,39 +3,44 @@
 <?xml-stylesheet type="text/xsl" href="whitepaper.xsl" ?>
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
     version="5.0">
-    <info><title>SSL Server Rating Guide</title>
-        <releaseinfo>version 2009 (21 July 2009)</releaseinfo>
+    <info>
+        <title>SSL Server Rating Guide</title>
+        <releaseinfo>version 2009c draft 1 (22 January 2013)</releaseinfo>
         <copyright>
-            <year>2009</year>
-            <holder>SSL Labs (www.ssllabs.com)</holder>
+            <year>2009-2013</year>
+            <holder>Qualys, Inc.</holder>
         </copyright>
         <abstract>
-            <para>The Secure Sockets Layer (SSL) protocol is a standard for encrypted network
-                communication. We feel that there is surprisingly little attention paid to how SSL
-                is configured, given its widespread usage. SSL is relatively easy to use, but it
-                does have its traps. This guide aims to establish a straightforward assessment
-                methodology, allowing administrators to assess SSL server configuration confidently
-                without the need to become SSL experts.</para>
-        </abstract></info>
+            <para>The <firstterm>Secure Sockets Layer</firstterm> (SSL) protocol is a standard for
+                encrypted network communication. We feel that there is surprisingly little attention
+                paid to how SSL is configured, given its widespread usage. SSL is relatively easy to
+                use, but it does have its traps. This guide aims to establish a straightforward
+                assessment methodology, allowing administrators to assess SSL server configuration
+                confidently without the need to become SSL experts.</para>
+        </abstract>
+    </info>
     <section>
         <title>Methodology Overview</title>
         <para>Our approach consists of three steps:</para>
         <orderedlist>
             <listitem>
-                <para>We first look at a certificate to verify that it is valid and trusted. A
-                    server that fails this step is always assigned a zero score.</para>
+                <para>We first look at the server certificate to verify that it is valid and
+                    trusted. A server that fails this step is always assigned a zero score.</para>
             </listitem>
             <listitem>
-                <para>We inspect server configuration in three categories:</para>
+                <para>We then inspect the configuration in four categories:</para>
                 <orderedlist>
                     <listitem>
                         <para>Protocol support</para>
                     </listitem>
                     <listitem>
-                        <para>Key exchange support</para>
+                        <para>Authentication strength</para>
                     </listitem>
                     <listitem>
-                        <para>Cipher support</para>
+                        <para>Cipher suite strength</para>
+                    </listitem>
+                    <listitem>
+                        <para>Vulnerabilities and mitigations</para>
                     </listitem>
                 </orderedlist>
             </listitem>
@@ -45,11 +50,11 @@
                     forces the total score to zero.</para>
             </listitem>
         </orderedlist>
-        <para>Because small differences between configurations are sometimes less important, we also
-            assign letter grades to servers. Letter grades are generally more useful&#8212;it is
+        <para>Because small variations in configuration are not often terribly important, we also
+            assign letter grades to servers. The letter grades are generally more useful&#8212;it is
             instantly clear that a server given an <literal>A</literal> is well configured. <xref
                 linkend="table-grades"/> shows how a numerical score is translated into a letter
-            grade.</para>
+            grade. </para>
         <table xml:id="table-grades">
             <title>Letter grade translation</title>
             <tgroup cols="2">
@@ -96,81 +101,63 @@
         <section>
             <title>What This Guide Does Not Cover</title>
             <para>Our immediate goal is to focus on those configuration problems whose presence can
-                be determined remotely and without manual assessment. It is only a fully automated
-                approach that makes it possible to perform a large-scale assessment of SSL
-                configuration practices. Our aim is to scan all SSL servers on the public
-                Internet.</para>
-            <para>In focusing on automation, we have decided not to look for certain problems. We
-                will list those problems in this guide, and hopefully find ways to enhance our
-                automation to include them in a future version of this guide. Some of those problems
-                are listed here:</para>
-            <variablelist>
-                <varlistentry>
-                    <term>Certificate quality</term>
-                    <listitem>
-                        <para>Three certificate types are currently in use: domain-validated,
-                            organisation-validated and extended-validation (EV) certificates. This
-                            guide requires a certificate to be correct, but does not go beyond this
-                            basic requirement. The domain-validated and organisation-validated
-                            certificates are generally treated in the same way by the current
-                            generation of browser software, and thus offer similar assurance to
-                            users. EV certificates are treated significantly better and, generally,
-                            they are recommended for high-value web sites. Without a reliable way to
-                            determine the purpose of a web site, however, there is little that this
-                            guide can do to assess whether a certificate used on an arbitrary site
-                            is suitable for the purpose of the site. </para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>Session hijacking issues in web applications</term>
-                    <listitem>
-                        <para>There are several ways in which web applications can subvert SSL and
-                            make it less effective. For example, session cookies that are not marked
-                            as secure can be retrieved by a determined attacker, leading to session
-                            hijacking and thus application compromise. Such problems are not the
-                            fault of SSL, but they do affect its practical applications
-                            nevertheless. Detecting web application&#8211;specific problems is
-                            non-trivial to perform in an automated fashion, and this version of the
-                            guide does not attempt to do it. We leave this problem for the
-                            consideration in the future. In the meantime, to remove any doubt that
-                            might exist about the seriousness of the above-mentioned issues, we will
-                            state that <emphasis>any application that incorrectly implements session
-                                token propagation should be awarded a zero score.</emphasis></para>
-                    </listitem>
-                </varlistentry>
-            </variablelist>
+                be determined remotely and without manual assessment. This is the only way that we
+                can provide a service that is quick and easy to use, as well as undertake
+                Internet-scale assessments of SSL servers.</para>
+            <para>The aspects we do not cover here fall into three groups. In the first group are
+                aspects that are difficult to judge without knowing what a particular server is used
+                for. In security there is rarely black and white, secure and insecure. Instead,
+                there are many shades of gray. It is easy to understand that a banking web site
+                needs better security than a personal homepage.</para>
+            <para>In the second group are certain advanced aspects of SSL configuration. For
+                example, <firstterm>HTTP Strict Transport Security</firstterm> (HSTS) and
+                    <firstterm>forward secrecy</firstterm> fall into this group. When designing the
+                original rating guide back in 2009, we felt that these advanced aspects were too
+                demanding and didn&#x2019;t make much sense when the average server was very poorly
+                configured. We don&#x2019;t wish to introduce advanced configuration aspects in a patch
+                release (this document&#x2019;s version string is <emphasis>2009c</emphasis>), but we
+                expect that the next major update will.</para>
+            <para>In the third group are things that are potentially out of scope (of an SSL server
+                configuration assessment) and are also difficult to automate. For example, an
+                insecure web application running on an otherwise perfectly configured SSL server
+                will no doubt be insecure. In time, we expect to extend our assessment technology to
+                cover some of these problems. For example, detecting insecure session cookies or
+                mixed page content is fully within the scope of this rating guide.</para>
         </section>
         <section>
             <title>What Should My Score Be?</title>
-            <para>We don&#x2019;t know. In order to tell you whether you&#x2019;ve configured your
-                SSL server correctly, we would need to know what your site does. Because different
-                web sites have different needs, it is not possible for us to choose any one
-                configuration and say that it works for everyone. But we can do two things. First,
-                we can give you some general configuration advice and tell you what you should never
-                do. Second, we can give you some general guidance using examples of what other web
-                sites do. If that&#x2019;s what you are interested in, skip to the end of this
-                document for more information. </para>
+            <para>Our letter grades make this question easy to answer. If you get an A, you&#x2019;re doing
+                well. If you get any other grade, look for problems to fix. Beyond that, it does not
+                matter what exact score you get, and we certainly don&#x2019;t know what your score should
+                be. No one can know without a deeper analysis. Because different servers have
+                different requirements, it is not possible to choose any one configuration that
+                everyone should have. Furthermore, chasing the top score may make your web site slow
+                (e.g., if you use a 4096-bit private key) or inaccessible to some of your users
+                (e.g., if you disable all protocols except TLS 1.2.) The bottom line is that your
+                site needs to be secure <emphasis>and</emphasis> work well.</para>
         </section>
         <section>
             <title>Is SSL Enough?</title>
-            <para>No. A non-trivial web site cannot be secure if it does not implement SSL, but SSL
-                is not enough. SSL deals with only one aspect of security, and that is the security
-                of the communication channel between a web site and its users. SSL does not and
-                cannot address a number of possible security issues that may exist on a web site.
-                View SSL as a foundation on which to build, but the foundation alone is not
+            <para>A non-trivial web site cannot be secure if it does not implement SSL, but SSL
+                alone is not enough. SSL deals with only one aspect of security, and that is the
+                security of the communication channel between a web site and its users. SSL does not
+                and cannot address a number of possible security issues that may exist on a web
+                site. View SSL as a foundation on which to build, but the foundation alone is not
                 enough.</para>
         </section>
         <section>
             <title>Acknowledgements</title>
-            <para>The first version of this guide was written by <link
-                    xlink:href="http://blog.ivanristic.com">Ivan Ristic</link>, and subsequently
-                enhanced by the contributions from the following individuals, listed in alphabetical
-                order: Christian Bockermann, Christian Folini, Robert Hansen, Ofer Shezaf and Colin
-                Watson.</para>
+            <para>This first version of this guide was written by <link
+                    xlink:href="http://blog.ivanristic.com">Ivan Ristić</link>, and subsequently
+                reviewed by Christian Bockermann, Christian Folini, Robert Hansen, Ofer Shezaf and
+                Colin Watson. Since that first release I discussed the topic of SSL security with
+                many experts from the field. They may have not contributed to this guide directly,
+                but they have certainly shaped it and continue to shape it with their thoughts,
+                which they have generously shared with me.</para>
         </section>
     </section>
     <section>
-        <title>Certificate Inspection</title>
+        <title>Certificate Trust</title>
         <para>Server certificate is often the weakest point of an SSL server configuration. A
             certificate that is not trusted (i.e., is not ultimately signed by a well-known
             certificate authority) fails to prevent man-in-the-middle (MITM) attacks and renders SSL
@@ -190,30 +177,31 @@
                 <para>Certificate expired</para>
             </listitem>
             <listitem>
-                <para>Use of a self-signed certificate</para>
+                <para>A self-signed certificate</para>
             </listitem>
             <listitem>
-                <para>Use of a certificate that is not trusted (unknown CA or some other validation
-                    error)</para>
+                <para>A certificate that was signed by a CA that is unknown to the general
+                    public</para>
             </listitem>
             <listitem>
-                <para>Use of a revoked certificate</para>
+                <para>A revoked certificate</para>
             </listitem>
         </itemizedlist>
         <note>
-            <para>Some organisations create their own (private) CA certificates, a practice that is
-                entirely legitimate, provided such CA certificates are distributed, in a safe manner
-                (e.g., through the use of customised browsers) to all those who need it. Without the
-                access to such certificates we may not be able to verify that a site we are
-                inspecting has a trusted certificate, but we believe that such sites will be
-                relatively rare. Such issues can be considered on a case-by-case basis.</para>
+            <para>The SSL Labs criteria is designed for public&#8211;facing web sites, and relies on
+                Mozilla&#x2019;s trust store. In other words, if a site works in Firefox, it should work in
+                the SSL Labs test. Some organisations use their own (private) CA certificates, a
+                practice that is entirely legitimate, provided such CA certificates are distributed
+                in a safe manner to all those who need them. However, because these private CA roots
+                are not in Mozilla&#x2019;s store, we are not able to confirm the authenticity of any
+                server certificates signed by them.</para>
         </note>
     </section>
     <section>
         <title>Scoring</title>
         <para>SSL is a complex hybrid protocol with support for many features across several phases
             of operation. To account for the complexity, we rate the configuration of an SSL server
-            in three categories, as displayed in <xref linkend="table-criteria-categories"/>. We
+            in four categories, as displayed in <xref linkend="table-criteria-categories"/>. We
             calculate the final score as a combination of the scores in the individual categories,
             as described in the &#x201c;Methodology Overview&#x201d; section.</para>
         <table xml:id="table-criteria-categories">
@@ -233,22 +221,32 @@
                         <entry>30%</entry>
                     </row>
                     <row>
-                        <entry>Key exchange</entry>
+                        <entry>Authentication</entry>
+                        <entry>40%</entry>
+                    </row>
+                    <row>
+                        <entry>Cipher suite strength</entry>
                         <entry>30%</entry>
                     </row>
                     <row>
-                        <entry>Cipher strength</entry>
-                        <entry>40%</entry>
+                        <entry>Vulnerabilities</entry>
+                        <entry>N/A</entry>
                     </row>
                 </tbody>
             </tgroup>
         </table>
+        <para>The fourth category is reserved for vulnerabilities that might be present in server
+            configuration. Because vulnerabilities vary in potential impact, this last category
+            consists of a series of vulnerability-specific rules.</para>
         <para>The sections that follow explain the rating system for each of the categories.</para>
         <section>
             <title>Protocol Support</title>
-            <para>First, we look at the protocols supported by an SSL server. For example, both SSL
-                2.0 and SSL 3.0 have known weaknesses. Because a server can support several
-                protocols, we use the following algorithm to arrive to the final score:</para>
+            <para>First, we look at the protocols supported by an SSL server. For example, older
+                protocols have known weaknesses, some of which are very serious. For a long time SSL
+                2.0 was the only obviously insecure protocol, but we now know that SSL 3.0 and TLS
+                1.0 have significant problems too. Because a server can (and often must) support
+                several protocols, we use the following algorithm to arrive to the final
+                score:</para>
             <orderedlist>
                 <listitem>
                     <para>Start with the score of the best protocol.</para>
@@ -257,11 +255,11 @@
                     <para>Add the score of the worst protocol.</para>
                 </listitem>
                 <listitem>
-                    <para>Divide the total by 2.</para>
+                    <para>Divide by 2.</para>
                 </listitem>
             </orderedlist>
             <table xml:id="table-protocol-support">
-                <title>Protocol support rating guide</title>
+                <title>Protocol support scoring</title>
                 <tgroup cols="2">
                     <colspec colname="c1" colnum="1"/>
                     <colspec colname="c2" colnum="2"/>
@@ -274,19 +272,19 @@
                     <tbody>
                         <row>
                             <entry>SSL 2.0</entry>
-                            <entry>20%</entry>
+                            <entry>Fail</entry>
                         </row>
                         <row>
                             <entry>SSL 3.0</entry>
-                            <entry>80%</entry>
+                            <entry>60%</entry>
                         </row>
                         <row>
                             <entry>TLS 1.0</entry>
-                            <entry>90%</entry>
+                            <entry>80%</entry>
                         </row>
                         <row>
                             <entry>TLS 1.1</entry>
-                            <entry>95%</entry>
+                            <entry>90%</entry>
                         </row>
                         <row>
                             <entry>TLS 1.2</entry>
@@ -297,28 +295,15 @@
             </table>
         </section>
         <section>
-            <title>Key Exchange</title>
-            <para>The key exchange phase serves two functions. One is to perform authentication,
-                allowing at least one party to verify the identity of the other party. The other is
-                to ensure the safe generation and exchange of the secret keys that will be used
-                during the remainder of the session. The weaknesses in the key exchange phase affect
-                the session in two ways:</para>
-            <itemizedlist>
-                <listitem>
-                    <para>Key exchange without authentication allows an active attacker to perform a
-                        MITM attack, gaining access to the complete communication channel.</para>
-                </listitem>
-                <listitem>
-                    <para>Public cryptography is used during key exchange: the stronger the
-                        server&#x2019;s private key, the more difficult it is to break the key
-                        exchange phase. A weak key, or an exchange procedure that uses only a part
-                        of the key (the so-called exportable key exchanges), can result in a weak
-                        key exchange phase that makes the per-session secret keys easier to
-                        compromise.</para>
-                </listitem>
-            </itemizedlist>
+            <title>Authentication Strength</title>
+            <para>In this category we examine the strength of the authentication mechanism, which
+                hinges almost entirely on the strenght of the server&#x2019;s private certificate. In the
+                man-in-the middle (MITM) attack scenario, a weak server private key is probably the
+                weakest point. A sufficiently weak private key can be brute-forced, after which the
+                MITM attacker can often observe all communication and also impersonate the server at
+                will.</para>
             <table xml:id="table-key-exchange">
-                <title>Key exchange rating guide</title>
+                <title>Authentication strength scoring</title>
                 <tgroup cols="2">
                     <colspec colname="c1" colnum="1"/>
                     <colspec colname="c2" colnum="2"/>
@@ -331,34 +316,30 @@
                     <tbody>
                         <row>
                             <entry>Weak key (Debian OpenSSL flaw)</entry>
-                            <entry>0%</entry>
+                            <entry>Fail</entry>
                         </row>
                         <row>
                             <entry>Anonymous key exchange (no authentication)</entry>
-                            <entry>0%</entry>
+                            <entry>Fail</entry>
                         </row>
                         <row>
-                            <entry>Key length &lt; 512 bits</entry>
+                            <entry>Key strength &lt; 512 bits</entry>
+                            <entry>Fail</entry>
+                        </row>                        
+                        <row>
+                            <entry>Key strength &lt; 1024 bits (e.g., 512)</entry>
                             <entry>20%</entry>
                         </row>
                         <row>
-                            <entry>Exportable key exchange (limited to 512 bits)</entry>
-                            <entry>40%</entry>
+                            <entry>Key strength &lt; 2048 bits (e.g., 1024)</entry>
+                            <entry>60%</entry>
                         </row>
                         <row>
-                            <entry>Key length &lt; 1024 bits (e.g., 512)</entry>
-                            <entry>40%</entry>
-                        </row>
-                        <row>
-                            <entry>Key length &lt; 2048 bits (e.g., 1024)</entry>
-                            <entry>80%</entry>
-                        </row>
-                        <row>
-                            <entry>Key length &lt; 4096 bits (e.g., 2048)</entry>
+                            <entry>Key strength &lt; 4096 bits (e.g., 2048)</entry>
                             <entry>90%</entry>
                         </row>
                         <row>
-                            <entry>Key length >= 4096 bits (e.g., 4096)</entry>
+                            <entry>Key strength >= 4096 bits</entry>
                             <entry>100%</entry>
                         </row>
                     </tbody>
@@ -366,13 +347,18 @@
             </table>
         </section>
         <section>
-            <title>Cipher Strength</title>
-            <para>To break a communication session, an attacker can attempt to break the symmetric
-                cipher used for the bulk of the communication. A stronger cipher allows for stronger
-                encryption and thus increases the effort needed to break it. Because a server can
-                support ciphers of varying strengths, we arrived at a scoring system that penalises
-                the use of weak ciphers. To calculate the score for this categor,y we follow this
-                algorithm: </para>
+            <title>Cipher Suite Strength</title>
+            <para>To break a single communication session, an attacker can attempt to break the
+                cipher suite used. However, he can also attack the key exchange. If the key exchange
+                is protected by the server&#x2019;s certificate, its strength equal to the strength of the
+                server&#x2019;s private key. However, some cipher suites use a separate key exchange
+                mechanism based on the Diffie–Hellman algorithm. In this case, the strength of the
+                key exchange depends on DH or ECDH parameters that are used. The strength of a
+                particular cipher suite is equal to the lower of the two values (key exchange
+                strength and cipher suite strength).</para>
+            <para>Because servers typically support many cipher suites, we examine and rate all
+                available suites individually, and then generate the overall score to describe the
+                strength of suites supported by the server. We use the following simple algorithm: </para>
             <orderedlist>
                 <listitem>
                     <para>Start with the score of the strongest cipher.</para>
@@ -381,11 +367,11 @@
                     <para>Add the score of the weakest cipher.</para>
                 </listitem>
                 <listitem>
-                    <para>Divide the total by 2.</para>
+                    <para>Divide by 2.</para>
                 </listitem>
             </orderedlist>
             <table xml:id="table-cipher-strength">
-                <title>Cipher strength rating guide</title>
+                <title>Cipher suite strength scoring</title>
                 <tgroup cols="2">
                     <colspec colname="c1" colnum="1"/>
                     <colspec colname="c2" colnum="2"/>
@@ -398,7 +384,7 @@
                     <tbody>
                         <row>
                             <entry>0 bits (no encryption)</entry>
-                            <entry>0%</entry>
+                            <entry>Fail</entry>
                         </row>
                         <row>
                             <entry>&lt; 128 bits (e.g., 40, 56)</entry>
@@ -416,217 +402,57 @@
                 </tgroup>
             </table>
         </section>
-    </section>
-    <section>
-        <title>SSL Configuration Advice</title>
-        <para>This section offers advice on how to configure an SSL server correctly. Actually,
-            given that there is no single correct configuration for every possible use of SSL, we
-            aim merely to give some reasonable advice that works for the majority of users. Your
-            individual needs may vary. As a rule of thumb, the higher the value of your site, the
-            stricter the configuration should be. Although this section tells you what a typical SSL
-            configuration should be, the rating guide will give you some idea of how you can improve
-            upon it if necessary.</para>
         <section>
-            <title>Minimal Configuration Requirements</title>
-            <para>This section lists the minimal requirements every SSL server must fulfil:</para>
-            <orderedlist>
-                <listitem>
-                    <para>Use a private key that is at least 1024 bits long. </para>
-                    <orderedlist>
-                        <listitem>
-                            <para>Do not reuse keys across certificates.</para>
-                        </listitem>
-                        <listitem>
-                            <para>Generate a new key for every certificate you request.</para>
-                        </listitem>
-                    </orderedlist>
-                </listitem>
-                <listitem>
-                    <para>Make sure the certificate is valid for all the domain names that will be
-                        required. For example, make sure the certificate works for
-                            <literal>www.example.com</literal> as well as
-                            <literal>example.com</literal> (without the <literal>www</literal>
-                        part).</para>
-                </listitem>
-                <listitem>
-                    <para>Purchase a valid server certificate with an assurance level that is
-                        appropriate for your needs:</para>
-                    <orderedlist>
-                        <listitem>
-                            <para>Domain-validated certificates are cheap and suitable for most
-                                uses.</para>
-                        </listitem>
-                        <listitem>
-                            <para>Organisation-validated certificates do not seem to have an
-                                advantage that would justify their higher cost.</para>
-                        </listitem>
-                        <listitem>
-                            <para>High-value web sites (e.g., stores and financial institutions)
-                                should use EV certificates.</para>
-                        </listitem>
-                    </orderedlist>
-                </listitem>
-                <listitem>
-                    <para>Use TLS v1.0 or better.</para>
-                </listitem>
-                <listitem>
-                    <para>Use strong cipher suites:</para>
-                    <orderedlist>
-                        <listitem>
-                            <para>Do not use anonymous key exchanges.</para>
-                        </listitem>
-                        <listitem>
-                            <para>Do not use crippled (export) key exchanges.</para>
-                        </listitem>
-                        <listitem>
-                            <para>Do not use ciphers that are weaker than 128 bits.</para>
-                        </listitem>
-                        <listitem>
-                            <para>Support cipher suites that offer 256-bit encryption or
-                                better.</para>
-                        </listitem>
-                    </orderedlist>
-                </listitem>
-                <listitem>
-                    <para>Ensure that SSL is not subverted at the application level:</para>
-                    <orderedlist>
-                        <listitem>
-                            <para>Session cookies <emphasis>must</emphasis> be marked as
-                                secure.</para>
-                        </listitem>
-                        <listitem>
-                            <para>No part of a site should be available as plain text (no
-                                encryption).</para>
-                            <orderedlist>
-                                <listitem>
-                                    <para>On port 80, there should be only a redirection back to the
-                                        SSL-protected site.</para>
-                                </listitem>
-                                <listitem>
-                                    <para>Your server must be configured not to serve on port 80
-                                        (unprotected) any of the resources that are otherwise
-                                        delivered over SSL.</para>
-                                </listitem>
-                                <listitem>
-                                    <para>There is no danger in having a plain-text part of your web
-                                        site, provided there is no functionality on it.</para>
-                                </listitem>
-                                <listitem>
-                                    <para>If you <emphasis>must</emphasis> have some functionality
-                                        on the plain-text part of your web site and require sessions
-                                        (thus breaking rule 1), then you need to use two separate
-                                        session mechanisms in parallel, making sure they do not
-                                        overlap. <emphasis>We advise against this approach, as it is
-                                            very easy to implement such a scenario incorrectly and
-                                            thereby compromise security.</emphasis></para>
-                                </listitem>
-                            </orderedlist>
-                        </listitem>
-                        <listitem>
-                            <para>No page should mix protected (SSL) with unprotected (non-SSL)
-                                content.</para>
-                        </listitem>
-                    </orderedlist>
-                </listitem>
-            </orderedlist>
-        </section>
-        <section>
-            <title>Configuration Guidance</title>
-            <para>For some guidance as to how strong a server&#x2019;s SSL configuration should be,
-                please refer to <xref linkend="table-configuration-guidance"/>.</para>
-            <table xml:id="table-configuration-guidance">
-                <title>SSL configuration guidance</title>
-                <tgroup cols="7">
-                    <colspec colname="c1" colnum="1" align="left" colwidth="4*"/>
-                    <colspec colname="c2" colnum="2" align="center" colwidth="1*"/>
-                    <colspec colname="c3" colnum="3" align="center" colwidth="1*"/>
-                    <colspec colname="newCol4" colnum="4" align="center" colwidth="1*"/>
-                    <colspec colname="c4" colnum="5" align="center" colwidth="1*"/>
-                    <colspec colname="c5" colnum="6" align="center" colwidth="1*"/>
-                    <colspec colname="c6" colnum="7" align="center" colwidth="1*"/>
+            <title>Vulnerabilities</title>
+            <para>The <emphasis>Vulnerabilities</emphasis> category was added to address various
+                protocol-level issues that were uncovered since the first edition of this guide.
+                This category is different from all other ones, because the vulnerabilities are all
+                different. For server-side vulnerabilities, the treatment is clear. An unpatched
+                server that supports insecure renegotiation is a clear failure.</para>
+            <para>Deciding what to do about BEAST and CRIME is not as easy, because both are
+                client-side issues that can be mitigated in server configuration. The decision is
+                made more difficult by the fact that most modern (up-to-date) browsers have already
+                mitigated both problems. Looking at the statistics of browser usage, and at which
+                browser vendors fail to address these issues, we reached the conclustion that the
+                threat is real, but applies to a relatively small number of users who are using
+                non-patched browsers.</para>
+            <para>Servers that have not mitigated these two problems will have their grades capped
+                to B or C, depending on the seriousness of the problem.</para> <table xml:id="table-vulnerabilities">
+                <title>Vulnerabilities</title>
+                <tgroup cols="2">
+                    <colspec colname="c1" colnum="1"/>
+                    <colspec colname="c2" colnum="2"/>
                     <thead>
                         <row>
-                            <entry>Site type</entry>
-                            <entry>Cert</entry>
-                            <entry>Key size</entry>
-                            <entry>Client cert</entry>
-                            <entry>Cipher</entry>
-                            <entry>Key ex</entry>
-                            <entry>Protocol</entry>
+                            <entry>Issue</entry>
+                            <entry>Impact</entry>
                         </row>
                     </thead>
                     <tbody>
                         <row>
-                            <entry>Sites that do not implement authentication and where all content
-                                is public</entry>
-                            <entry>-</entry>
-                            <entry>-</entry>
-                            <entry>-</entry>
-                            <entry>-</entry>
-                            <entry>-</entry>
-                            <entry>-</entry>
+                            <entry>Insecure renegotiation</entry>
+                            <entry>Fail</entry>
                         </row>
                         <row>
-                            <entry>Sites that implement authentication</entry>
-                            <entry>DV</entry>
-                            <entry>1024</entry>
-                            <entry>-</entry>
-                            <entry>128</entry>
-                            <entry>-</entry>
-                            <entry>TLS v1.0+</entry>
+                            <entry>No BEAST mitigation</entry>
+                            <entry>Grade capped to C</entry>
                         </row>
                         <row>
-                            <entry>E-commerce web sites</entry>
-                            <entry>EV</entry>
-                            <entry>1024</entry>
-                            <entry>-</entry>
-                            <entry>128</entry>
-                            <entry>-</entry>
-                            <entry>TLS v1.0+</entry>
-                        </row>
-                        <row>
-                            <entry>Internet banking and similar high-value sites</entry>
-                            <entry>EV</entry>
-                            <entry>2048</entry>
-                            <entry>Desirable</entry>
-                            <entry>256</entry>
-                            <entry>-</entry>
-                            <entry>TLS v1.0+</entry>
-                        </row>
-                        <row>
-                            <entry>Sites that contain highly sensitive data that must remain secret
-                                for years</entry>
-                            <entry>EV</entry>
-                            <entry>4096</entry>
-                            <entry>Yes</entry>
-                            <entry>256</entry>
-                            <entry>Ephemeral Diffie-Hellman only.</entry>
-                            <entry>TLS v1.0+</entry>
-                        </row>
+                            <entry>No CRIME mitigation</entry>
+                            <entry>Grade capped to B</entry>
+                        </row>                        
                     </tbody>
                 </tgroup>
             </table>
-            <note>
-                <para>Despite what <xref linkend="table-configuration-guidance"/> says, we could
-                    argue that even the simplest of web sites need SSL certificates. Plain-text
-                    communication is subject to interception and modification, which means that your
-                    users could be receiving your site&#x2019;s pages altered. They could be seeing
-                    a completely different web site for all you know. SSL, even with the cheapest
-                    certificate, provides some assurance that your site will not be modified in
-                    transit.</para>
-            </note>
         </section>
-        <section>
-            <title>Performance Considerations</title>
-            <para>Performance does not feature in our methodology, but some consideration of it is
-                unavoidable. The impact of SSL processing will generally not affect smaller web
-                sites in any way, but larger sites will likely be able to measure it. As a rule of
-                thumb, your SSL configuration should be such that you achieve minimal desired
-                security over the duration of the key. Configurations that are stronger than
-                necessary may make you feel good, but may also be costly, either through the higher
-                cost of hardware or through the lower performance of your web site. Choosing a key
-                that is longer than necessary is most likely to hurt you.</para>
-        </section>
+    </section>
+    <section>
+        <title>SSL Configuration Advice</title>
+        <para>The first version of this guide had some useful configuration advice, but there is a
+            better choice today; we recommend that you to read our <emphasis><link
+                    xlink:href="https://www.ssllabs.com/projects/best-practices/">SSL/TLS Deployment
+                    Best Practices</link></emphasis> guide, which offers a comprehensive treatment
+            of this topic.</para>
     </section>
     <section>
         <title>For Consideration in Future Releases</title>
@@ -652,21 +478,16 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>Default ciphers</term>
+                <term>Extended Validation certificates</term>
                 <listitem>
-                    <para>In SSL v3 and later, clients provide servers with a list of cipher suites
-                        they are willing to use. We want to determine whether servers typically
-                        select the first mutually acceptable cipher suite for a session, or if there
-                        is a logic behind the suite selection. If the latter, then we might want to
-                        consider giving a better grade to the servers that make better choices.
-                    </para>
+                    <para>High profile web sites might benefit from using EV certificates, which
+                        provide a level of assurance of a site&#x2019;s real-life identity.</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>SSL v2 support</term>
+                <term>HTTP Strict Transport Security</term>
                 <listitem>
-                    <para>Should servers that support SSL v2 be awarded a zero score in the protocol
-                        category? A zero score for the entire test?</para>
+                    <para/>
                 </listitem>
             </varlistentry>
         </variablelist>
@@ -679,6 +500,77 @@
             standardised under the name TLS (<firstterm>Transport Layer Security</firstterm>). TLS
             v1.2, the most recent version, is defined by <link
                 xlink:href="http://www.ietf.org/rfc/rfc5246.txt">RFC 5246</link>.</para>
+    </section>
+    <section>
+        <title>Changes</title>
+        <para/>
+        <section>
+            <title>Version 2009b</title>
+            <variablelist>
+                <varlistentry>
+                    <term>Do not allow weak encryption error messages</term>
+                    <listitem>
+                        <para>The first version of the rating guide did not explicitly discuss the
+                            so-called <emphasis>weak encryption error messages</emphasis>.</para>
+                    </listitem>
+                </varlistentry>
+            </variablelist>
+        </section>
+        <section>
+            <title>Version 2009c</title>
+            <para>This is a patch release that aims to keep the overall structure of the guide in
+                place, but update the criteria to address the current SSL threat model.</para>
+            <variablelist>
+                <varlistentry>
+                    <term>Do not allow SSL 2.0</term>
+                    <listitem>
+                        <para>SSL 2.0 is no longer considered acceptable. Its presence is an
+                            immediate fail.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>Adjust key size scores</term>
+                    <listitem>
+                        <para>A 1024-bit key is no longer considered as strong as it was several
+                            years ago. In fact, these days it is getting increasingly difficult to
+                            get a certificate for a key below 2048 bits.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>Adjust protocol scores</term>
+                    <listitem>
+                        <para>Protocol scores have been adjusted to account for the new protocol
+                            flaws discovered since 2009.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>Renamed Cipher Strength category to Cipher Suite Strength</term>
+                    <listitem>
+                        <para>The new name better describes what is measured, because both the
+                            strength of the key exchange and the strength of the user cipher are
+                            taken into account for each cipher suite.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>Renamed Key Exchange category to Authentication</term>
+                    <listitem>
+                        <para>The scoring remains the same, but the new name makes it more clear
+                            what the category is about. The key exchange aspects relevant for cipher
+                            suite security remain in the <emphasis>Cipher Suite Strength</emphasis>
+                            category.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>Handle protocol-level issues uncovered since the last rating guide</term>
+                    <listitem>
+                        <para>In the 3 years since the original guide was released, three different
+                            protocol issues were uncovered. The fourth assessment category was added
+                            to account for the presence of vulnerabilities and absence of relevant
+                            mitigation techniques.</para>
+                    </listitem>
+                </varlistentry>
+            </variablelist>
+        </section>
     </section>
     <section>
         <title>About SSL Labs</title>

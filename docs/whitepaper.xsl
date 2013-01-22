@@ -256,21 +256,21 @@
     </xsl:attribute-set>
 
     <xsl:attribute-set name="section.title.level2.properties">
-        <xsl:attribute name="font-size">16pt</xsl:attribute>
-        <xsl:attribute name="space-before.minimum">0.2em</xsl:attribute>
-        <xsl:attribute name="space-before.optimum">0.2em</xsl:attribute>
-        <xsl:attribute name="space-before.maximum">0.2em</xsl:attribute>
-    </xsl:attribute-set>
-
-    <xsl:attribute-set name="section.title.level3.properties">
         <xsl:attribute name="font-size">14pt</xsl:attribute>
         <xsl:attribute name="space-before.minimum">0.2em</xsl:attribute>
         <xsl:attribute name="space-before.optimum">0.2em</xsl:attribute>
         <xsl:attribute name="space-before.maximum">0.2em</xsl:attribute>
     </xsl:attribute-set>
 
-    <xsl:attribute-set name="section.title.level4.properties">
+    <xsl:attribute-set name="section.title.level3.properties">
         <xsl:attribute name="font-size">12pt</xsl:attribute>
+        <xsl:attribute name="space-before.minimum">0.2em</xsl:attribute>
+        <xsl:attribute name="space-before.optimum">0.2em</xsl:attribute>
+        <xsl:attribute name="space-before.maximum">0.2em</xsl:attribute>
+    </xsl:attribute-set>
+
+    <xsl:attribute-set name="section.title.level4.properties">
+        <xsl:attribute name="font-size">10pt</xsl:attribute>
         <xsl:attribute name="space-before.minimum">1.0em</xsl:attribute>
         <xsl:attribute name="space-before.optimum">1.0em</xsl:attribute>
         <xsl:attribute name="space-before.maximum">1.0em</xsl:attribute>
