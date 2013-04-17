@@ -633,7 +633,7 @@
     </xsl:template>
 
     <!-- Do not show the URLs we link to. This feature may be appropriate for print, though. -->
-    <xsl:param name="ulink.show" select="1"/>
+    <xsl:param name="ulink.show" select="0"/>
     <xsl:param name="ulink.footnotes" select="1"/>
 
     <xsl:attribute-set name="xref.properties">

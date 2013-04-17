@@ -1,22 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project version="13.2">
+<project version="14.2">
     <meta>
         <filters directoryPatterns="" filePatterns="" positiveFilePatterns="" showHiddenFiles="false"/>
         <options>
-            <serialized version="13.2" xml:space="preserve">
+            <serialized version="14.2" xml:space="preserve">
                 <map>
                     <entry>
                         <String>scenario.associations</String>
                         <scenarioAssociation-array>
                             <scenarioAssociation>
-                                <field name="name">
-                                    <String>SSL_Server_Rating_Guide</String>
+                                <field name="url">
+                                    <String>SSL_TLS_Deployment_Best_Practices.xml</String>
                                 </field>
-                                <field name="type">
-                                    <String>XSL</String>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>SSL_Server_Rating_Guide</String>
+                                    </list>
                                 </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
                                 <field name="url">
                                     <String>SSL_Server_Rating_Guide.xml</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>SSL_Server_Rating_Guide</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
                                 </field>
                             </scenarioAssociation>
                         </scenarioAssociation-array>
