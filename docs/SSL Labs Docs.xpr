@@ -6,6 +6,10 @@
             <serialized version="14.2" xml:space="preserve">
                 <map>
                     <entry>
+                        <String>key.spellcheck.option.pane</String>
+                        <Boolean>true</Boolean>
+                    </entry>
+                    <entry>
                         <String>scenario.associations</String>
                         <scenarioAssociation-array>
                             <scenarioAssociation>
@@ -14,7 +18,7 @@
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
-                                        <String>SSL_Server_Rating_Guide</String>
+                                        <String>SSL_Server_Rating_Guide Fonts</String>
                                     </list>
                                 </field>
                                 <field name="scenarioTypes">
@@ -126,11 +130,178 @@
                                     <String-array/>
                                 </field>
                             </scenario>
+                            <scenario>
+                                <field name="advancedOptionsMap">
+                                    <null/>
+                                </field>
+                                <field name="name">
+                                    <String>SSL_Server_Rating_Guide Fonts</String>
+                                </field>
+                                <field name="baseURL">
+                                    <String></String>
+                                </field>
+                                <field name="footerURL">
+                                    <String></String>
+                                </field>
+                                <field name="fOPMethod">
+                                    <String>pdf</String>
+                                </field>
+                                <field name="fOProcessorName">
+                                    <String>Apache FOP</String>
+                                </field>
+                                <field name="headerURL">
+                                    <String></String>
+                                </field>
+                                <field name="inputXSLURL">
+                                    <String>${cfdu}/whitepaper-fonts.xsl</String>
+                                </field>
+                                <field name="inputXMLURL">
+                                    <String>${currentFileURL}</String>
+                                </field>
+                                <field name="defaultScenario">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="isFOPPerforming">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="type">
+                                    <String>XSL</String>
+                                </field>
+                                <field name="saveAs">
+                                    <Boolean>true</Boolean>
+                                </field>
+                                <field name="openInBrowser">
+                                    <Boolean>true</Boolean>
+                                </field>
+                                <field name="outputFile">
+                                    <File>${cfn}.pdf</File>
+                                </field>
+                                <field name="openOtherLocationInBrowser">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="locationToOpenInBrowserURL">
+                                    <null/>
+                                </field>
+                                <field name="openInEditor">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="showInHTMLPane">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="showInXMLPane">
+                                    <Boolean>true</Boolean>
+                                </field>
+                                <field name="showInSVGPane">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="showInResultSetPane">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="useXSLTInput">
+                                    <Boolean>true</Boolean>
+                                </field>
+                                <field name="xsltParams">
+                                    <list/>
+                                </field>
+                                <field name="cascadingStylesheets">
+                                    <String-array/>
+                                </field>
+                                <field name="xslTransformer">
+                                    <String>Feisty Duck XSLT</String>
+                                </field>
+                                <field name="extensionURLs">
+                                    <String-array/>
+                                </field>
+                            </scenario>
                         </scenario-array>
                     </entry>
                     <entry>
                         <String>scenarios.load.from.project</String>
                         <Boolean>true</Boolean>
+                    </entry>
+                    <entry>
+                        <String>spell.check.options</String>
+                        <spellCheckOptions>
+                            <field name="automaticSpellCheck">
+                                <Boolean>true</Boolean>
+                            </field>
+                            <field name="automaticSpellCheckContentTypes">
+                                <String-array>
+                                    <String>text/html</String>
+                                    <String>text/nvdl</String>
+                                    <String>text/plain</String>
+                                    <String>text/properties</String>
+                                    <String>text/rng</String>
+                                    <String>text/sch</String>
+                                    <String>text/wsdl</String>
+                                    <String>text/xml</String>
+                                    <String>text/xproc</String>
+                                    <String>text/xsd</String>
+                                    <String>text/xsl</String>
+                                </String-array>
+                            </field>
+                            <field name="spellCheckInComments">
+                                <Boolean>false</Boolean>
+                            </field>
+                            <field name="spellCheckInAttributeValues">
+                                <Boolean>false</Boolean>
+                            </field>
+                            <field name="spellCheckInText">
+                                <Boolean>true</Boolean>
+                            </field>
+                            <field name="spellCheckInCDATA">
+                                <Boolean>true</Boolean>
+                            </field>
+                            <field name="language">
+                                <String>en_US</String>
+                            </field>
+                            <field name="caseSensitive">
+                                <Boolean>false</Boolean>
+                            </field>
+                            <field name="ignoreMixedCase">
+                                <Boolean>false</Boolean>
+                            </field>
+                            <field name="ignoreAcronyms">
+                                <Boolean>true</Boolean>
+                            </field>
+                            <field name="ignoreDigits">
+                                <Boolean>true</Boolean>
+                            </field>
+                            <field name="ignoreDuplicates">
+                                <Boolean>false</Boolean>
+                            </field>
+                            <field name="ignoreURL">
+                                <Boolean>true</Boolean>
+                            </field>
+                            <field name="checkPunctuation">
+                                <Boolean>false</Boolean>
+                            </field>
+                            <field name="allowCompound">
+                                <Boolean>true</Boolean>
+                            </field>
+                            <field name="allowPrefixes">
+                                <Boolean>false</Boolean>
+                            </field>
+                            <field name="allowFileExtensions">
+                                <Boolean>true</Boolean>
+                            </field>
+                            <field name="obeyLangAttributes">
+                                <Boolean>true</Boolean>
+                            </field>
+                            <field name="langAttrMissingUseDefault">
+                                <Boolean>true</Boolean>
+                            </field>
+                            <field name="ignoreSpellCheckElements">
+                                <String-array>
+                                    <String>programlisting</String>
+                                    <String>command</String>
+                                    <String>filename</String>
+                                </String-array>
+                            </field>
+                            <field name="preferredChecker">
+                                <Integer>1</Integer>
+                            </field>
+                        </spellCheckOptions>
                     </entry>
                 </map>
             </serialized>
