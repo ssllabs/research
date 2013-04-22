@@ -618,7 +618,7 @@
                     </fo:table-row>
                     <fo:table-row>
                         <fo:table-cell display-align="center">
-                            <fo:block text-align="center" font-size="10pt" font-weight="bold">
+                            <fo:block text-align="center" font-size="10pt" font-weight="normal">
                                 <fo:basic-link external-destination="url(https://www.ssllabs.com)"
                                     >www.ssllabs.com</fo:basic-link>
                             </fo:block>
@@ -643,7 +643,7 @@
         </xsl:attribute>
         <xsl:attribute name="font-size">24pt</xsl:attribute>
         -->
-        <xsl:attribute name="color">blue</xsl:attribute>
+        <xsl:attribute name="color">#000080</xsl:attribute>
         <!--        
         <xsl:attribute name="text-decoration">underline</xsl:attribute>
         -->
