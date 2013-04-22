@@ -5,14 +5,17 @@
     version="5.0">
     <info>
         <title>SSL/TLS Deployment Best Practices</title>
-        <releaseinfo>version 1.1 (17 April 2013)</releaseinfo>
+        <releaseinfo>v1.1 (24 April 2013)</releaseinfo>
         <copyright>
             <year>2012-2013</year>
             <holder>Qualys SSL Labs</holder>
         </copyright>
+        <author>
+            <personname>Ivan Ristić</personname>
+        </author>
         <abstract>
             <para>SSL/TLS is a deceptively simple technology. It is easy to deploy, and it just
-                works . . . except that it does not, really. The first part is true—SSL is easy to
+                works&#x2026;except that it does not, really. The first part is true—SSL is easy to
                 deploy—but it turns out that it is not easy to deploy <emphasis role="italic"
                     >correctly</emphasis>. To ensure that SSL provides the necessary security, users
                 must put more effort into properly configuring their servers.</para>
@@ -25,13 +28,13 @@
                 administrators and programmers spend the minimum time possible to deploy a secure
                 site or web application. In pursue of clarity, we sacrifice completeness, foregoing
                 certain advanced topics. The focus is on advice that is practical and easy to
-                understand. For those interested in advanced topics, we provide references at the
-                end of the guide.</para>
+                understand. For those who want more information, Section 6 gives useful
+                pointers.</para>
         </abstract>
     </info>
     <section renderas="sect2">
         <title>1. Private Key and Certificate</title>
-        <para>The quality of the protection provided by SSL relies on the private key, which lays
+        <para>The quality of the protection provided by SSL depends entirely on the private key, which lays
             down the foundation for the security, and the certificate, which communicates the
             identity of the server to its visitors.</para>
         <section renderas="sect3">
@@ -48,7 +51,7 @@
                 Recommended policies include the following:</para>
             <itemizedlist>
                 <listitem>
-                    <para>Password-protect encryption keys to prevent keys from being compromised
+                    <para>Password-protect encryption keys to prevent compromise
                         when they are stored in backup systems.</para>
                 </listitem>
                 <listitem>
@@ -71,8 +74,7 @@
                 most cases, you should ensure that the certificate works with and without the
                     <emphasis>www</emphasis> prefix (e.g., for both <emphasis>example.com</emphasis>
                 and <emphasis>www.example.com</emphasis>). The rule of thumb is this: a secure web
-                server should have a certificate that is valid for every DNS name configured to
-                point to it.</para>
+                server should have a certificate that is valid for every DNS name pointing to it.</para>
             <para>Wildcard certificates are generally best avoided. Although they are not any less
                 secure from a strict technical point of view, the way in which they are typically
                 handled (especially in larger organizations) makes them less secure in
@@ -80,18 +82,18 @@
         </section>
         <section renderas="sect3">
             <title>1.4. Obtain certificates from a reliable CA</title>
-            <para>Select a Certificate Authority (CA) that is reliable and serious about its
-                certificate business and about security. Consider the following criteria while
-                selecting your CA:</para>
+            <para>Select a <firstterm>Certificate Authority</firstterm> (CA) that is reliable and
+                serious about its certificate business and about security. Consider the following
+                criteria while selecting your CA:</para>
             <variablelist>
                 <varlistentry>
                     <term>Security posture</term>
                     <listitem>
-                        <para>All CAs undergo regular audits (otherwise they woudn't be able to
+                        <para>All CAs undergo regular audits (otherwise they wouldn't be able to
                             operate as CAs), but some are more serious about security than others.
                             Figuring out which ones are better in this respect is not easy, but one
                             option is to examine their security history, and, more importantly, how
-                            they learned from their mistakes.</para>
+                            they reacted to compromises and if they learned from their mistakes.</para>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
@@ -116,9 +118,10 @@
                     <listitem>
                         <para>At minimum, your selected CA should provide support for CRL and OCSP
                             revocation, and provide an OCSP service with good performance. They
-                            should offer both domain-validated and Extended Validation certificates,
+                            should offer both <firstterm>domain-validated</firstterm> (DV) and
+                                <firstterm>Extended Validation</firstterm> (EV) certificates,
                             ideally with your choice of public key algorithm. (Most web sites use
-                            RSA today, but ECDSA may become important in the future because if its
+                            RSA today, but ECDSA may become important in the future because of its
                             performance advantages.)</para>
                     </listitem>
                 </varlistentry>
@@ -185,13 +188,13 @@
                 key features not available in earlier protocol versions. If your server platform (or
                 any intermediary devices) does not support TLS v1.2, make plans to upgrade the
                 infrastructure at an accelerated pace. If your service providers do not support TLS
-                v1.2, require that they do.</para>
-            <para>In order to support older clients, you will also need to support TLS v1.0 and TLS
-                v1.1. With some workarounds (explained in subsequent sections), these protocols can
-                still be considered relatively secure.</para>
-            <para>You should always use the most recent versions of the protocol for security and
-                the oldest (yet still secure) versions for interoperability with your customer
-                base.</para>
+                v1.2, require that they upgrade soon.</para>
+            <para>In order to support older clients, you will need to support TLS v1.0 and TLS v1.1
+                for the time being. With some workarounds (explained in subsequent sections), these
+                protocols can still be considered secure for most web sites.</para>
+            <para>As a rule of thumb, you should always use the most recent versions of the protocol
+                for security and the oldest versions (provided they are still secure) for
+                interoperability with your users base.</para>
         </section>
         <section renderas="sect3">
             <title>2.3. Use only secure cipher suites</title>
@@ -200,13 +203,12 @@
                 as well as exchanging data securely. In SSL/TLS, cipher sites are used to define how
                 secure communication takes place. They are composed from varying building blocks
                 with the idea of achieving security through diversity. If one of the building blocks
-                is found to be weak or insecure, you can always rely on another building block that
-                is supported.</para>
+                is found to be weak or insecure, you should be able to switch to another.</para>
             <para>Your goal should be thus to use only suites that provide authentication and
                 encryption of 128 bits or stronger. Everything else must be avoided:</para>
             <itemizedlist>
                 <listitem>
-                    <para>Anonymous Diffie&#8208;Hellman (ADH) suites do not provide
+                    <para>Anonymous Diffie-Hellman (ADH) suites do not provide
                         authentication.</para>
                 </listitem>
                 <listitem>
@@ -236,7 +238,7 @@
                 to renegotiate how the communication is secured. There are some cases in which
                 renegotiation needs to be initiated by the server, but there is no known need for
                 clients to do so. Further, client-initiated renegotiation may make your servers
-                easier to attack using Denial of Service (DoS) attacks.<footnote>
+                easier to attack using <firstterm>Denial of Service</firstterm> (DoS) attacks.<footnote>
                     <para><link
                             xlink:href="https://community.qualys.com/blogs/securitylabs/2011/10/31/tls-renegotiation-and-denial-of-service-attacks"
                             >TLS Renegotiation and Denial of Service Attacks</link> (Qualys Security
@@ -273,11 +275,11 @@
                                         xlink:href="https://community.qualys.com/blogs/securitylabs/2011/10/17/mitigating-the-beast-attack-on-tls"
                                         >Mitigating the BEAST attack on TLS</link> (Qualys Security
                                     Labs Blog; October 2011)</para>
-                            </footnote> is a practical attack based on a protocol problem that was
-                            discovered in 2004. Despite having been addressed in TLS v1.1 in 2006,
-                            the problem is still relevant because most clients and servers do not
-                            support newer protocol versions. Practical mitigation requires that your
-                            servers speak only RC4 when using TLS v1.0 or SSL v3.<footnote>
+                            </footnote> is a practical attack based on the protocol problem
+                            originally discovered in 2004. Despite having been addressed in TLS v1.1
+                            in 2006, the problem is still relevant because most clients and servers
+                            do not support newer protocol versions. Practical mitigation requires
+                            that your servers speak only RC4 when using TLS v1.0 or SSL v3.<footnote>
                                 <para><link
                                         xlink:href="https://community.qualys.com/blogs/securitylabs/2013/03/19/rc4-in-tls-is-broken-now-what"
                                         >RC4 in TLS is Broken: Now What?</link> (Qualys Security
@@ -322,8 +324,9 @@
             <para>The cryptographic handshake, which is used to establish secure connections, is an
                 operation whose cost is highly influenced by private key size. Using a key that is
                 too short is insecure, but using a key that is too long will result in &#x201c;too
-                much&#x201d; security and slow operation. Using keys stronger than 2048 bits is a
-                waste of CPU power and is likely to impair user experience.</para>
+                much&#x201d; security and slow operation. For most web sites, using keys stronger
+                than 2048 bits is a waste of CPU power and is likely to impair user
+                experience.</para>
         </section>
         <section renderas="sect3">
             <title>3.2. Ensure that session resumption works</title>
@@ -368,8 +371,8 @@
                     <para>Sites that have SSL but that do not enforce it</para>
                 </listitem>
                 <listitem>
-                    <para>Sites that mix SSL and non&#8208;SSL content, sometimes even within the
-                        same page</para>
+                    <para>Sites that mix SSL and non-SSL content, sometimes even within the same
+                        page</para>
                 </listitem>
                 <listitem>
                     <para>Sites with programming errors that subvert SSL</para>
@@ -453,7 +456,7 @@
                 xlink:href="httsp://www.ssllabs.com/ssltest/">free online assessment tool on the SSL
                 Labs web site</link> is hard to beat. </para>
     </section>
-    <section renderas="sect2">
+    <section xml:id="section-6" renderas="sect2">
         <title>6. Advanced Topics</title>
         <para>The following advanced topics are outside the scope of our guide. They require a
             deeper understanding of SSL/TLS and Public Key Infrastructure (PKI), and they are still
