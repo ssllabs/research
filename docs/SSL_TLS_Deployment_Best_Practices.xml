@@ -5,7 +5,7 @@
     version="5.0">
     <info>
         <title>SSL/TLS Deployment Best Practices</title>
-        <releaseinfo>v1.1 (24 April 2013)</releaseinfo>
+        <releaseinfo>version 1.2 (14 May 2013)</releaseinfo>
         <copyright>
             <year>2012-2013</year>
             <holder>Qualys SSL Labs</holder>
@@ -13,46 +13,52 @@
         <author>
             <personname>Ivan Ristić</personname>
         </author>
-        <abstract>
-            <para>SSL/TLS is a deceptively simple technology. It is easy to deploy, and it just
-                works&#x2026;except that it does not, really. The first part is true—SSL is easy to
-                deploy—but it turns out that it is not easy to deploy <emphasis role="italic"
-                    >correctly</emphasis>. To ensure that SSL provides the necessary security, users
-                must put more effort into properly configuring their servers.</para>
-            <para>In 2009, we began our work on SSL Labs because we wanted to understand how SSL was
-                used and to remedy the lack of easy-to-use SSL tools and documentation. We have
-                achieved some of our goals through our global surveys of SSL usage, as well as the
-                online assessment tool, but the lack of documentation is still evident. This
-                document is a first step toward addressing that problem.</para>
-            <para>Our aim here is to provide clear and concise instructions to help overworked
-                administrators and programmers spend the minimum time possible to deploy a secure
-                site or web application. In pursue of clarity, we sacrifice completeness, foregoing
-                certain advanced topics. The focus is on advice that is practical and easy to
-                understand. For those who want more information, Section 6 gives useful
-                pointers.</para>
-        </abstract>
     </info>
+    <para><emphasis>This appendix contains the complete contents of SSL/TLS Deployment Best
+            Practices document (version 1.2, dated 14 May 2013), which is an SSL Labs publication.
+            This document, which I maintain, is a high-level overview of everything you need to know
+            about SSL/TLS deployment, optimized for efficient knowledge transfer and thus as short
+            as possible, but not shorter. Included here with permission from
+        Qualys.</emphasis></para>
+    <section renderas="sect2">
+        <title>Introduction</title>
+        <para>SSL/TLS is a deceptively simple technology. It is easy to deploy, and it just
+            works&#x2026; except that it does not, really. The first part is true—SSL is easy to
+            deploy—but it turns out that it is not easy to deploy <emphasis role="italic"
+                >correctly</emphasis>. To ensure that SSL provides the necessary security, users
+            must put extra effort into properly configuring their servers.</para>
+        <para>In 2009, we began our work on SSL Labs because we wanted to understand how SSL was
+            used and to remedy the lack of easy-to-use SSL tools and documentation. We have achieved
+            some of our goals through our global surveys of SSL usage, as well as the online
+            assessment tool, but the lack of documentation is still evident. This document is a
+            first step toward addressing that problem.</para>
+        <para>Our aim here is to provide clear and concise instructions to help overworked
+            administrators and programmers spend the minimum time possible to deploy a secure site
+            or web application. In pursue of clarity, we sacrifice completeness, foregoing certain
+            advanced topics. The focus is on advice that is practical and easy to understand. For
+            those who want more information, Section 6 gives useful pointers.</para>
+    </section>
     <section renderas="sect2">
         <title>1. Private Key and Certificate</title>
-        <para>The quality of the protection provided by SSL depends entirely on the private key, which lays
-            down the foundation for the security, and the certificate, which communicates the
-            identity of the server to its visitors.</para>
+        <para>The quality of the protection provided by SSL depends entirely on the private key,
+            which lays down the foundation for the security, and the certificate, which communicates
+            the identity of the server to its visitors.</para>
         <section renderas="sect3">
-            <title>1.1. Use 2048-bit private keys</title>
+            <title>1.1. Use 2048-bit Private Keys</title>
             <para>Use 2048-bit private keys for all your servers. Keys of this length are secure and
                 will stay secure for a considerable amount of time. Your existing 1024-bit keys can
                 stay in place, but you should plan to upgrade them the next time the certificates
                 are up for renewal or by the end of 2013, whichever comes sooner.</para>
         </section>
         <section renderas="sect3">
-            <title>1.2. Protect private keys</title>
+            <title>1.2. Protect Private Keys</title>
             <para>Treat your private keys as an important asset, restricting access to the smallest
                 possible group of employees while still keeping the arrangements practical.
                 Recommended policies include the following:</para>
             <itemizedlist>
                 <listitem>
-                    <para>Password-protect encryption keys to prevent compromise
-                        when they are stored in backup systems.</para>
+                    <para>Password-protect encryption keys to prevent compromise when they are
+                        stored in backup systems.</para>
                 </listitem>
                 <listitem>
                     <para>If there is a compromise, revoke old certificates and generate new keys to
@@ -64,7 +70,7 @@
             </itemizedlist>
         </section>
         <section renderas="sect3">
-            <title>1.3. Ensure sufficient domain name coverage</title>
+            <title>1.3. Ensure Sufficient Hostname Coverage</title>
             <para>Ensure that your certificates cover all the names you wish to use with a site. For
                 example, your main name is <emphasis>www.example.com</emphasis>, but you may also
                 have <emphasis>www.example.net</emphasis> configured. Your goal is to avoid invalid
@@ -74,14 +80,15 @@
                 most cases, you should ensure that the certificate works with and without the
                     <emphasis>www</emphasis> prefix (e.g., for both <emphasis>example.com</emphasis>
                 and <emphasis>www.example.com</emphasis>). The rule of thumb is this: a secure web
-                server should have a certificate that is valid for every DNS name pointing to it.</para>
+                server should have a certificate that is valid for every DNS name configured to
+                point to it.</para>
             <para>Wildcard certificates are generally best avoided. Although they are not any less
                 secure from a strict technical point of view, the way in which they are typically
                 handled (especially in larger organizations) makes them less secure in
                 practice.</para>
         </section>
         <section renderas="sect3">
-            <title>1.4. Obtain certificates from a reliable CA</title>
+            <title>1.4. Obtain Certificates from a Reliable CA</title>
             <para>Select a <firstterm>Certificate Authority</firstterm> (CA) that is reliable and
                 serious about its certificate business and about security. Consider the following
                 criteria while selecting your CA:</para>
@@ -92,8 +99,8 @@
                         <para>All CAs undergo regular audits (otherwise they wouldn't be able to
                             operate as CAs), but some are more serious about security than others.
                             Figuring out which ones are better in this respect is not easy, but one
-                            option is to examine their security history, and, more importantly, how
-                            they reacted to compromises and if they learned from their mistakes.</para>
+                            option is to examine their security history, and, more important,
+                            reacted to compromises and if they learned from their mistakes.</para>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
@@ -117,9 +124,8 @@
                     <term>Services offered</term>
                     <listitem>
                         <para>At minimum, your selected CA should provide support for CRL and OCSP
-                            revocation, and provide an OCSP service with good performance. They
-                            should offer both <firstterm>domain-validated</firstterm> (DV) and
-                                <firstterm>Extended Validation</firstterm> (EV) certificates,
+                            revocation and provide an OCSP service with good performance. They
+                            should offer both domain-validated and Extended Validation certificates,
                             ideally with your choice of public key algorithm. (Most web sites use
                             RSA today, but ECDSA may become important in the future because of its
                             performance advantages.)</para>
@@ -148,7 +154,7 @@
             presented to the site’s visitors, that only secure cryptographic primitives are used,
             and that all known weaknesses are mitigated.</para>
         <section renderas="sect3">
-            <title>2.1. Ensure that the certificate chain is valid</title>
+            <title>2.1. Ensure That the Certificate Chain Is Valid</title>
             <para>In most deployments, the server certificate alone is insufficient; two or more
                 certificates are needed to establish a complete chain of trust. A common problem is
                 configuring the server certificate correctly but forgetting to include other
@@ -163,7 +169,7 @@
                 way to be sure.</para>
         </section>
         <section renderas="sect3">
-            <title>2.2. Use only secure protocols</title>
+            <title>2.2. Use Only Secure Protocols</title>
             <para>There are five protocols in the SSL/TLS family: SSL v2, SSL v3, TLS v1.0, TLS
                 v1.1, and TLS v1.2. Of these:</para>
             <para>
@@ -185,19 +191,19 @@
                 </itemizedlist>
             </para>
             <para>TLS v1.2 should be your main protocol. This version is superior because it offers
-                key features not available in earlier protocol versions. If your server platform (or
-                any intermediary devices) does not support TLS v1.2, make plans to upgrade the
-                infrastructure at an accelerated pace. If your service providers do not support TLS
-                v1.2, require that they upgrade soon.</para>
+                key features that were unavailable in earlier protocol versions. If your server
+                platform (or any intermediary device) does not support TLS v1.2, make plans to
+                upgrade the infrastructure at an accelerated pace. If your service providers do not
+                support TLS v1.2, require that they upgrade.</para>
             <para>In order to support older clients, you will need to support TLS v1.0 and TLS v1.1
                 for the time being. With some workarounds (explained in subsequent sections), these
-                protocols can still be considered secure for most web sites.</para>
-            <para>As a rule of thumb, you should always use the most recent versions of the protocol
-                for security and the oldest versions (provided they are still secure) for
-                interoperability with your users base.</para>
+                protocols can still be considered secure enough for most web sites.</para>
+            <para>As a rule of thumb, you should always use the most recent version of the TLS
+                protocol for security and some older versions for interoperability with your users
+                base (provided they are still secure).</para>
         </section>
         <section renderas="sect3">
-            <title>2.3. Use only secure cipher suites</title>
+            <title>2.3. Use Only Secure Cipher Suites</title>
             <para>To communicate securely, you must first ascertain that you are communicating
                 directly with the desired party (and not through someone else who will eavesdrop),
                 as well as exchanging data securely. In SSL/TLS, cipher sites are used to define how
@@ -225,7 +231,7 @@
             </itemizedlist>
         </section>
         <section renderas="sect3">
-            <title>2.4. Control cipher suite selection</title>
+            <title>2.4. Control Cipher Suite Selection</title>
             <para>In SSL v3 and later versions, clients submit a list of cipher suites that they
                 support, and servers choose one suite from the list to negotiate a secure
                 communication channel. Not all servers do this well, however—some will select the
@@ -233,7 +239,7 @@
                 critical for security (see Section 2.6).</para>
         </section>
         <section renderas="sect3">
-            <title>2.5. Disable client-initiated renegotiation</title>
+            <title>2.5. Disable Client-Initiated Renegotiation</title>
             <para>In SSL/TLS, renegotiation allows parties to stop exchanging data for a moment and
                 to renegotiate how the communication is secured. There are some cases in which
                 renegotiation needs to be initiated by the server, but there is no known need for
@@ -246,7 +252,7 @@
                 </footnote></para>
         </section>
         <section renderas="sect3">
-            <title>2.6. Mitigate known problems</title>
+            <title>2.6. Mitigate Known Problems</title>
             <para>Nothing is perfectly secure, and at any given time there may be issues with the
                 security stack. It is good practice to keep an eye on what happens in the security
                 world and to adapt to situations as necessary. At the very least, you should apply
@@ -275,20 +281,20 @@
                                         xlink:href="https://community.qualys.com/blogs/securitylabs/2011/10/17/mitigating-the-beast-attack-on-tls"
                                         >Mitigating the BEAST attack on TLS</link> (Qualys Security
                                     Labs Blog; October 2011)</para>
-                            </footnote> is a practical attack based on the protocol problem
-                            originally discovered in 2004. Despite having been addressed in TLS v1.1
-                            in 2006, the problem is still relevant because most clients and servers
-                            do not support newer protocol versions. Practical mitigation requires
-                            that your servers speak only RC4 when using TLS v1.0 or SSL v3.<footnote>
+                            </footnote> is a practical attack that exploits an earlier protocol
+                            vulnerability that was discovered in 2004. Despite having been addressed
+                            in TLS v1.1 in 2006, the problem is still relevant because most clients
+                            and servers do not support newer protocol versions. Practical mitigation
+                            requires that your servers speak only RC4 when using TLS v1.0 or SSL v3.<footnote>
                                 <para><link
                                         xlink:href="https://community.qualys.com/blogs/securitylabs/2013/03/19/rc4-in-tls-is-broken-now-what"
-                                        >RC4 in TLS is Broken: Now What?</link> (Qualys Security
+                                        >RC4 in TLS Is Broken: Now What?</link> (Qualys Security
                                     Labs Blog; March 2013)</para>
                             </footnote> Worryingly, in early 2013, RC4 was found to be weaker than
                             previously thought, forcing everyone to choose between addressing BEAST
-                            or disabling RC4. (Both can be addressed with TLS 1.1 and better, but
-                            few browsers support these newer protocols.) In reality, the risks from
-                            BEAST and RC4 weaknesses are both small, but, when choosing one of the
+                            or disabling RC4. (Both can be addressed with TLS 1.1 and later, but few
+                            browsers support these newer protocols.) In reality, the risks from
+                            BEAST and RC4 weaknesses are both small, but when choosing one of the
                             two, we prefer to mitigate the BEAST attack.</para>
                     </listitem>
                 </varlistentry>
@@ -304,8 +310,8 @@
                             </footnote> showed how information leakage introduced by TLS compression
                             can be used by attackers to uncover parts of sensitive data (e.g.,
                             session cookies). Very few clients supported TLS compression then (and
-                            even fewer support it now), which means that it is not likely that you
-                            will experience any performance issues by disabling TLS compressions in
+                            even fewer support it now), which means that it is unlikely that you
+                            will experience any performance issues by disabling TLS compression on
                             your servers.</para>
                     </listitem>
                 </varlistentry>
@@ -320,7 +326,7 @@
             overall performance impact, we are limiting the discussion in this section to the common
             configuration problems that result in serious performance degradation.</para>
         <section renderas="sect3">
-            <title>3.1. Do not use too long private keys</title>
+            <title>3.1. Do Not Use Too Strong Private Keys</title>
             <para>The cryptographic handshake, which is used to establish secure connections, is an
                 operation whose cost is highly influenced by private key size. Using a key that is
                 too short is insecure, but using a key that is too long will result in &#x201c;too
@@ -329,14 +335,14 @@
                 experience.</para>
         </section>
         <section renderas="sect3">
-            <title>3.2. Ensure that session resumption works</title>
+            <title>3.2. Ensure That Session Resumption Works Correctly</title>
             <para>Session resumption is a performance-optimization technique that makes it possible
                 to save the results of costly cryptographic operations and to reuse them for a
                 period of time. A disabled or nonfunctional session resumption mechanism may
                 introduce a significant performance penalty.</para>
         </section>
         <section renderas="sect3">
-            <title>3.3. Use persistent connections (HTTP)</title>
+            <title>3.3. Use Persistent Connections (HTTP)</title>
             <para>These days, most of the overhead of SSL comes not from the CPU-hungry
                 cryptographic operations but from network latency. An SSL handshake is performed
                 after the TCP handshake completes; it requires a further exchange of packets. To
@@ -344,7 +350,7 @@
                 your users to submit many HTTP requests over a single TCP connection.</para>
         </section>
         <section renderas="sect3">
-            <title>3.4. Enable caching of public resources (HTTP)</title>
+            <title>3.4. Enable Caching of Public Resources (HTTP)</title>
             <para>When communicating over SSL, browsers assume that all traffic is sensitive. They
                 will typically use the memory to cache certain resources, but once you close the
                 browser, all the content may be lost. To get a performance boost and enable
@@ -360,7 +366,7 @@
             contains features that can be used to defeat encryption. In this section we list those
             features, as well as ways to use them securely.</para>
         <section renderas="sect3">
-            <title>4.1. Encrypt 100% of your web site traffic</title>
+            <title>4.1. Encrypt 100% of Your Web Site</title>
             <para>The fact that encryption is optional is probably one of the biggest security
                 problems today. We see the following problems:</para>
             <itemizedlist>
@@ -380,24 +386,24 @@
             </itemizedlist>
             <para>Although many of these problems can be mitigated if you know exactly what you’re
                 doing, the only way to reliably protect web site communication is to enforce
-                encryption throughout—without exceptions.</para>
+                encryption throughout—without exception.</para>
         </section>
         <section renderas="sect3">
-            <title>4.2. Ensure that cookies are secured</title>
+            <title>4.2. Secure Cookies</title>
             <para>To be properly secure, a web site requires SSL, but also that all its cookies are
                 marked as secure. Failure to secure the cookies makes it possible for an active
                 man-in-the-middle (MITM) attacker to tease some information out through clever
                 tricks, even on web sites that are 100% encrypted.</para>
         </section>
         <section renderas="sect3">
-            <title>4.3. Ensure that mixed content is not used</title>
+            <title>4.3. Avoid Mixed Content</title>
             <para>Mixed-content pages are those that are transmitted over SSL but include resources
                 (e.g., JavaScript files, images, CSS files) that are not transmitted over SSL. Such
                 pages are not secure. An active MITM attacker can piggyback on a single unprotected
                 JavaScript resource, for example, and hijack the entire user session.</para>
         </section>
         <section renderas="sect3">
-            <title>4.4. Enable HTTP Strict Transport Security</title>
+            <title>4.4. Deploy HTTP Strict Transport Security</title>
             <para><emphasis>HTTP Strict Transport Security</emphasis> (HSTS) is a safety net for
                 SSL: it was designed to ensure that security remains intact even in the case of
                 configuration problems and implementation errors. To activate HSTS protection, you
@@ -411,10 +417,10 @@
                 warnings, so it is in your best interest to never allow them.)</para>
             <para>Adding support for HSTS is the single most important improvement you can make for
                 the SSL security of your web sites. New sites should always be designed with HSTS in
-                mind, and the old sites converted to support it wherever possible.</para>
+                mind and the old sites converted to support it wherever possible.</para>
         </section>
         <section renderas="sect3">
-            <title>4.5. Disable caching of sensitive content</title>
+            <title>4.5. Disable Caching of Sensitive Content</title>
             <para>The goal of this recommendation is to ensure that sensitive content is
                 communicated to only the intended parties and that it is treated as sensitive.
                 Although proxies do not see encrypted traffic and cannot share content among users,
@@ -422,7 +428,7 @@
                 you need to be very careful when specifying what is public and what is not.</para>
         </section>
         <section renderas="sect3">
-            <title>4.6. Ensure that there are no other vulnerabilities</title>
+            <title>4.6. Ensure That There are No Other Vulnerabilities</title>
             <para>This item is a reminder that SSL does not equal security. SSL is designed to
                 address only one aspect of security – confidentiality and integrity of the
                 communication between you and your users—but there are many other threats that you
@@ -430,7 +436,7 @@
                 have other weaknesses.</para>
         </section>
         <section renderas="sect3">
-            <title>4.7. Understand and acknowledge third-party trust</title>
+            <title>4.7. Understand and Acknowledge Third-Party Trust</title>
             <para>Web sites often use third-party services activated via JavaScript code downloaded
                 from another server. A good example of such a service is Google Analytics, which is
                 used on large parts of the Web. Such inclusion of third-party code creates an
@@ -441,7 +447,7 @@
                 that depend on the service.</para>
             <para>If you follow the advice from Section 4.3, at least your third-party links will be
                 encrypted and thus safe from MITM attacks. However, you should go a step further
-                than that: learn what services your sites use, and either remove them. replace them
+                than that: learn what services your sites use, and either remove them, replace them
                 with safer alternatives, or accept the risk of their continued use.</para>
         </section>
     </section>
@@ -456,7 +462,7 @@
                 xlink:href="httsp://www.ssllabs.com/ssltest/">free online assessment tool on the SSL
                 Labs web site</link> is hard to beat. </para>
     </section>
-    <section xml:id="section-6" renderas="sect2">
+    <section renderas="sect2">
         <title>6. Advanced Topics</title>
         <para>The following advanced topics are outside the scope of our guide. They require a
             deeper understanding of SSL/TLS and Public Key Infrastructure (PKI), and they are still
@@ -466,14 +472,13 @@
                 <term>Extended Validation Certificates</term>
                 <listitem>
                     <para><emphasis>Extended Validation</emphasis> (EV) certificates are
-                        high-assurance certificates issued only after thorough off-line checks.<footnote>
+                        high-assurance certificates issued only after thorough offline checks.<footnote>
                             <para><link xlink:href="https://www.cabforum.org/certificates.html"
                                     >About EV SSL Certificates</link> (CA/B Forum web site)</para>
                         </footnote> Their purpose is to provide a strong connection between an
-                        organization and their online identity. EV certificates are more difficult
-                        to forge, provide slightly better security, and have better treatment when
-                        browsers present them to end users. Most businesses would benefit from using
-                        EV certificates on their web sites.</para>
+                        organization and its online identity. EV certificates are more difficult to
+                        forge, provide slightly better security, and are better treated when
+                        browsers present them to end users.</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
@@ -482,9 +487,9 @@
                     <para><emphasis>Public key pinning</emphasis> is designed to give web site
                         operators the means to restrict which Certificate Authorities can issue
                         certificates for their web sites. This feature has been deployed by Google
-                        for some time now (hard-coded into their browser, Chrome), and has proven to
-                        be very useful in preventing attacks and making the public aware of them.
-                        Two proposals are currently being developed: <emphasis><link
+                        for some time now (it's hard-coded into their browser, Chrome) and has
+                        proven to be very useful in preventing attacks and making the public aware
+                        of them. Two proposals are currently being developed: <emphasis><link
                                 xlink:href="http://tools.ietf.org/html/draft-ietf-websec-key-pinning"
                                 >Public Key Pinning Extension for HTTP</link></emphasis>, by the Web
                         Security Working Group, and <emphasis><link
@@ -507,10 +512,10 @@
                 <term>OCSP Stapling</term>
                 <listitem>
                     <para><emphasis>OCSP Stapling</emphasis> is a modification of the OCSP protocol
-                        that allows revocation information to be bundled with the certificate
-                        itself, and thus served directly from the server to the browser. As a
-                        result, the browser does not need to contact OCSP servers for out-of-band
-                        validation, which results with better performance.</para>
+                        that allows revocation information to be bundled with the certificate itself
+                        and thus served directly from the server to the browser. As a result, the
+                        browser does not need to contact OCSP servers for out-of-band validation,
+                        which results in better performance.</para>
                 </listitem>
             </varlistentry>
         </variablelist>
@@ -528,7 +533,7 @@
             assist with assessment and configuration. Since 2009, when SSL Labs was launched,
             hundreds and thousands of web sites have checked and improved their SSL configuration
             using the free online assessment tool. Other projects run by SSL Labs include periodic
-            Internet-wide surveys of SSL configuration, and <link
+            Internet-wide surveys of SSL configuration and <link
                 xlink:href="https://www.trustworthyinternet.org/ssl-pulse/">SSL Pulse</link>, a
             monthly scan of the selected most popular web sites in the world.</para>
     </section>
@@ -540,7 +545,7 @@
             100 and Fortune 100. The QualysGuard Cloud Platform and integrated suite of solutions
             help organizations simplify security operations and lower the cost of compliance by
             delivering critical security intelligence on demand and automating the full spectrum of
-            auditing, compliance and protection for IT systems and web applications. Founded in
+            auditing, compliance, and protection for IT systems and web applications. Founded in
             1999, Qualys has established strategic partnerships with leading managed service
             providers and consulting organizations, including Accuvant, BT, Dell SecureWorks,
             Fujitsu, NTT, Symantec, Verizon, and Wipro. The company is also a founding member of the
