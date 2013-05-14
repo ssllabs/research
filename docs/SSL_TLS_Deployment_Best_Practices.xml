@@ -13,31 +13,25 @@
         <author>
             <personname>Ivan Ristić</personname>
         </author>
+        <abstract>
+            <para>SSL/TLS is a deceptively simple technology. It is easy to deploy, and it just
+                works&#x2026; except that it does not, really. The first part is true—SSL is easy to
+                deploy—but it turns out that it is not easy to deploy
+                <emphasis>correctly</emphasis>. To ensure that SSL provides the necessary security,
+                users must put extra effort into properly configuring their servers.</para>
+            <para>In 2009, we began our work on SSL Labs because we wanted to understand how SSL was
+                used and to remedy the lack of easy-to-use SSL tools and documentation. We have
+                achieved some of our goals through our global surveys of SSL usage, as well as the
+                online assessment tool, but the lack of documentation is still evident. This
+                document is a first step toward addressing that problem.</para>
+            <para>Our aim here is to provide clear and concise instructions to help overworked
+                administrators and programmers spend the minimum time possible to deploy a secure
+                site or web application. In pursue of clarity, we sacrifice completeness, foregoing
+                certain advanced topics. The focus is on advice that is practical and easy to
+                understand. For those who want more information, Section 6 gives useful
+                pointers.</para>
+        </abstract>
     </info>
-    <para><emphasis>This appendix contains the complete contents of SSL/TLS Deployment Best
-            Practices document (version 1.2, dated 14 May 2013), which is an SSL Labs publication.
-            This document, which I maintain, is a high-level overview of everything you need to know
-            about SSL/TLS deployment, optimized for efficient knowledge transfer and thus as short
-            as possible, but not shorter. Included here with permission from
-        Qualys.</emphasis></para>
-    <section renderas="sect2">
-        <title>Introduction</title>
-        <para>SSL/TLS is a deceptively simple technology. It is easy to deploy, and it just
-            works&#x2026; except that it does not, really. The first part is true—SSL is easy to
-            deploy—but it turns out that it is not easy to deploy <emphasis role="italic"
-                >correctly</emphasis>. To ensure that SSL provides the necessary security, users
-            must put extra effort into properly configuring their servers.</para>
-        <para>In 2009, we began our work on SSL Labs because we wanted to understand how SSL was
-            used and to remedy the lack of easy-to-use SSL tools and documentation. We have achieved
-            some of our goals through our global surveys of SSL usage, as well as the online
-            assessment tool, but the lack of documentation is still evident. This document is a
-            first step toward addressing that problem.</para>
-        <para>Our aim here is to provide clear and concise instructions to help overworked
-            administrators and programmers spend the minimum time possible to deploy a secure site
-            or web application. In pursue of clarity, we sacrifice completeness, foregoing certain
-            advanced topics. The focus is on advice that is practical and easy to understand. For
-            those who want more information, Section 6 gives useful pointers.</para>
-    </section>
     <section renderas="sect2">
         <title>1. Private Key and Certificate</title>
         <para>The quality of the protection provided by SSL depends entirely on the private key,
