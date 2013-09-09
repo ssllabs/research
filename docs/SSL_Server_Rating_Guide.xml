@@ -5,7 +5,8 @@
     version="5.0">
     <info>
         <title>SSL Server Rating Guide</title>
-        <releaseinfo>version 2009c (1 February 2013)</releaseinfo>
+        <releaseinfo>version 2009d (Published in 2009; last update on 9 September
+            2013)</releaseinfo>
         <copyright>
             <year>2009-2013</year>
             <holder>SSL Labs (www.ssllabs.com)</holder>
@@ -19,42 +20,6 @@
                 without the need to become SSL experts.</para>
         </abstract>
     </info>
-    <section>
-        <title>Introduction to the 2009c Release</title>
-        <para>The SSL threat landscape changed significantly since the original rating guide was
-            published in 2009. The original guide is thus no longer entirely suitable for use today.
-            In addition, we now have several years of experience using the criteria in real life,
-            and we know what works well and what not so much.</para>
-        <para>Our plan is to update the rating criteria to take all this new information into
-            account. However, because that process will take several months to complete and because
-            an update to the guide is long overdue, we have decided to release a small patch
-            release, labeling it 2009c. This document.</para>
-        <para>The purpose of this release is to keep the original rating criteria relevant for a
-            little while longer, until the next version is ready. The text of the original document
-            remains as is, but the following changes apply:</para>
-        <itemizedlist>
-            <listitem>
-                <para>SSL 2.0 is not allowed (F). </para>
-            </listitem>
-            <listitem>
-                <para>Insecure renegotiation is not allowed (F). </para>
-            </listitem>
-            <listitem>
-                <para>Vulnerability to the BEAST attack caps the grade to B. </para>
-            </listitem>
-            <listitem>
-                <para>Vulnerability to the CRIME attack caps the grade to B. </para>
-            </listitem>
-            <listitem>
-                <para>The score (0-100) is now shown any more, in order to focus on the grade, which
-                    is more useful. Future versions of the guide will probably remove the score
-                    altogether. </para>
-            </listitem>
-        </itemizedlist>
-        <para>In addition, we've taken the opportunity to remove the old configuration advice,
-            directing the readers to our <emphasis>SSL/TLS Deployment Best Practices</emphasis>
-            document instead.</para>
-    </section>
     <section>
         <title>Methodology Overview</title>
         <para>Our approach consists of three steps:</para>
@@ -496,14 +461,44 @@
                     </para>
                 </listitem>
             </varlistentry>
-            <varlistentry>
-                <term>SSL v2 support</term>
-                <listitem>
-                    <para>Should servers that support SSL v2 be awarded a zero score in the protocol
-                        category? A zero score for the entire test?</para>
-                </listitem>
-            </varlistentry>
         </variablelist>
+    </section>
+    <section>
+        <title>Changes</title>
+        <para>We are planning to write a completely new version of the rating guide, building on
+            what we have learned from the current version. In the meantime, we are making small
+            revisions in order to react to the threats as they come and go.</para>
+        <section>
+            <title>Changes in 2009c</title>
+            <para>In 2009c we have introduced the following changes:</para>
+            <itemizedlist>
+                <listitem>
+                    <para>SSL 2.0 is not allowed (F). </para>
+                </listitem>
+                <listitem>
+                    <para>Insecure renegotiation is not allowed (F). </para>
+                </listitem>
+                <listitem>
+                    <para>Vulnerability to the BEAST attack caps the grade to B. </para>
+                </listitem>
+                <listitem>
+                    <para>Vulnerability to the CRIME attack caps the grade to B. </para>
+                </listitem>
+                <listitem>
+                    <para>The test results no longer show the numerical score (0-100) because we
+                        have realized that the letter grade (A-F) is more useful.</para>
+                </listitem>
+            </itemizedlist>
+            <para>In addition, we've taken the opportunity to remove the old configuration advice,
+                directing the readers to our <emphasis><link
+                        xlink:href="https://www.ssllabs.com/projects/best-practices/">SSL/TLS
+                        Deployment Best Practices</link></emphasis> document instead.</para>
+        </section>
+        <section>
+            <title>Changes in 2009d</title>
+            <para>We no longer require server-side mitigation for the BEAST attack, because we now
+                believe that this attack has been sufficiently addressed client-side.</para>
+        </section>
     </section>
     <section>
         <title>About SSL</title>
