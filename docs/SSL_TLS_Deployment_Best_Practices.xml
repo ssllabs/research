@@ -299,7 +299,10 @@
                                         Discovered</link> (Qualys Security Labs Blog; November
                                     2009)</para>
                             </footnote> Most vendors have issued patches by now or, at the very
-                            least, provided workarounds for the problem.</para>
+                            least, provided workarounds for the problem. Insecure renegotiation is
+                            dangerous because it is easy to exploit and has effects similar to
+                            Cross-Site Request Forgery (CSRF) and, in some cases, Cross-Site
+                            Scripting (XSS).</para>
                     </listitem>
                 </varlistentry>                
                 <varlistentry>
@@ -316,7 +319,7 @@
                             session cookies). Very few clients supported TLS compression then (and
                             even fewer support it now), which means that it is unlikely that you
                             will experience any performance issues by disabling TLS compression on
-                            your servers.</para>
+                            your servers. Attacks against TLS compression are of low risk.</para>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
@@ -333,13 +336,18 @@
                                         >Defending against the BREACH Attack</link> (Qualys Security
                                     Labs; 7 August 2013)</para>
                             </footnote></para>
+                        <para>TIME and BREACH attacks require significant resources to carry out.
+                            But, if someone is motivated enough to use them, the impact is
+                            equivalent to CSRF.</para>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
                     <term>Disable RC4</term>
                     <listitem>
-                        <para>The RC4 cipher suite is considered insecure and should be
-                            disabled.</para>
+                        <para>The RC4 cipher suite is considered insecure and should be disabled. At
+                            the moment, the best attacks we know require millions of requests, a lot
+                            of bandwidth and time. Thus, the risk is still relatively low, but we
+                            expect that the attacks will improve in the future.</para>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
@@ -362,6 +370,8 @@
                                         >Is BEAST Still a Threat?</link> (Qualys Security Labs; 10
                                     September 2013)</para>
                             </footnote></para>
+                        <para>The impact of a successful BEAST attack is similar to that of session
+                            hijacking.</para>
                     </listitem>
                 </varlistentry>
             </variablelist>
@@ -603,8 +613,7 @@
                     <para>Recommend that 3DES is disabled in the near future.</para>
                 </listitem>
                 <listitem>
-                    <para>Warn about the CRIME attack variations (TIME and BREACH) that apply to
-                        HTTP response compression.</para>
+                    <para>Warn about the CRIME attack variations (TIME and BREACH).</para>
                 </listitem>
                 <listitem>
                     <para>Recommend supporting Forward Secrecy.</para>
