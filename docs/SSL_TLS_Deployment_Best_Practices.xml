@@ -5,7 +5,7 @@
     version="5.0">
     <info>
         <title>SSL/TLS Deployment Best Practices</title>
-        <releaseinfo>version 1.2 (14 May 2013)</releaseinfo>
+        <releaseinfo>version 1.3 draft 1 (11 September 2013)</releaseinfo>
         <copyright>
             <year>2012-2013</year>
             <holder>Qualys SSL Labs</holder>
@@ -39,10 +39,12 @@
             the identity of the server to its visitors.</para>
         <section renderas="sect3">
             <title>1.1. Use 2048-bit Private Keys</title>
-            <para>Use 2048-bit private keys for all your servers. Keys of this length are secure and
-                will stay secure for a considerable amount of time. Your existing 1024-bit keys can
-                stay in place, but you should plan to upgrade them the next time the certificates
-                are up for renewal or by the end of 2013, whichever comes sooner.</para>
+            <para>Use 2048-bit RSA or equivalent-strength ECDSA private keys for all your servers.
+                Keys of this strength are secure and should stay secure for a considerable amount of
+                time. If you already have 1024-bit RSA keys in production, replace them with
+                stronger keys as soon as possible. If you believe that you need more than 2048 bits
+                of security, give more consideration to ECDSA keys, which have better performance
+                characteristics.</para>
         </section>
         <section renderas="sect3">
             <title>1.2. Protect Private Keys</title>
@@ -51,15 +53,15 @@
                 Recommended policies include the following:</para>
             <itemizedlist>
                 <listitem>
-                    <para>Password-protect encryption keys to prevent compromise when they are
-                        stored in backup systems.</para>
+                    <para>Password-protect keys to prevent compromise when they are stored in backup
+                        systems.</para>
                 </listitem>
                 <listitem>
-                    <para>If there is a compromise, revoke old certificates and generate new keys to
-                        use with new certificates.</para>
+                    <para>After compromise, revoke old certificates and generate new keys to use
+                        with new certificates.</para>
                 </listitem>
                 <listitem>
-                    <para>Renew certificates every year—always with new private keys.</para>
+                    <para>Renew certificates every year and always with new private keys.</para>
                 </listitem>
             </itemizedlist>
         </section>
@@ -76,10 +78,10 @@
                 and <emphasis>www.example.com</emphasis>). The rule of thumb is this: a secure web
                 server should have a certificate that is valid for every DNS name configured to
                 point to it.</para>
-            <para>Wildcard certificates are generally best avoided. Although they are not any less
-                secure from a strict technical point of view, the way in which they are typically
-                handled (especially in larger organizations) makes them less secure in
-                practice.</para>
+            <para>Wildcard certificates have their uses, but should be avoided if using them means
+                exposing the underlying keys to a larger group of people, and especially if crossing
+                organizational boundaries. In other words, the fewer people have access to the
+                private keys, the better.</para>
         </section>
         <section renderas="sect3">
             <title>1.4. Obtain Certificates from a Reliable CA</title>
@@ -128,8 +130,9 @@
                 <varlistentry>
                     <term>Certificate management options</term>
                     <listitem>
-                        <para>If you need a large number of certificates, choose a business that
-                            will give you good tools to manage them.</para>
+                        <para>If you need a large number of certificates and operate in a complex
+                            environment, choose a business that will give you good tools to manage
+                            them.</para>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
@@ -148,7 +151,7 @@
             presented to the site’s visitors, that only secure cryptographic primitives are used,
             and that all known weaknesses are mitigated.</para>
         <section renderas="sect3">
-            <title>2.1. Ensure That the Certificate Chain Is Valid</title>
+            <title>2.1. Deploy with Complete and Valid Certificate Chains</title>
             <para>In most deployments, the server certificate alone is insufficient; two or more
                 certificates are needed to establish a complete chain of trust. A common problem is
                 configuring the server certificate correctly but forgetting to include other
@@ -156,11 +159,10 @@
                 valid for longer periods of time, they too expire, and when they do, they invalidate
                 the entire chain. Your CA should be able to provide you with all the additional
                 certificates required.</para>
-            <para>An invalid certificate chain renders the actual server certificate invalid. In
-                practice, this problem is sometimes difficult to diagnose because some browsers can
-                deal with these problems and reconstruct a complete correct chain, and some can’t.
-                Testing with a tool that is designed to highlight configuration flaws is the only
-                way to be sure.</para>
+            <para>An invalid certificate chain renders the actual server certificate invalid and
+                results with browser warnings. In practice, this problem is sometimes difficult to
+                diagnose because some browsers can deal with these problems and reconstruct a
+                complete correct chain, and some can’t.</para>
         </section>
         <section renderas="sect3">
             <title>2.2. Use Only Secure Protocols</title>
@@ -169,39 +171,40 @@
             <para>
                 <itemizedlist>
                     <listitem>
-                        <para>SSL v2 is insecure and must not be used.  </para>
+                        <para>SSL v2 is insecure and must not be used.</para>
                     </listitem>
                     <listitem>
-                        <para>SSL v3 and TLS v1.0 largely still hold up; we do not know of major
-                            security flaws when they are used for protocols other than HTTP. When
-                            used with HTTP, they can <emphasis>almost</emphasis> be made secure with
-                            careful configuration.</para>
+                        <para>SSL v3 is very old and obsolete. Because it lacks some key features
+                            and because virtually all clients support TLS 1.0 and better, you should
+                            not support SSL v3 unless you have a <emphasis>very</emphasis> good
+                            reason.</para>
                     </listitem>
                     <listitem>
-                        <para>TLS v1.1 and v1.2 are without known security issues. Unfortunately,
-                            many server and client platforms do not support these newer protocol
-                            versions.</para>
+                        <para>TLS v1.0 is largely still secure; we do not know of major security
+                            flaws when they are used for protocols other than HTTP. When used with
+                            HTTP, it can <emphasis>almost</emphasis> be made secure with careful
+                            configuration.</para>
+                    </listitem>
+                    <listitem>
+                        <para>TLS v1.1 and v1.2 are without known security issues.</para>
                     </listitem>
                 </itemizedlist>
             </para>
             <para>TLS v1.2 should be your main protocol. This version is superior because it offers
-                key features that were unavailable in earlier protocol versions. If your server
+                important features that are unavailable in earlier protocol versions. If your server
                 platform (or any intermediary device) does not support TLS v1.2, make plans to
-                upgrade the infrastructure at an accelerated pace. If your service providers do not
-                support TLS v1.2, require that they upgrade.</para>
-            <para>In order to support older clients, you will need to support TLS v1.0 and TLS v1.1
-                for the time being. With some workarounds (explained in subsequent sections), these
-                protocols can still be considered secure enough for most web sites.</para>
-            <para>As a rule of thumb, you should always use the most recent version of the TLS
-                protocol for security and some older versions for interoperability with your users
-                base (provided they are still secure).</para>
+                upgrade at an accelerated pace. If your service providers do not support TLS v1.2,
+                require that they upgrade.</para>
+            <para>In order to support older clients, you need to continue support TLS v1.0 and TLS
+                v1.1 for the time being. With some workarounds (explained in subsequent sections),
+                these protocols can still be considered secure enough for most web sites.</para>
         </section>
         <section renderas="sect3">
             <title>2.3. Use Only Secure Cipher Suites</title>
             <para>To communicate securely, you must first ascertain that you are communicating
                 directly with the desired party (and not through someone else who will eavesdrop),
-                as well as exchanging data securely. In SSL/TLS, cipher sites are used to define how
-                secure communication takes place. They are composed from varying building blocks
+                as well as exchanging data securely. In SSL and TLS, cipher sites are used to define
+                how secure communication takes place. They are composed from varying building blocks
                 with the idea of achieving security through diversity. If one of the building blocks
                 is found to be weak or insecure, you should be able to switch to another.</para>
             <para>Your goal should be thus to use only suites that provide authentication and
@@ -222,6 +225,19 @@
                     <para>Suites with weak ciphers (typically of 40 and 56 bits) use encryption that
                         can easily be broken.</para>
                 </listitem>
+                <listitem>
+                    <para>RC4 is weaker than previously thought.<footnote>
+                            <para><link xlink:href="http://www.isg.rhul.ac.uk/tls/">On the Security
+                                    of RC4 in TLS and WPA</link> (Kenny Paterson et al.; 13 March
+                                2013)</para>
+                        </footnote> You should remove support for this cipher in the near
+                        future.</para>
+                </listitem>
+                <listitem>
+                    <para>3DES provides only 108 bits of security (or 112, depending on the source),
+                        which is below the recommended minimum of 128 bits. You should remove
+                        support for this cipher in the near future.</para>
+                </listitem>
             </itemizedlist>
         </section>
         <section renderas="sect3">
@@ -233,9 +249,28 @@
                 critical for security (see Section 2.6).</para>
         </section>
         <section renderas="sect3">
-            <title>2.5. Disable Client-Initiated Renegotiation</title>
-            <para>In SSL/TLS, renegotiation allows parties to stop exchanging data for a moment and
-                to renegotiate how the communication is secured. There are some cases in which
+            <title>2.5. Support Forward Secrecy</title>
+            <para><emphasis>Forward Secrecy</emphasis><footnote>
+                    <para><link
+                            xlink:href="https://community.qualys.com/blogs/securitylabs/2013/06/25/ssl-labs-deploying-forward-secrecy"
+                            >Deploying Forward Secrecy</link> (Qualys Security Labs; 25 June
+                        2013)</para>
+                </footnote> is a protocol feature that enables secure conversations that are not
+                dependent on the server’s private key. With cipher suites that do not support
+                Forward Secrecy, someone who can recover a server’s private key can decrypt all all
+                earlier encrypted conversations if they have them recorded. You need to support and
+                prefer ECDHE suites in order to enable Forward Secrecy with modern web browsers. To
+                support a wider range of clients, you should also use DHE suites as fallback after ECDHE.<footnote>
+                    <para><link
+                            xlink:href="http://blog.ivanristic.com/2013/08/increasing-dhe-strength-on-apache.html"
+                            >Increasing DHE strength on Apache 2.4.x</link> (Ivan Ristić's blog; 15
+                        August 2013)</para>
+                </footnote></para>
+        </section>
+        <section renderas="sect3">
+            <title>2.6. Disable Client-Initiated Renegotiation</title>
+            <para>In SSL/TLS, renegotiation allows parties to stop exchanging data in order to
+                renegotiate how the communication is secured. There are some cases in which
                 renegotiation needs to be initiated by the server, but there is no known need for
                 clients to do so. Further, client-initiated renegotiation may make your servers
                 easier to attack using <firstterm>Denial of Service</firstterm> (DoS) attacks.<footnote>
@@ -246,12 +281,12 @@
                 </footnote></para>
         </section>
         <section renderas="sect3">
-            <title>2.6. Mitigate Known Problems</title>
+            <title>2.7. Mitigate Known Problems</title>
             <para>Nothing is perfectly secure, and at any given time there may be issues with the
                 security stack. It is good practice to keep an eye on what happens in the security
                 world and to adapt to situations as necessary. At the very least, you should apply
                 vendor patches as soon as they become available.</para>
-            <para>At this time, three issues require your attention:</para>
+            <para>The following issues require your attention:</para>
             <variablelist>
                 <varlistentry>
                     <term>Disable insecure renegotiation</term>
@@ -266,32 +301,7 @@
                             </footnote> Most vendors have issued patches by now or, at the very
                             least, provided workarounds for the problem.</para>
                     </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>Prioritize RC4 to mitigate the BEAST attack</term>
-                    <listitem>
-                        <para>The 2011 BEAST attack<footnote>
-                                <para><link
-                                        xlink:href="https://community.qualys.com/blogs/securitylabs/2011/10/17/mitigating-the-beast-attack-on-tls"
-                                        >Mitigating the BEAST attack on TLS</link> (Qualys Security
-                                    Labs Blog; October 2011)</para>
-                            </footnote> is a practical attack that exploits an earlier protocol
-                            vulnerability that was discovered in 2004. Despite having been addressed
-                            in TLS v1.1 in 2006, the problem is still relevant because most clients
-                            and servers do not support newer protocol versions. Practical mitigation
-                            requires that your servers speak only RC4 when using TLS v1.0 or SSL v3.<footnote>
-                                <para><link
-                                        xlink:href="https://community.qualys.com/blogs/securitylabs/2013/03/19/rc4-in-tls-is-broken-now-what"
-                                        >RC4 in TLS Is Broken: Now What?</link> (Qualys Security
-                                    Labs Blog; March 2013)</para>
-                            </footnote> Worryingly, in early 2013, RC4 was found to be weaker than
-                            previously thought, forcing everyone to choose between addressing BEAST
-                            or disabling RC4. (Both can be addressed with TLS 1.1 and later, but few
-                            browsers support these newer protocols.) In reality, the risks from
-                            BEAST and RC4 weaknesses are both small, but when choosing one of the
-                            two, we prefer to mitigate the BEAST attack.</para>
-                    </listitem>
-                </varlistentry>
+                </varlistentry>                
                 <varlistentry>
                     <term>Disable TLS compression</term>
                     <listitem>
@@ -307,6 +317,51 @@
                             even fewer support it now), which means that it is unlikely that you
                             will experience any performance issues by disabling TLS compression on
                             your servers.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>Mitigate information leakage stemming from HTTP compression</term>
+                    <listitem>
+                        <para>Two variations of the CRIME attack were disclosed in 2013. Rather than
+                            focus on TLS compression (which is what CRIME did), TIME and BREACH
+                            attacks focus on secrets in HTTP response bodies compressed using HTTP
+                            compression. Given that HTTP compression is very important to great many
+                            companies, these problems are more difficult to address. Mitigation
+                            might require changes to application code.<footnote>
+                                <para><link
+                                        xlink:href="https://community.qualys.com/blogs/securitylabs/2013/08/07/defending-against-the-breach-attack"
+                                        >Defending against the BREACH Attack</link> (Qualys Security
+                                    Labs; 7 August 2013)</para>
+                            </footnote></para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>Disable RC4</term>
+                    <listitem>
+                        <para>The RC4 cipher suite is considered insecure and should be
+                            disabled.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>Be aware of the BEAST attack</term>
+                    <listitem>
+                        <para>The 2011 BEAST attack<footnote>
+                                <para><link
+                                        xlink:href="https://community.qualys.com/blogs/securitylabs/2011/10/17/mitigating-the-beast-attack-on-tls"
+                                        >Mitigating the BEAST attack on TLS</link> (Qualys Security
+                                    Labs Blog; October 2011)</para>
+                            </footnote> targets a 2004 vulnerability in TLS 1.0 and earlier protocol
+                            versions, previously thought to be impractical to exploit. For a period
+                            of time, server-side mitigation of the BEAST attack was considered
+                            appropriate, even though the weakness is on the client side.
+                            Unfortunately, to mitigate server-side requires RC4, which we now
+                            recommend to disable. Because of that, and because the BEAST attack is
+                            by now largely mitigated client-side, we no longer recommend server-side mitigation.<footnote>
+                                <para><link
+                                        xlink:href="https://community.qualys.com/blogs/securitylabs/2013/09/10/is-beast-still-a-threat"
+                                        >Is BEAST Still a Threat?</link> (Qualys Security Labs; 10
+                                    September 2013)</para>
+                            </footnote></para>
                     </listitem>
                 </varlistentry>
             </variablelist>
@@ -383,21 +438,39 @@
                 encryption throughout—without exception.</para>
         </section>
         <section renderas="sect3">
-            <title>4.2. Secure Cookies</title>
+            <title>4.2. Avoid Mixed Content</title>
+            <para>Mixed-content pages are those that are transmitted over SSL but include resources
+                (e.g., JavaScript files, images, CSS files) that are not transmitted over SSL. Such
+                pages are not secure. An active MITM attacker can piggyback on a single unprotected
+                JavaScript resource, for example, and hijack the entire user session. Even if you
+                follow the advice from the previous section and encrypt your entire web site, you
+                might still end up retrieving some resources unencrypted from third-party web
+                sites.</para>
+        </section>
+        <section renderas="sect3">
+            <title>4.3. Understand and Acknowledge Third-Party Trust</title>
+            <para>Web sites often use third-party services activated via JavaScript code downloaded
+                from another server. A good example of such a service is Google Analytics, which is
+                used on large parts of the Web. Such inclusion of third-party code creates an
+                implicit trust connection that effectively gives the other party full control over
+                your web site. The third party may not be malicious, but large providers of such
+                services are increasingly seen as targets. The reasoning is simple: if a large
+                provider is compromised, the attacker is automatically given access to all the sites
+                that depend on the service.</para>
+            <para>If you follow the advice from Section 4.3, at least your third-party links will be
+                encrypted and thus safe from MITM attacks. However, you should go a step further
+                than that: learn what services your sites use, and either remove them, replace them
+                with safer alternatives, or accept the risk of their continued use.</para>
+        </section>
+        <section renderas="sect3">
+            <title>4.4. Secure Cookies</title>
             <para>To be properly secure, a web site requires SSL, but also that all its cookies are
                 marked as secure. Failure to secure the cookies makes it possible for an active
                 man-in-the-middle (MITM) attacker to tease some information out through clever
                 tricks, even on web sites that are 100% encrypted.</para>
-        </section>
+        </section>        
         <section renderas="sect3">
-            <title>4.3. Avoid Mixed Content</title>
-            <para>Mixed-content pages are those that are transmitted over SSL but include resources
-                (e.g., JavaScript files, images, CSS files) that are not transmitted over SSL. Such
-                pages are not secure. An active MITM attacker can piggyback on a single unprotected
-                JavaScript resource, for example, and hijack the entire user session.</para>
-        </section>
-        <section renderas="sect3">
-            <title>4.4. Deploy HTTP Strict Transport Security</title>
+            <title>4.5. Deploy HTTP Strict Transport Security</title>
             <para><emphasis>HTTP Strict Transport Security</emphasis> (HSTS) is a safety net for
                 SSL: it was designed to ensure that security remains intact even in the case of
                 configuration problems and implementation errors. To activate HSTS protection, you
@@ -414,7 +487,7 @@
                 mind and the old sites converted to support it wherever possible.</para>
         </section>
         <section renderas="sect3">
-            <title>4.5. Disable Caching of Sensitive Content</title>
+            <title>4.6. Disable Caching of Sensitive Content</title>
             <para>The goal of this recommendation is to ensure that sensitive content is
                 communicated to only the intended parties and that it is treated as sensitive.
                 Although proxies do not see encrypted traffic and cannot share content among users,
@@ -422,28 +495,13 @@
                 you need to be very careful when specifying what is public and what is not.</para>
         </section>
         <section renderas="sect3">
-            <title>4.6. Ensure That There are No Other Vulnerabilities</title>
+            <title>4.7. Ensure That There are No Other Vulnerabilities</title>
             <para>This item is a reminder that SSL does not equal security. SSL is designed to
                 address only one aspect of security – confidentiality and integrity of the
                 communication between you and your users—but there are many other threats that you
                 need to deal with. In most cases, that means ensuring that your web site does not
                 have other weaknesses.</para>
-        </section>
-        <section renderas="sect3">
-            <title>4.7. Understand and Acknowledge Third-Party Trust</title>
-            <para>Web sites often use third-party services activated via JavaScript code downloaded
-                from another server. A good example of such a service is Google Analytics, which is
-                used on large parts of the Web. Such inclusion of third-party code creates an
-                implicit trust connection that effectively gives the other party full control over
-                your web site. The third party may not be malicious, but large providers of such
-                services are increasingly seen as targets. The reasoning is simple: if a large
-                provider is compromised, the attacker is automatically given access to all the sites
-                that depend on the service.</para>
-            <para>If you follow the advice from Section 4.3, at least your third-party links will be
-                encrypted and thus safe from MITM attacks. However, you should go a step further
-                than that: learn what services your sites use, and either remove them, replace them
-                with safer alternatives, or accept the risk of their continued use.</para>
-        </section>
+        </section>        
     </section>
     <section renderas="sect2">
         <title>5. Validation</title>
@@ -454,7 +512,10 @@
             configuration to ensure that you start out secure, and then periodically to ensure that
             you stay secure. For public web sites, our <link
                 xlink:href="httsp://www.ssllabs.com/ssltest/">free online assessment tool on the SSL
-                Labs web site</link> is hard to beat. </para>
+                Labs web site</link> is hard to beat. The <firstterm>Handshake
+                Simulation</firstterm> feature, in particular, is very useful, because it shows
+            exactly what security parameters would be used by a variety of commonly used SSL
+            clients.</para>
     </section>
     <section renderas="sect2">
         <title>6. Advanced Topics</title>
@@ -493,13 +554,17 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>Forward secrecy</term>
+                <term>ECDSA private keys</term>
                 <listitem>
-                    <para><emphasis>Forward secrecy</emphasis> is a protocol feature that enables
-                        secure conversations that are not dependent on the server’s private key.
-                        With cipher suites that do not support forward secrecy, someone who can
-                        recover a server’s private key can decrypt all earlier recorded encrypted
-                        conversations.</para>
+                    <para>Virtually all web sites rely on RSA private keys. This algorithm is thus
+                        the key to the security of the Web, which is why attacks against it continue
+                        to improve. We are currently transitioning from 1024-bit to 2048-bit RSA
+                        keys for that very reason. There are some concerns, however, that further
+                        key length increases might lead to performance issues. Elliptic Curve
+                        cryptography uses different maths and provides strong security assurances at
+                        smaller key lengths. RSA keys can be replaced with ECDSA. They are currently
+                        supported by only a small number of CAs, but we expect that most will offer
+                        them in the future.</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
@@ -515,10 +580,48 @@
         </variablelist>
     </section>
     <section renderas="sect2">
+        <title>Changes</title>
+        <para>This section tracks document changes over time, starting with version 1.3.</para>
+        <section renderas="sect3">
+            <title>Version 1.3 (11 September 2013)</title>
+            <para>The following changes were made in this version:</para>
+            <itemizedlist>
+                <listitem>
+                    <para>Recommend replacing 1024-bit certificates straight away.</para>
+                </listitem>
+                <listitem>
+                    <para>Recommend against supporting SSL v3.</para>
+                </listitem>
+                <listitem>
+                    <para>Remove the recommendation to use RC4 to mitigate the BEAST attack
+                        server-side.</para>
+                </listitem>
+                <listitem>
+                    <para>Recommend that RC4 is disabled.</para>
+                </listitem>
+                <listitem>
+                    <para>Recommend that 3DES is disabled in the near future.</para>
+                </listitem>
+                <listitem>
+                    <para>Warn about the CRIME attack variations (TIME and BREACH) that apply to
+                        HTTP response compression.</para>
+                </listitem>
+                <listitem>
+                    <para>Recommend supporting Forward Secrecy.</para>
+                </listitem>
+                <listitem>
+                    <para>Add discussion of ECDSA certificates.</para>
+                </listitem>
+            </itemizedlist>
+        </section>
+    </section>
+    <section renderas="sect2">
         <title>Acknowledgments</title>
-        <para>Thanks to Marsh Ray (PhoneFactor), Nasko Oskov (Google), Adrian F. Dimcev, and Ryan
-            Hurst (GlobalSign) for their valuable feedback and help in crafting this
-            document.</para>
+        <para>Special thanks to Marsh Ray (PhoneFactor), Nasko Oskov (Google), Adrian F. Dimcev, and
+            Ryan Hurst (GlobalSign) for their valuable feedback and help in crafting this document.
+            Also thanks to many others who generously share their knowledge of security and
+            cryptography with the world. The words in this document might be mine, but the
+            guidelines given draw on the work of the entire security community.</para>
     </section>
     <section renderas="sect2">
         <title>About SSL Labs</title>
