@@ -595,7 +595,8 @@
     </section>
     <section renderas="sect2">
         <title>Changes</title>
-        <para>This section tracks document changes over time, starting with version 1.3.</para>
+        <para>The first release of this guide was on 24 February 2012. This section tracks document
+            changes over time, starting with version 1.3.</para>
         <section renderas="sect3">
             <title>Version 1.3 (12 September 2013)</title>
             <para>The following changes were made in this version:</para>
