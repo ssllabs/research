@@ -5,7 +5,7 @@
     version="5.0">
     <info>
         <title>SSL/TLS Deployment Best Practices</title>
-        <releaseinfo>version 1.3 draft 1 (11 September 2013)</releaseinfo>
+        <releaseinfo>version 1.3 draft 2 (12 September 2013)</releaseinfo>
         <copyright>
             <year>2012-2013</year>
             <holder>Qualys SSL Labs</holder>
@@ -19,14 +19,15 @@
                 deploy—but it turns out that it is not easy to deploy
                 <emphasis>correctly</emphasis>. To ensure that SSL provides the necessary security,
                 users must put extra effort into properly configuring their servers.</para>
-            <para>In 2009, we began our work on SSL Labs because we wanted to understand how SSL was
-                used and to remedy the lack of easy-to-use SSL tools and documentation. We have
-                achieved some of our goals through our global surveys of SSL usage, as well as the
-                online assessment tool, but the lack of documentation is still evident. This
-                document is a first step toward addressing that problem.</para>
+            <para>In 2009, we began our work on <link xlink:href="https://www.ssllabs.com/">SSL
+                    Labs</link> because we wanted to understand how SSL was used and to remedy the
+                lack of easy-to-use SSL tools and documentation. We have achieved some of our goals
+                through our global surveys of SSL usage, as well as the online assessment tool, but
+                the lack of documentation is still evident. This document is a first step toward
+                addressing that problem.</para>
             <para>Our aim here is to provide clear and concise instructions to help overworked
                 administrators and programmers spend the minimum time possible to deploy a secure
-                site or web application. In pursue of clarity, we sacrifice completeness, foregoing
+                site or web application. In pursuit of clarity, we sacrifice completeness, foregoing
                 certain advanced topics. The focus is on advice that is practical and easy to
                 understand. For those who want more information, Section 6 gives useful
                 pointers.</para>
@@ -80,14 +81,14 @@
                 point to it.</para>
             <para>Wildcard certificates have their uses, but should be avoided if using them means
                 exposing the underlying keys to a larger group of people, and especially if crossing
-                organizational boundaries. In other words, the fewer people have access to the
+                organizational boundaries. In other words, the fewer people who have access to the
                 private keys, the better.</para>
         </section>
         <section renderas="sect3">
             <title>1.4. Obtain Certificates from a Reliable CA</title>
             <para>Select a <firstterm>Certificate Authority</firstterm> (CA) that is reliable and
                 serious about its certificate business and about security. Consider the following
-                criteria while selecting your CA:</para>
+                criteria when selecting your CA:</para>
             <variablelist>
                 <varlistentry>
                     <term>Security posture</term>
@@ -95,8 +96,9 @@
                         <para>All CAs undergo regular audits (otherwise they wouldn't be able to
                             operate as CAs), but some are more serious about security than others.
                             Figuring out which ones are better in this respect is not easy, but one
-                            option is to examine their security history, and, more important,
-                            reacted to compromises and if they learned from their mistakes.</para>
+                            option is to examine their security history, and, more important, how
+                            they reacted to compromises and if they learned from their
+                            mistakes.</para>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
@@ -119,12 +121,13 @@
                 <varlistentry>
                     <term>Services offered</term>
                     <listitem>
-                        <para>At minimum, your selected CA should provide support for CRL and OCSP
-                            revocation and provide an OCSP service with good performance. They
-                            should offer both domain-validated and Extended Validation certificates,
-                            ideally with your choice of public key algorithm. (Most web sites use
-                            RSA today, but ECDSA may become important in the future because of its
-                            performance advantages.)</para>
+                        <para>At minimum, your selected CA should provide support for both
+                            Certificate Revocation List (CRL) and Online Certificate Status Protocol
+                            (OCSP) revocation and provide an OCSP service with good performance.
+                            They should offer both domain-validated and Extended Validation
+                            certificates, ideally with your choice of public key algorithm. (Most
+                            web sites use RSA today, but ECDSA may become important in the future
+                            because of its performance advantages.)</para>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
@@ -160,7 +163,7 @@
                 the entire chain. Your CA should be able to provide you with all the additional
                 certificates required.</para>
             <para>An invalid certificate chain renders the actual server certificate invalid and
-                results with browser warnings. In practice, this problem is sometimes difficult to
+                results in browser warnings. In practice, this problem is sometimes difficult to
                 diagnose because some browsers can deal with these problems and reconstruct a
                 complete correct chain, and some can’t.</para>
         </section>
@@ -195,9 +198,10 @@
                 platform (or any intermediary device) does not support TLS v1.2, make plans to
                 upgrade at an accelerated pace. If your service providers do not support TLS v1.2,
                 require that they upgrade.</para>
-            <para>In order to support older clients, you need to continue support TLS v1.0 and TLS
-                v1.1 for the time being. With some workarounds (explained in subsequent sections),
-                these protocols can still be considered secure enough for most web sites.</para>
+            <para>In order to support older clients, you need to continue to support TLS v1.0 and
+                TLS v1.1 for the time being. With some workarounds (explained in subsequent
+                sections), these protocols can still be considered secure enough for most web
+                sites.</para>
         </section>
         <section renderas="sect3">
             <title>2.3. Use Only Secure Cipher Suites</title>
@@ -246,7 +250,7 @@
                 support, and servers choose one suite from the list to negotiate a secure
                 communication channel. Not all servers do this well, however—some will select the
                 first supported suite from the list. Having servers select the right cipher suite is
-                critical for security (see Section 2.6).</para>
+                critical for security (more about that in Section 2.7).</para>
         </section>
         <section renderas="sect3">
             <title>2.5. Support Forward Secrecy</title>
@@ -257,7 +261,7 @@
                         2013)</para>
                 </footnote> is a protocol feature that enables secure conversations that are not
                 dependent on the server’s private key. With cipher suites that do not support
-                Forward Secrecy, someone who can recover a server’s private key can decrypt all all
+                Forward Secrecy, someone who can recover a server’s private key can decrypt all
                 earlier encrypted conversations if they have them recorded. You need to support and
                 prefer ECDHE suites in order to enable Forward Secrecy with modern web browsers. To
                 support a wider range of clients, you should also use DHE suites as fallback after ECDHE.<footnote>
@@ -328,8 +332,8 @@
                         <para>Two variations of the CRIME attack were disclosed in 2013. Rather than
                             focus on TLS compression (which is what CRIME did), TIME and BREACH
                             attacks focus on secrets in HTTP response bodies compressed using HTTP
-                            compression. Given that HTTP compression is very important to great many
-                            companies, these problems are more difficult to address. Mitigation
+                            compression. Given that HTTP compression is very important to a great
+                            many companies, these problems are more difficult to address. Mitigation
                             might require changes to application code.<footnote>
                                 <para><link
                                         xlink:href="https://community.qualys.com/blogs/securitylabs/2013/08/07/defending-against-the-breach-attack"
@@ -380,7 +384,7 @@
     <section renderas="sect2">
         <title>3. Performance</title>
         <para>Security is our main focus in this guide, but we must also pay attention to
-            performance: a secure service that does not satisfy performance criteria will no doubt
+            performance; a secure service that does not satisfy performance criteria will no doubt
             be dropped. However, because SSL configuration does not usually have a significant
             overall performance impact, we are limiting the discussion in this section to the common
             configuration problems that result in serious performance degradation.</para>
@@ -422,7 +426,7 @@
         <title>4. Application Design (HTTP)</title>
         <para>The HTTP protocol and the surrounding platform for web application delivery continued
             to evolve rapidly after SSL was born. As a result of that evolution, the platform now
-            contains features that can be used to defeat encryption. In this section we list those
+            contains features that can be used to defeat encryption. In this section, we list those
             features, as well as ways to use them securely.</para>
         <section renderas="sect3">
             <title>4.1. Encrypt 100% of Your Web Site</title>
@@ -451,11 +455,11 @@
             <title>4.2. Avoid Mixed Content</title>
             <para>Mixed-content pages are those that are transmitted over SSL but include resources
                 (e.g., JavaScript files, images, CSS files) that are not transmitted over SSL. Such
-                pages are not secure. An active MITM attacker can piggyback on a single unprotected
-                JavaScript resource, for example, and hijack the entire user session. Even if you
-                follow the advice from the previous section and encrypt your entire web site, you
-                might still end up retrieving some resources unencrypted from third-party web
-                sites.</para>
+                pages are not secure. An active man-in-the-middle (MITM) attacker can piggyback on a
+                single unprotected JavaScript resource, for example, and hijack the entire user
+                session. Even if you follow the advice from the previous section and encrypt your
+                entire web site, you might still end up retrieving some resources unencrypted from
+                third-party web sites.</para>
         </section>
         <section renderas="sect3">
             <title>4.3. Understand and Acknowledge Third-Party Trust</title>
@@ -467,7 +471,7 @@
                 services are increasingly seen as targets. The reasoning is simple: if a large
                 provider is compromised, the attacker is automatically given access to all the sites
                 that depend on the service.</para>
-            <para>If you follow the advice from Section 4.3, at least your third-party links will be
+            <para>If you follow the advice from Section 4.2, at least your third-party links will be
                 encrypted and thus safe from MITM attacks. However, you should go a step further
                 than that: learn what services your sites use, and either remove them, replace them
                 with safer alternatives, or accept the risk of their continued use.</para>
@@ -475,9 +479,9 @@
         <section renderas="sect3">
             <title>4.4. Secure Cookies</title>
             <para>To be properly secure, a web site requires SSL, but also that all its cookies are
-                marked as secure. Failure to secure the cookies makes it possible for an active
-                man-in-the-middle (MITM) attacker to tease some information out through clever
-                tricks, even on web sites that are 100% encrypted.</para>
+                marked as secure. Failure to secure the cookies makes it possible for an active MITM
+                attacker to tease some information out through clever tricks, even on web sites that
+                are 100% encrypted.</para>
         </section>        
         <section renderas="sect3">
             <title>4.5. Deploy HTTP Strict Transport Security</title>
@@ -534,7 +538,7 @@
             being debated by experts.</para>
         <variablelist>
             <varlistentry>
-                <term>Extended Validation Certificates</term>
+                <term>Extended Validation certificates</term>
                 <listitem>
                     <para><emphasis>Extended Validation</emphasis> (EV) certificates are
                         high-assurance certificates issued only after thorough offline checks.<footnote>
@@ -571,7 +575,7 @@
                         to improve. We are currently transitioning from 1024-bit to 2048-bit RSA
                         keys for that very reason. There are some concerns, however, that further
                         key length increases might lead to performance issues. Elliptic Curve
-                        cryptography uses different maths and provides strong security assurances at
+                        cryptography uses different math and provides strong security assurances at
                         smaller key lengths. RSA keys can be replaced with ECDSA. They are currently
                         supported by only a small number of CAs, but we expect that most will offer
                         them in the future.</para>
@@ -593,7 +597,7 @@
         <title>Changes</title>
         <para>This section tracks document changes over time, starting with version 1.3.</para>
         <section renderas="sect3">
-            <title>Version 1.3 (11 September 2013)</title>
+            <title>Version 1.3 (12 September 2013)</title>
             <para>The following changes were made in this version:</para>
             <itemizedlist>
                 <listitem>
