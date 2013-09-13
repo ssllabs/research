@@ -5,7 +5,7 @@
     version="5.0">
     <info>
         <title>SSL/TLS Deployment Best Practices</title>
-        <releaseinfo>version 1.3 draft 2 (12 September 2013)</releaseinfo>
+        <releaseinfo>version 1.3 draft 3 (17 September 2013)</releaseinfo>
         <copyright>
             <year>2012-2013</year>
             <holder>Qualys SSL Labs</holder>
@@ -598,7 +598,7 @@
         <para>The first release of this guide was on 24 February 2012. This section tracks document
             changes over time, starting with version 1.3.</para>
         <section renderas="sect3">
-            <title>Version 1.3 (12 September 2013)</title>
+            <title>Version 1.3 (17 September 2013)</title>
             <para>The following changes were made in this version:</para>
             <itemizedlist>
                 <listitem>
