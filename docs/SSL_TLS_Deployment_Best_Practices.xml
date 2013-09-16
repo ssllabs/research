@@ -530,7 +530,7 @@
             advise that you use a comprehensive SSL/TLS assessment tool initially to verify your
             configuration to ensure that you start out secure, and then periodically to ensure that
             you stay secure. For public web sites, our <link
-                xlink:href="httsp://www.ssllabs.com/ssltest/">free online assessment tool on the SSL
+                xlink:href="https://www.ssllabs.com/ssltest/">free online assessment tool on the SSL
                 Labs web site</link> is hard to beat. The <firstterm>Handshake
                 Simulation</firstterm> feature, in particular, is very useful, because it shows
             exactly what security parameters would be used by a variety of commonly used SSL
