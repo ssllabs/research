@@ -647,11 +647,11 @@
         <para><link xlink:href="https://www.ssllabs.com">SSL Labs</link> is Qualys&#x2019;s research
             effort to understand SSL/TLS and PKI as well as to provide tools and documentation to
             assist with assessment and configuration. Since 2009, when SSL Labs was launched,
-            hundreds and thousands of web sites have checked and improved their SSL configuration
-            using the free online assessment tool. Other projects run by SSL Labs include periodic
-            Internet-wide surveys of SSL configuration and <link
+            hundreds of thousands of assessments have been performed using the free online
+            assessment tool. Other projects run by SSL Labs include periodic Internet-wide surveys
+            of SSL configuration and <link
                 xlink:href="https://www.trustworthyinternet.org/ssl-pulse/">SSL Pulse</link>, a
-            monthly scan of the selected most popular web sites in the world.</para>
+            monthly scan of about 170,000 most popular SSL-enabled web sites in the world.</para>
     </section>
     <section renderas="sect2">
         <title>About Qualys</title>
