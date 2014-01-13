@@ -112,9 +112,9 @@
                     <term>Certificate quality</term>
                     <listitem>
                         <para>Three certificate types are currently in use: domain-validated,
-                            organisation-validated and extended-validation (EV) certificates. This
+                            organization-validated and extended-validation (EV) certificates. This
                             guide requires a certificate to be correct, but does not go beyond this
-                            basic requirement. The domain-validated and organisation-validated
+                            basic requirement. The domain-validated and organization-validated
                             certificates are generally treated in the same way by the current
                             generation of browser software, and thus offer similar assurance to
                             users. EV certificates are treated significantly better and, generally,
@@ -164,7 +164,7 @@
                 enough.</para>
         </section>
         <section>
-            <title>Acknowledgements</title>
+            <title>Acknowledgments</title>
             <para>The first version of this guide was written by <link
                     xlink:href="http://blog.ivanristic.com">Ivan Ristic</link>, and subsequently
                 enhanced by the contributions from the following individuals, listed in alphabetical
@@ -178,7 +178,7 @@
             certificate that is not trusted (i.e., is not ultimately signed by a well-known
             certificate authority) fails to prevent man-in-the-middle (MITM) attacks and renders SSL
             effectively useless. A certificate that is incorrect in some other way (e.g., a
-            certificate that has expired) erodes trust and, in the long term, jeopardises the
+            certificate that has expired) erodes trust and, in the long term, jeopardizes the
             security of the Internet as a whole. </para>
         <para>For these reasons, any of the following certificate issues immediately result in a
             zero score:</para>
@@ -204,9 +204,9 @@
             </listitem>
         </itemizedlist>
         <note>
-            <para>Some organisations create their own (private) CA certificates, a practice that is
+            <para>Some organizations create their own (private) CA certificates, a practice that is
                 entirely legitimate, provided such CA certificates are distributed, in a safe manner
-                (e.g., through the use of customised browsers) to all those who need it. Without the
+                (e.g., through the use of customized browsers) to all those who need it. Without the
                 access to such certificates we may not be able to verify that a site we are
                 inspecting has a trusted certificate, but we believe that such sites will be
                 relatively rare. Such issues can be considered on a case-by-case basis.</para>
@@ -373,7 +373,7 @@
             <para>To break a communication session, an attacker can attempt to break the symmetric
                 cipher used for the bulk of the communication. A stronger cipher allows for stronger
                 encryption and thus increases the effort needed to break it. Because a server can
-                support ciphers of varying strengths, we arrived at a scoring system that penalises
+                support ciphers of varying strengths, we arrived at a scoring system that penalizes
                 the use of weak ciphers. To calculate the score for this category, we follow this
                 algorithm: </para>
             <orderedlist>
@@ -534,14 +534,14 @@
         <para>The Secure Sockets Layer (SSL) protocol is a standard for encrypted network
             communication. It was conceived at Netscape in 1994; version 2.0 was the first public
             release. SSL was later upgraded to 3.0, and, with further minor improvements,
-            standardised under the name TLS (<firstterm>Transport Layer Security</firstterm>). TLS
+            standardized under the name TLS (<firstterm>Transport Layer Security</firstterm>). TLS
             v1.2, the most recent version, is defined by <link
                 xlink:href="http://www.ietf.org/rfc/rfc5246.txt">RFC 5246</link>.</para>
     </section>
     <section>
         <title>About SSL Labs</title>
         <para><link xlink:href="https://www.ssllabs.com">SSL Labs</link> is a computer security
-            research organisation that, unsurprisingly, focuses on the SSL standard. Our aim is to
+            research organization that, unsurprisingly, focuses on the SSL standard. Our aim is to
             discuss the rarely mentioned aspects of SSL, promote its correct usage, and generally
             inspire everyone to do their part to promote security. Unlike in some other areas (e.g.,
             application security), security is relatively easy to achieve when it comes to SSL. Thus
