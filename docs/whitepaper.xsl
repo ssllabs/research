@@ -299,7 +299,7 @@
         </xsl:variable>
 
         <fo:block space-before.minimum="1em" space-before.optimum="1em" space-before.maximum="1em"
-            start-indent="0.50in" end-indent="0.50in" border-left="4pt solid #808080"
+            start-indent="0.50in" end-indent="0.50in" border-left="4pt solid #a70b16"
             padding-left="8pt" padding-top="2pt" padding-bottom="0pt" space-after.minimum="1em"
             space-after.optimum="1em" space-after.maximum="1em" id="{$id}">
             <xsl:if test="$admon.textlabel != 0 or title">
