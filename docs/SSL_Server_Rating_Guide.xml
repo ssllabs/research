@@ -428,42 +428,6 @@
                 Deployment Best Practices</link> document from the SSL Labs web site.</para>
     </section>
     <section>
-        <title>For Consideration in Future Releases</title>
-        <para>We have left a number of open issues for future consideration:</para>
-        <variablelist>
-            <varlistentry>
-                <term>Perfect forward secrecy bonus points</term>
-                <listitem>
-                    <para>Some key exchange mechanisms allow for perfect forward secrecy. Perfect
-                        forward secrecy is a property that ensures that short-term session keys
-                        cannot be compromised after a compromise of a long-term secret key (which
-                        was used in the generation of the short-term keys). We should consider
-                        giving bonus points to those servers that allow only the key exchange
-                        mechanisms that allow for forward secrecy.</para>
-                </listitem>
-            </varlistentry>
-            <varlistentry>
-                <term>Differences between encryption algorithms</term>
-                <listitem>
-                    <para>Should the choice of encryption algorithms affect server score? For
-                        example, it is said that RC4 is not as strong as once thought, so its
-                        availability might warrant negative points.</para>
-                </listitem>
-            </varlistentry>
-            <varlistentry>
-                <term>Default ciphers</term>
-                <listitem>
-                    <para>In SSL v3 and later, clients provide servers with a list of cipher suites
-                        they are willing to use. We want to determine whether servers typically
-                        select the first mutually acceptable cipher suite for a session, or if there
-                        is a logic behind the suite selection. If the latter, then we might want to
-                        consider giving a better grade to the servers that make better choices.
-                    </para>
-                </listitem>
-            </varlistentry>
-        </variablelist>
-    </section>
-    <section>
         <title>Changes</title>
         <para>We are planning to release a completely new version of the rating guide in Q1 2014,
             building on what we have learned from the current version. In the meantime, we are
