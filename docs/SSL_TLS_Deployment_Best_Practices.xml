@@ -212,10 +212,11 @@
             <title>2.3. Use Secure Cipher Suites</title>
             <para>To communicate securely, you must first ascertain that you are communicating
                 directly with the desired party (and not through someone else who will eavesdrop),
-                as well as exchanging data securely. In SSL and TLS, cipher sites are used to define
-                how secure communication takes place. They are composed from varying building blocks
-                with the idea of achieving security through diversity. If one of the building blocks
-                is found to be weak or insecure, you should be able to switch to another.</para>
+                as well as exchanging data securely. In SSL and TLS, cipher suites are used to
+                define how secure communication takes place. They are composed from varying building
+                blocks with the idea of achieving security through diversity. If one of the building
+                blocks is found to be weak or insecure, you should be able to switch to
+                another.</para>
             <para>Your goal should be thus to use only suites that provide authentication and
                 encryption of 128 bits or stronger. Everything else must be avoided:</para>
             <itemizedlist>
