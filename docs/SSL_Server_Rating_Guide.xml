@@ -202,6 +202,9 @@
             <listitem>
                 <para>Use of a revoked certificate</para>
             </listitem>
+            <listitem>
+                <para>Insecure certificate signature</para>
+            </listitem>
         </itemizedlist>
         <note>
             <para>Some organizations create their own (private) CA certificates, a practice that is
@@ -312,12 +315,17 @@
                         MITM attack, gaining access to the complete communication channel.</para>
                 </listitem>
                 <listitem>
-                    <para>Public cryptography is used during key exchange: the stronger the
-                        server&#x2019;s private key, the more difficult it is to break the key
-                        exchange phase. A weak key, or an exchange procedure that uses only a part
-                        of the key (the so-called exportable key exchanges), can result in a weak
-                        key exchange phase that makes the per-session secret keys easier to
-                        compromise.</para>
+                    <para>Most servers also rely on public cryptography for the key exchange. Thus.
+                        the stronger the server&#x2019;s private key, the more difficult it is to
+                        break the key exchange phase. A weak key, or an exchange procedure that uses
+                        only a part of the key (the so-called exportable key exchanges), can result
+                        in a weak key exchange phase that makes the per-session secret keys easier
+                        to compromise. Some servers use key exchange mechanisms that do not depend
+                        on the private key (the key is still used for authentication). Two popular
+                        algorithms are the ephemeral Diffie-Hellman key exchange (DHE) and its
+                        Elliptic Crypto variation ECDHE. If a separate key exchange mechanism is
+                        used, the overall strength will depend on its strength and the strength of
+                        the private key.</para>
                 </listitem>
             </itemizedlist>
             <table xml:id="table-key-exchange">
@@ -341,7 +349,7 @@
                             <entry>0%</entry>
                         </row>
                         <row>
-                            <entry>Key length &lt; 512 bits</entry>
+                            <entry>Key or DH parameter strength &lt; 512 bits</entry>
                             <entry>20%</entry>
                         </row>
                         <row>
@@ -349,24 +357,32 @@
                             <entry>40%</entry>
                         </row>
                         <row>
-                            <entry>Key length &lt; 1024 bits (e.g., 512)</entry>
+                            <entry>Key or DH parameter strength &lt; 1024 bits (e.g., 512)</entry>
                             <entry>40%</entry>
                         </row>
                         <row>
-                            <entry>Key length &lt; 2048 bits (e.g., 1024)</entry>
+                            <entry>Key or DH parameter strength &lt; 2048 bits (e.g., 1024)</entry>
                             <entry>80%</entry>
                         </row>
                         <row>
-                            <entry>Key length &lt; 4096 bits (e.g., 2048)</entry>
+                            <entry>Key or DH parameter strength &lt; 4096 bits (e.g., 2048)</entry>
                             <entry>90%</entry>
                         </row>
                         <row>
-                            <entry>Key length >= 4096 bits (e.g., 4096)</entry>
+                            <entry>Key or DH parameter strength >= 4096 bits (e.g., 4096)</entry>
                             <entry>100%</entry>
                         </row>
                     </tbody>
                 </tgroup>
             </table>
+            <note>
+                <para>For suites that rely on DHE or ECDHE key exchange, the strength of DH
+                    parameters is taken into account when determining the strength of the handshake
+                    as a whole. Many servers that support DHE use DH parameters that provide 1024
+                    bits of security. On such servers, the strength of the key exchange will never
+                    go above 1024 bits, even if the private key is stronger (usually 2048
+                    bits).</para>
+            </note>
         </section>
         <section>
             <title>Cipher Strength</title>
@@ -489,6 +505,16 @@
                 <listitem>
                     <para>New grade level A- is introduced, for servers with generally good
                         configuration that have one ore more serious warnings.</para>
+                </listitem>
+                <listitem>
+                    <para>Clarify that the strength of DHE and ECDHE parameters affect key exchange
+                        scoring. This has always been the case, but the previous revisions of the
+                        text were not clear about it.</para>
+                </listitem>
+                <listitem>
+                    <para>Explicitly state that insecure certificate signature affects the
+                        certificate score. This, too, has always been the case, but it had not been
+                        documented.</para>
                 </listitem>
             </itemizedlist>
         </section>
