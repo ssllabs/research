@@ -203,7 +203,7 @@
                 <para>Use of a revoked certificate</para>
             </listitem>
             <listitem>
-                <para>Insecure certificate signature</para>
+                <para>Insecure certificate signature (MD2 or MD5)</para>
             </listitem>
         </itemizedlist>
         <note>
@@ -513,8 +513,10 @@
                 </listitem>
                 <listitem>
                     <para>Explicitly state that insecure certificate signature affects the
-                        certificate score. This, too, has always been the case, but it had not been
-                        documented.</para>
+                        certificate score. This has always been the case for MD2.</para>
+                </listitem>
+                <listitem>
+                    <para>Consider MD5 certificate signatures insecure.</para>
                 </listitem>
             </itemizedlist>
         </section>
