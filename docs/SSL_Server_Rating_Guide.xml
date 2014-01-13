@@ -512,11 +512,11 @@
                         text were not clear about it.</para>
                 </listitem>
                 <listitem>
-                    <para>Explicitly state that insecure certificate signature affects the
+                    <para>Explicitly state that insecure certificate signatures affect the
                         certificate score. This has always been the case for MD2.</para>
                 </listitem>
                 <listitem>
-                    <para>Consider MD5 certificate signatures insecure.</para>
+                    <para>MD5 certificate signatures are now considered insecure.</para>
                 </listitem>
             </itemizedlist>
         </section>
