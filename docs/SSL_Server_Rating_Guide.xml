@@ -5,11 +5,10 @@
     version="5.0">
     <info>
         <title>SSL Server Rating Guide</title>
-        <releaseinfo>version 2009e DRAFT (First published in 2009; last update on 21 January
-            2014)</releaseinfo>
+        <releaseinfo>version 2009e (21 January 2014)</releaseinfo>
         <copyright>
             <year>2009-2014</year>
-            <holder>SSL Labs (www.ssllabs.com)</holder>
+            <holder>Qualys SSL Labs (www.ssllabs.com)</holder>
         </copyright>
         <abstract>
             <para>The Secure Sockets Layer (SSL) protocol is a standard for encrypted network
@@ -22,11 +21,10 @@
     </info>
     <section>
         <title>Methodology Overview</title>
-        <para>Our approach consists of three steps:</para>
+        <para>Our approach consists of four steps:</para>
         <orderedlist>
             <listitem>
-                <para>We first look at a certificate to verify that it is valid and trusted. A
-                    server that fails this step is always assigned a zero score.</para>
+                <para>We first look at a certificate to verify that it is valid and trusted.</para>
             </listitem>
             <listitem>
                 <para>We inspect server configuration in three categories:</para>
@@ -43,16 +41,18 @@
                 </orderedlist>
             </listitem>
             <listitem>
-                <para>The final score&#8212;a number between 0 and 100&#8212;is a combination of the
-                    scores achieved in the individual categories. A zero score in any category
-                    forces the total score to zero.</para>
+                <para>We combine the category scores into an overall score (expressed as a number
+                    between 0 and 100). A zero in any category will push the overall score to zero.
+                    Then, a letter grade is calculated, using the table below.</para>
+            </listitem>
+            <listitem>
+                <para>We then apply a series of rules (documented in the Changes section) to handle
+                    some aspects of server configuration that cannot be expressed via numerical
+                    scoring. Most rules will reduce the grade (to A-, B, C, D, E, or F) if they
+                    encounter an unwanted feature. Some rules will increase the grade (to A+), to
+                    reward exceptional configurations.</para>
             </listitem>
         </orderedlist>
-        <para>Because small differences between configurations are sometimes less important, we also
-            assign letter grades to servers. Letter grades are generally more useful&#8212;it is
-            instantly clear that a server given an <literal>A</literal> is well configured. <xref
-                linkend="table-grades"/> shows how a numerical score is translated into a letter
-            grade.</para>
         <table xml:id="table-grades">
             <title>Letter grade translation</title>
             <tgroup cols="2">
@@ -92,10 +92,10 @@
                 </tbody>
             </tgroup>
         </table>
-        <para>Our methodology is purposefully designed to be straightforward and practical. Advanced
-            users may prefer to dig deep into the finer details of SSL (e.g., which ciphers are
-            better than others), but we feel that such an approach, although intellectually
-            challenging, would make this guide less useful in practice.</para>
+        <para>Our methodology was initially designed to be simple and straightforward, but has,
+            unfortunately, gotten more complicated over time. This document has not been fully
+            updated to reflect the changes. In the next major version, we will start afresh, aiming
+            to go back to the original simplicity.</para>
         <section>
             <title>What This Guide Does Not Cover</title>
             <para>Our immediate goal is to focus on those configuration problems whose presence can
@@ -137,8 +137,8 @@
                             guide does not attempt to do it. We leave this problem for the
                             consideration in the future. In the meantime, to remove any doubt that
                             might exist about the seriousness of the above-mentioned issues, we will
-                            state that <emphasis>any application that incorrectly implements session
-                                token propagation should be awarded a zero score.</emphasis></para>
+                            state that any application that incorrectly implements session token
+                            propagation should be awarded a zero score.</para>
                     </listitem>
                 </varlistentry>
             </variablelist>
@@ -204,6 +204,9 @@
             </listitem>
             <listitem>
                 <para>Insecure certificate signature (MD2 or MD5)</para>
+            </listitem>
+            <listitem>
+                <para>Insecure key</para>
             </listitem>
         </itemizedlist>
         <note>
@@ -280,7 +283,7 @@
                     <tbody>
                         <row>
                             <entry>SSL 2.0</entry>
-                            <entry>20%</entry>
+                            <entry>0%</entry>
                         </row>
                         <row>
                             <entry>SSL 3.0</entry>
@@ -331,8 +334,8 @@
             <table xml:id="table-key-exchange">
                 <title>Key exchange rating guide</title>
                 <tgroup cols="2">
-                    <colspec colname="c1" colnum="1"/>
-                    <colspec colname="c2" colnum="2"/>
+                    <colspec colname="c1" colnum="1" colwidth="1*"/>
+                    <colspec colname="c2" colnum="2" colwidth="1*"/>
                     <thead>
                         <row>
                             <entry>Key exchange aspect</entry>
@@ -459,10 +462,10 @@
                     <para>Insecure renegotiation is not allowed (F). </para>
                 </listitem>
                 <listitem>
-                    <para>Vulnerability to the BEAST attack caps the grade to B. </para>
+                    <para>Vulnerability to the BEAST attack caps the grade at B. </para>
                 </listitem>
                 <listitem>
-                    <para>Vulnerability to the CRIME attack caps the grade to B. </para>
+                    <para>Vulnerability to the CRIME attack caps the grade at B. </para>
                 </listitem>
                 <listitem>
                     <para>The test results no longer show the numerical score (0-100) because we
@@ -470,9 +473,9 @@
                 </listitem>
             </itemizedlist>
             <para>In addition, we've taken the opportunity to remove the old configuration advice,
-                directing the readers to our <emphasis><link
-                        xlink:href="https://www.ssllabs.com/projects/best-practices/">SSL/TLS
-                        Deployment Best Practices</link></emphasis> document instead.</para>
+                directing the readers to our <link
+                    xlink:href="https://www.ssllabs.com/projects/best-practices/">SSL/TLS Deployment
+                    Best Practices</link> document instead.</para>
         </section>
         <section>
             <title>Changes in 2009d (9 September 2013)</title>
@@ -481,42 +484,56 @@
         </section>
         <section>
             <title>Changes in 2009e (21 January 2014)</title>
-            <para>The changes are as follows:</para>
+            <para>This update incorporates several ideas that we were planning for the next major
+                release. The changes are as follows:</para>
             <itemizedlist>
                 <listitem>
                     <para>Support for TLS 1.2 is now required to get the A grade. Without, the grade
-                        is capped to B.</para>
+                        is capped a B.</para>
+                </listitem>
+                <listitem>
+                    <para>Keys below 2048 bits (e.g., 1024) are now considered weak, and the grade
+                        capped at B.</para>
+                </listitem>
+                <listitem>
+                    <para>Keys under 1024 bits are now considered insecure (F).</para>
                 </listitem>
                 <listitem>
                     <para>This version introduces warnings as part of rating criteria. In most
                         cases, warnings are about issues that do not yet affect the grade, but
                         likely will in the future. Server administrators are advised to correct the
-                        issues as soon as possible.</para>
+                        warnings as soon as possible.</para>
                 </listitem>
                 <listitem>
-                    <para>Warning: RC4 is used with modern browsers.</para>
+                    <para>Warning: RC4 is used with TLS 1.1 or newer protocol. Because RC4 is weak,
+                        the only reason to use it is to mitigate the BEAST attack. For some, BEAST
+                        is still a threat. Because TLS 1.1 and newer are not vulnerable to BEAST,
+                        there is no reason to use RC4 with them.</para>
                 </listitem>
                 <listitem>
                     <para>Warning: No support for Forward Security.</para>
                 </listitem>
                 <listitem>
-                    <para>Warning: No support for HTTP Strict Transport Security.</para>
+                    <para>New grade A- is introduced for servers with generally good configuration
+                        that have one ore more warnings.</para>
                 </listitem>
                 <listitem>
-                    <para>New grade level A- is introduced, for servers with generally good
-                        configuration that have one ore more serious warnings.</para>
+                    <para>New grade A+ is introduced for servers with exceptional configurations. At
+                        the moment, this grade is awarded to servers with good configuration, no
+                        warnings, and HTTP Strict Transport Security support with a
+                            <literal>max-age</literal> of at least 6 months.</para>
                 </listitem>
                 <listitem>
-                    <para>Clarify that the strength of DHE and ECDHE parameters affect key exchange
-                        scoring. This has always been the case, but the previous revisions of the
-                        text were not clear about it.</para>
+                    <para>MD5 certificate signatures are now considered insecure (F).</para>
                 </listitem>
                 <listitem>
-                    <para>Explicitly state that insecure certificate signatures affect the
-                        certificate score. This has always been the case for MD2.</para>
+                    <para>Clarified that insecure certificate signatures affect the certificate
+                        score. This has always been the case for MD2.</para>
                 </listitem>
                 <listitem>
-                    <para>MD5 certificate signatures are now considered insecure.</para>
+                    <para>Clarified that the strength of DHE and ECDHE parameters affects key
+                        exchange scoring. This has always been the case, but previous revisions of
+                        the text were not clear about it.</para>
                 </listitem>
             </itemizedlist>
         </section>
