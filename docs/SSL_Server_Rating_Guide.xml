@@ -514,6 +514,9 @@
                     <para>Warning: No support for Forward Security.</para>
                 </listitem>
                 <listitem>
+                    <para>Warning: Secure renegotiation is not supported.</para>
+                </listitem>
+                <listitem>
                     <para>New grade A- is introduced for servers with generally good configuration
                         that have one ore more warnings.</para>
                 </listitem>

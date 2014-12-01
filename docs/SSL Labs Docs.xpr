@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project version="15.1">
+<project version="16.0">
     <meta>
         <filters directoryPatterns="" filePatterns="" positiveFilePatterns="" showHiddenFiles="false"/>
         <options>
-            <serialized version="15.1" xml:space="preserve">
-                <map>
+            <serialized version="16.0" xml:space="preserve">
+                <serializableOrderedMap>
                     <entry>
                         <String>key.spellcheck.option.pane</String>
                         <Boolean>true</Boolean>
@@ -14,7 +14,7 @@
                         <scenarioAssociation-array>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>SSL_Server_Rating_Guide.xml</String>
+                                    <String>SSL_TLS_Deployment_Best_Practices.xml</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
@@ -29,7 +29,7 @@
                             </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>SSL_TLS_Deployment_Best_Practices.xml</String>
+                                    <String>SSL_Server_Rating_Guide.xml</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
@@ -303,7 +303,7 @@
                             </field>
                         </spellCheckOptions>
                     </entry>
-                </map>
+                </serializableOrderedMap>
             </serialized>
         </options>
     </meta>
