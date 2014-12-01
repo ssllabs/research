@@ -650,23 +650,24 @@
             assist with assessment and configuration. Since 2009, when SSL Labs was launched,
             hundreds of thousands of assessments have been performed using the free online
             assessment tool. Other projects run by SSL Labs include periodic Internet-wide surveys
-            of SSL configuration and <link
+            of TLS configuration and <link
                 xlink:href="https://www.trustworthyinternet.org/ssl-pulse/">SSL Pulse</link>, a
-            monthly scan of about 170,000 most popular SSL-enabled web sites in the world.</para>
+            monthly scan of about 150,000 most popular TLS-enabled web sites in the world.</para>
     </section>
     <section renderas="sect2">
         <title>About Qualys</title>
         <para><link xlink:href="http://www.qualys.com">Qualys, Inc.</link> (NASDAQ: QLYS), is a
-            pioneer and leading provider of cloud security and compliance solutions with over 6,000
+            pioneer and leading provider of cloud security and compliance solutions with over 6,700
             customers in more than 100 countries, including a majority of each of the Forbes Global
             100 and Fortune 100. The QualysGuard Cloud Platform and integrated suite of solutions
             help organizations simplify security operations and lower the cost of compliance by
             delivering critical security intelligence on demand and automating the full spectrum of
             auditing, compliance, and protection for IT systems and web applications. Founded in
             1999, Qualys has established strategic partnerships with leading managed service
-            providers and consulting organizations, including Accuvant, BT, Dell SecureWorks,
-            Fujitsu, NTT, Symantec, Verizon, and Wipro. The company is also a founding member of the
-                <link xlink:href="http://www.cloudsecurityalliance.org">Cloud Security
+            providers and consulting organizations, including BT, Dell SecureWorks, Fujitsu, IBM,
+            NTT, Symantec, Verizon, and Wipro. The company is also a founding member of the <link
+                xlink:href="http://www.counciloncybersecurity.org/">Council on CyberSecurity</link>
+            and the <link xlink:href="http://www.cloudsecurityalliance.org">Cloud Security
                 Alliance</link> (CSA).</para>
         <para>Qualys, the Qualys logo and QualysGuard are proprietary trademarks of Qualys, Inc. All
             other products or names may be trademarks of their respective companies.</para>
