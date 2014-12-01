@@ -637,11 +637,11 @@
     </section>
     <section renderas="sect2">
         <title>Acknowledgments</title>
-        <para>Special thanks to Marsh Ray (PhoneFactor), Nasko Oskov (Google), Adrian F. Dimcev, and
-            Ryan Hurst (GlobalSign) for their valuable feedback and help in crafting this document.
-            Also thanks to many others who generously share their knowledge of security and
-            cryptography with the world. The words in this document might be mine, but the
-            guidelines given draw on the work of the entire security community.</para>
+        <para>Special thanks to Marsh Ray, Nasko Oskov, Adrian F. Dimcev, and Ryan Hurst for their
+            valuable feedback and help in crafting the initial version of this document. Also thanks
+            to many others who generously share their knowledge of security and cryptography with
+            the world. The guidelines presented here draw on the work of the entire security
+            community.</para>
     </section>
     <section renderas="sect2">
         <title>About SSL Labs</title>
