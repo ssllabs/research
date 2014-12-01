@@ -15,14 +15,14 @@
         </author>
         <abstract>
             <para>SSL/TLS is a deceptively simple technology. It is easy to deploy, and it just
-                works&#x2026; except that it does not, really. The first part is true—SSL is easy to
+                works&#x2026; except that it does not, really. The first part is true—TLS is easy to
                 deploy—but it turns out that it is not easy to deploy
-                <emphasis>correctly</emphasis>. To ensure that SSL provides the necessary security,
+                <emphasis>correctly</emphasis>. To ensure that TLS provides the necessary security,
                 users must put extra effort into properly configuring their servers.</para>
             <para>In 2009, we began our work on <link xlink:href="https://www.ssllabs.com/">SSL
-                    Labs</link> because we wanted to understand how SSL was used and to remedy the
-                lack of easy-to-use SSL tools and documentation. We have achieved some of our goals
-                through our global surveys of SSL usage, as well as the online assessment tool, but
+                    Labs</link> because we wanted to understand how TLS was used and to remedy the
+                lack of easy-to-use TLS tools and documentation. We have achieved some of our goals
+                through our global surveys of TLS usage, as well as the online assessment tool, but
                 the lack of documentation is still evident. This document is a first step toward
                 addressing that problem.</para>
             <para>Our aim here is to provide clear and concise instructions to help overworked
@@ -35,7 +35,7 @@
     </info>
     <section renderas="sect2">
         <title>1. Private Key and Certificate</title>
-        <para>The quality of the protection provided by SSL depends entirely on the private key,
+        <para>The quality of the protection provided by TLS depends entirely on the private key,
             which lays down the foundation for the security, and the certificate, which communicates
             the identity of the server to its visitors.</para>
         <section renderas="sect3">
@@ -155,7 +155,7 @@
     </section>
     <section renderas="sect2">
         <title>2. Configuration</title>
-        <para>With correct SSL server configuration, you ensure that your credentials are properly
+        <para>With correct TLS server configuration, you ensure that your credentials are properly
             presented to the site’s visitors, that only secure cryptographic primitives are used,
             and that all known weaknesses are mitigated.</para>
         <section renderas="sect3">
@@ -391,7 +391,7 @@
         <title>3. Performance</title>
         <para>Security is our main focus in this guide, but we must also pay attention to
             performance; a secure service that does not satisfy performance criteria will no doubt
-            be dropped. However, because SSL configuration does not usually have a significant
+            be dropped. However, because TLS configuration does not usually have a significant
             overall performance impact, we are limiting the discussion in this section to the common
             configuration problems that result in serious performance degradation.</para>
         <section renderas="sect3">
@@ -412,15 +412,15 @@
         </section>
         <section renderas="sect3">
             <title>3.3. Use Persistent Connections (HTTP)</title>
-            <para>These days, most of the overhead of SSL comes not from the CPU-hungry
-                cryptographic operations but from network latency. An SSL handshake is performed
+            <para>These days, most of the overhead of TLS comes not from the CPU-hungry
+                cryptographic operations but from network latency. An TLS handshake is performed
                 after the TCP handshake completes; it requires a further exchange of packets. To
                 minimize the cost of latency, you enable HTTP persistence (keep-alives), allowing
                 your users to submit many HTTP requests over a single TCP connection.</para>
         </section>
         <section renderas="sect3">
             <title>3.4. Enable Caching of Public Resources (HTTP)</title>
-            <para>When communicating over SSL, browsers assume that all traffic is sensitive. They
+            <para>When communicating over TLS, browsers assume that all traffic is sensitive. They
                 will typically use the memory to cache certain resources, but once you close the
                 browser, all the content may be lost. To get a performance boost and enable
                 long-term caching of some resources, mark public resources (e.g., images) as public
@@ -440,17 +440,17 @@
                 problems today. We see the following problems:</para>
             <itemizedlist>
                 <listitem>
-                    <para>No SSL on sites that need it</para>
+                    <para>No TLS on sites that need it</para>
                 </listitem>
                 <listitem>
-                    <para>Sites that have SSL but that do not enforce it</para>
+                    <para>Sites that have TLS but that do not enforce it</para>
                 </listitem>
                 <listitem>
-                    <para>Sites that mix SSL and non-SSL content, sometimes even within the same
+                    <para>Sites that mix TLS and non-TLS content, sometimes even within the same
                         page</para>
                 </listitem>
                 <listitem>
-                    <para>Sites with programming errors that subvert SSL</para>
+                    <para>Sites with programming errors that subvert TLS</para>
                 </listitem>
             </itemizedlist>
             <para>Although many of these problems can be mitigated if you know exactly what you’re
@@ -459,8 +459,8 @@
         </section>
         <section renderas="sect3">
             <title>4.2. Avoid Mixed Content</title>
-            <para>Mixed-content pages are those that are transmitted over SSL but include resources
-                (e.g., JavaScript files, images, CSS files) that are not transmitted over SSL. Such
+            <para>Mixed-content pages are those that are transmitted over TLS but include resources
+                (e.g., JavaScript files, images, CSS files) that are not transmitted over TLS. Such
                 pages are not secure. An active man-in-the-middle (MITM) attacker can piggyback on a
                 single unprotected JavaScript resource, for example, and hijack the entire user
                 session. Even if you follow the advice from the previous section and encrypt your
@@ -484,7 +484,7 @@
         </section>
         <section renderas="sect3">
             <title>4.4. Secure Cookies</title>
-            <para>To be properly secure, a web site requires SSL, but also that all its cookies are
+            <para>To be properly secure, a web site requires TLS, but also that all its cookies are
                 marked as secure. Failure to secure the cookies makes it possible for an active MITM
                 attacker to tease some information out through clever tricks, even on web sites that
                 are 100% encrypted.</para>
@@ -492,18 +492,18 @@
         <section renderas="sect3">
             <title>4.5. Deploy HTTP Strict Transport Security</title>
             <para><emphasis>HTTP Strict Transport Security</emphasis> (HSTS) is a safety net for
-                SSL: it was designed to ensure that security remains intact even in the case of
+                TLS: it was designed to ensure that security remains intact even in the case of
                 configuration problems and implementation errors. To activate HSTS protection, you
                 set a single response header in your web sites. After that, browsers that support
                 HSTS (at this time, Chrome, Firefox, and Opera) will enforce it.</para>
             <para>The goal of HSTS is simple: after activation, it does not allow any insecure
                 communication with the web site that uses it. It achieves this goal by automatically
                 converting all plain-text links to secure ones. As a bonus, it also disables
-                click-through SSL certificate warnings. (SSL certificate warnings are an indicator
-                of an active MITM attack. Studies have shown that most users click through these
-                warnings, so it is in your best interest to never allow them.)</para>
+                click-through certificate warnings. (Certificate warnings are an indicator of an
+                active MITM attack. Studies have shown that most users click through these warnings,
+                so it is in your best interest to never allow them.)</para>
             <para>Adding support for HSTS is the single most important improvement you can make for
-                the SSL security of your web sites. New sites should always be designed with HSTS in
+                the TLS security of your web sites. New sites should always be designed with HSTS in
                 mind and the old sites converted to support it wherever possible.</para>
         </section>
         <section renderas="sect3">
@@ -516,7 +516,7 @@
         </section>
         <section renderas="sect3">
             <title>4.7. Ensure That There are No Other Vulnerabilities</title>
-            <para>This item is a reminder that SSL does not equal security. SSL is designed to
+            <para>This item is a reminder that TLS does not equal security. TLS is designed to
                 address only one aspect of security – confidentiality and integrity of the
                 communication between you and your users—but there are many other threats that you
                 need to deal with. In most cases, that means ensuring that your web site does not
@@ -534,7 +534,7 @@
                 xlink:href="https://www.ssllabs.com/ssltest/">free online assessment tool on the SSL
                 Labs web site</link> is hard to beat. The <firstterm>Handshake
                 Simulation</firstterm> feature, in particular, is very useful, because it shows
-            exactly what security parameters would be used by a variety of commonly used SSL
+            exactly what security parameters would be used by a variety of commonly used TLS
             clients.</para>
     </section>
     <section renderas="sect2">
