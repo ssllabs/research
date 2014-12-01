@@ -6,6 +6,9 @@
     <xsl:import href="whitepaper.xsl" />
 		
     <xsl:param name="fd.body.font.family">Minion</xsl:param>	
-    <xsl:param name="fd.title.font.family">Trade Gothic Condensed</xsl:param>		       
+    <xsl:param name="fd.title.font.family">Trade Gothic Condensed</xsl:param>
+    
+    <xsl:param name="body.font.master">13</xsl:param>
+    <xsl:param name="line-height">1.3</xsl:param>    
 	
 </xsl:stylesheet>
