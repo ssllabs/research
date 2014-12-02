@@ -562,17 +562,15 @@
                 <term>Public Key Pinning</term>
                 <listitem>
                     <para><firstterm>Public Key Pinning</firstterm> is designed to give web site
-                        operators the means to restrict which Certification Authorities can issue
-                        certificates for their web sites. This feature has been deployed by Google
-                        for some time now (it's hard-coded into their browser, Chrome) and has
-                        proven to be very useful in preventing attacks and making the public aware
-                        of them. Two proposals are currently being developed: <emphasis><link
-                            xlink:href="https://datatracker.ietf.org/doc/draft-ietf-websec-key-pinning/"
-                                >Public Key Pinning Extension for HTTP</link></emphasis>, by the Web
-                        Security Working Group, and <emphasis><link
-                                xlink:href="http://tack.io/draft.html">Trust Assertions for
-                                Certificate Keys</link></emphasis>, by Marlinspike and
-                        Perrin.</para>
+                        operators the means to restrict which CAs can issue certificates for their
+                        web sites. This feature has been deployed by Google for some time now
+                        (hardcoded into their browser, Chrome) and has proven to be very useful in
+                        preventing attacks and making the public aware of them. In 2014, Firefox
+                        also added support for hardcoded pinning. A standard called <emphasis><link
+                                xlink:href="https://datatracker.ietf.org/doc/draft-ietf-websec-key-pinning/"
+                                >Public Key Pinning Extension for HTTP</link></emphasis> has been in
+                        development for a long time, but will be published soon. We expect that it
+                        will be supported by at least some major browsers in the near future.</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
