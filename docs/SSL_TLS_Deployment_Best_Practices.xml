@@ -247,9 +247,11 @@
                         future.</para>
                 </listitem>
                 <listitem>
-                    <para>3DES provides only 108 bits of security (or 112, depending on the source),
-                        which is below the recommended minimum of 128 bits. You should remove
-                        support for this cipher in the near future.</para>
+                    <para>3DES provides about 112 bits of security. This is below the recommended
+                        minimum of 128 bits, but it’s still strong enough. A bigger practical
+                        problem is that 3DES is much slower than the alternatives. Thus, we don’t
+                        recommend it for performance reasons, but it can be kept at the end of the
+                        cipher list for interoperability with very old clients.</para>
                 </listitem>
             </itemizedlist>
         </section>
