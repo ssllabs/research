@@ -502,7 +502,7 @@
                 it.</para>
             <para>The goal of HSTS is simple: after activation, it does not allow any insecure
                 communication with the web site that uses it. It achieves this goal by automatically
-                converting all plain-text links to secure ones. As a bonus, it also disables
+                converting all plaintext links to secure ones. As a bonus, it also disables
                 click-through certificate warnings. (Certificate warnings are an indicator of an
                 active MITM attack. Studies have shown that most users click through these warnings,
                 so it is in your best interest to never allow them.)</para>
