@@ -39,12 +39,14 @@
             the identity of the server to its visitors.</para>
         <section renderas="sect3">
             <title>1.1. Use 2048-bit Private Keys</title>
-            <para>Use 2048-bit RSA or equivalent-strength ECDSA private keys for all your servers.
-                Keys of this strength are secure and should stay secure for a considerable amount of
-                time. If you already have 1024-bit RSA keys in production, replace them with
-                stronger keys as soon as possible. If you believe that you need more than 2048 bits
-                of security, give more consideration to ECDSA keys, which have better performance
-                characteristics.</para>
+            <para>Use 2048-bit RSA or 256-bit ECDSA private keys for all your servers. Keys of this
+                strength are secure and should stay secure for a considerable amount of time. If you
+                have 1024-bit RSA keys in production, replace them with stronger keys as soon as
+                possible. If you believe that you need more than 2048 bits of security, consider
+                using ECDSA keys, which have better performance characteristics. The drawback is
+                that there is a small number of clients that don’t support ECDSA and that you might
+                need to deploy RSA and ECDSA keys in parallel to maintain good
+                interoperability.</para>
         </section>
         <section renderas="sect3">
             <title>1.2. Protect Private Keys</title>
@@ -576,15 +578,19 @@
             <varlistentry>
                 <term>ECDSA private keys</term>
                 <listitem>
-                    <para>Virtually all web sites rely on RSA private keys. This algorithm is thus
-                        the key to the security of the Web, which is why attacks against it continue
-                        to improve. We are currently transitioning from 1024-bit to 2048-bit RSA
-                        keys for that very reason. There are some concerns, however, that further
-                        key length increases might lead to performance issues. Elliptic Curve
+                    <para>Today, most web sites rely on RSA private keys. This algorithm is thus the
+                        key to the security of the Web, which is why attacks against it continue to
+                        improve. Whereas before most sites used to use 1024-bit RSA keys, virtually
+                        everyone moved to 2048 bits. There are some concerns, however, that further
+                        RSA key length increases might lead to performance issues. Elliptic Curve
                         cryptography uses different math and provides strong security assurances at
                         smaller key lengths. RSA keys can be replaced with ECDSA. They are currently
                         supported by only a small number of CAs, but we expect that most will offer
-                        them in the future.</para>
+                        them in the future. When migrating to ECDSA, one concern is that not all
+                        clients support this algorithm. If you’re considering ECDSA, check whether
+                        the move will impact the ability of your users to connect to your servers.
+                        Some platforms support dual-key deployments, enabling you to use RSA and
+                        ECDSA keys in parallel, satisfying all clients.</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
