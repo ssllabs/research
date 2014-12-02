@@ -430,6 +430,14 @@
                 by attaching the <literal>Cache-Control: public</literal> response header to
                 them.</para>
         </section>
+        <section>
+            <title>3.5. Use OCSP Stapling</title>
+            <para><firstterm>OCSP Stapling</firstterm> is a modification of the OCSP protocol that
+                allows revocation information to be delivered as part of the TLS handshake, directly
+                from the server to the browser. As a result, the browser does not need to contact
+                OCSP servers for out-of-band validation and the connection time is significantly
+                reduced.</para>
+        </section>
     </section>
     <section renderas="sect2">
         <title>4. Application Design (HTTP)</title>
@@ -590,16 +598,6 @@
                         the move will impact the ability of your users to connect to your servers.
                         Some platforms support dual-key deployments, enabling you to use RSA and
                         ECDSA keys in parallel, satisfying all clients.</para>
-                </listitem>
-            </varlistentry>
-            <varlistentry>
-                <term>OCSP Stapling</term>
-                <listitem>
-                    <para><firstterm>OCSP Stapling</firstterm> is a modification of the OCSP protocol
-                        that allows revocation information to be bundled with the certificate itself
-                        and thus served directly from the server to the browser. As a result, the
-                        browser does not need to contact OCSP servers for out-of-band validation,
-                        which results in better performance.</para>
                 </listitem>
             </varlistentry>
         </variablelist>
