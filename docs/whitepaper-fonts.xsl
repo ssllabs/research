@@ -16,7 +16,7 @@
     </xsl:attribute-set>
     
     <xsl:attribute-set name="section.title.level2.properties">
-        <xsl:attribute name="font-size">18t</xsl:attribute>        
+        <xsl:attribute name="font-size">18pt</xsl:attribute>        
     </xsl:attribute-set>
     
     <xsl:attribute-set name="section.title.level3.properties">

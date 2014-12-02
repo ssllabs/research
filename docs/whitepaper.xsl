@@ -358,7 +358,7 @@
         <xsl:attribute name="font-family">
             <xsl:value-of select="$fd.title.font.family"/>
         </xsl:attribute>
-        <xsl:attribute name="font-size">10pt</xsl:attribute>
+        <xsl:attribute name="font-size">12pt</xsl:attribute>
         <xsl:attribute name="font-weight">bold</xsl:attribute>
         <xsl:attribute name="space-before.minimum">0.4em</xsl:attribute>
         <xsl:attribute name="space-before.optimum">0.4em</xsl:attribute>
@@ -378,7 +378,7 @@
         <xsl:if test="ancestor::d:thead or ancestor::d:tfoot">
             <xsl:attribute name="font-weight">bold</xsl:attribute>
         </xsl:if>
-        <xsl:attribute name="font-size">9pt</xsl:attribute>
+        <xsl:attribute name="font-size">11pt</xsl:attribute>
         <xsl:attribute name="font-family">
             <xsl:value-of select="$fd.title.font.family"/>
         </xsl:attribute>

@@ -14,7 +14,7 @@
                         <scenarioAssociation-array>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>SSL_TLS_Deployment_Best_Practices.xml</String>
+                                    <String>SSL_Server_Rating_Guide.xml</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
@@ -29,7 +29,7 @@
                             </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>SSL_Server_Rating_Guide.xml</String>
+                                    <String>SSL_TLS_Deployment_Best_Practices.xml</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
