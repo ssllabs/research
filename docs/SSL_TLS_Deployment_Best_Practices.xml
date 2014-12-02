@@ -357,10 +357,17 @@
                 <varlistentry>
                     <term>Disable RC4</term>
                     <listitem>
-                        <para>The RC4 cipher suite is considered insecure and should be disabled. At
-                            the moment, the best attacks we know require millions of requests, a lot
-                            of bandwidth and time. Thus, the risk is still relatively low, but we
-                            expect that the attacks will improve in the future.</para>
+                        <para>The RC4 cipher is insecure and should be disabled.<footnote>
+                                <para><link
+                                        xlink:href="http://datatracker.ietf.org/doc/draft-ietf-tls-prohibiting-rc4/"
+                                        >Internet-Draft: Prohibiting RC4 Cipher Suites</link> (A.
+                                    Popov, 1 October 2014)</para>
+                            </footnote> At the moment, the best attacks we know require millions of
+                            requests, a lot of bandwidth and time. Thus, the risk is still
+                            relatively low, but it’s possible that the attacks will improve in the
+                            future. Before removing RC4, check if your existing users will be
+                            impacted; in other words, check if you have clients that support only
+                            RC4.</para>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
@@ -372,19 +379,22 @@
                                         >Mitigating the BEAST attack on TLS</link> (Qualys Security
                                     Labs Blog; October 2011)</para>
                             </footnote> targets a 2004 vulnerability in TLS 1.0 and earlier protocol
-                            versions, previously thought to be impractical to exploit. For a period
-                            of time, server-side mitigation of the BEAST attack was considered
-                            appropriate, even though the weakness is on the client side.
-                            Unfortunately, to mitigate server-side requires RC4, which we now
-                            recommend to disable. Because of that, and because the BEAST attack is
-                            by now largely mitigated client-side, we no longer recommend server-side mitigation.<footnote>
+                            versions, previously thought to be impractical to exploit. The impact of
+                            a successful BEAST attack is similar to that of session hijacking. For a
+                            period of time, server-side mitigation of the BEAST attack was
+                            considered appropriate, even though the weakness is on the client side.
+                            Unfortunately, to mitigate server-side requires RC4, which can no longer
+                            be recommended. Because of that, and because the BEAST attack is by now
+                            largely mitigated client-side, we no longer recommend server-side mitigation.<footnote>
                                 <para><link
                                         xlink:href="https://community.qualys.com/blogs/securitylabs/2013/09/10/is-beast-still-a-threat"
                                         >Is BEAST Still a Threat?</link> (Qualys Security Labs; 10
                                     September 2013)</para>
-                            </footnote></para>
-                        <para>The impact of a successful BEAST attack is similar to that of session
-                            hijacking.</para>
+                            </footnote> In some situations, when there is a great number of old
+                            clients vulnerable to the BEAST attack, it might be more secure to use
+                            RC4 with TLS 1.0 and earlier protocol versions. A decision to do this
+                            should be made carefully and only after fully understanding the
+                            environment and its threat model.</para>
                     </listitem>
                 </varlistentry>
             </variablelist>
