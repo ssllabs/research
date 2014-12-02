@@ -157,6 +157,31 @@
                 </varlistentry>
             </variablelist>
         </section>
+        <section>
+            <title>1.5. Use Strong Certificate Signature Algorithms</title>
+            <para>Certificate signature security depends on the strength of the signing private key
+                and the strength of the used hashing function. Today, most certificates use the SHA1
+                hashing function, which is considered weak and borderline insecure. The industry is
+                currently moving away from SHA1, which a process that must be completed by the end
+                of 2016. After that SHA1 certificates won’t be accepted any more.<footnote>
+                    <para><link
+                            xlink:href="http://blogs.technet.com/b/pki/archive/2013/11/12/sha1-deprecation-policy.aspx"
+                            >SHA1 Deprecation Policy</link> (Windows PKI blog, 12 November
+                        2013)</para>
+                </footnote></para>
+            <para> However, because Google Chrome warns about SHA1 certificates that expire even
+                before the ultimate deadline,<footnote>
+                    <para><link
+                            xlink:href="http://blog.chromium.org/2014/09/gradually-sunsetting-sha-1.html"
+                            >Gradually Sunsetting SHA-1</link> (The Chromium Blog, 5 September
+                        2014)</para>
+                </footnote> you should immediately replace all your SHA1 certificates if they expire
+                after 2015. Alternatively, you could move straight away to certificates that rely on
+                the SHA2 algorithm family. But, before you do that, check that enough of your user
+                base supports SHA2. Some older clients, for example IE6 running on Windows XP
+                Service Pack 2 (still heavily used in some countries and organizations)
+                don’t.</para>
+        </section>
     </section>
     <section renderas="sect2">
         <title>2. Configuration</title>
@@ -671,6 +696,10 @@
             <title>Version 1.4 (8 December 2014)</title>
             <para>The following changes were made in this version:</para>
             <itemizedlist>
+                <listitem>
+                    <para>Discuss SHA1 deprecation and recommend migrating to the SHA2
+                        family.</para>
+                </listitem>
                 <listitem>
                     <para>Recommend that SSL v3 is disabled and mention the POODLE attack.</para>
                 </listitem>
