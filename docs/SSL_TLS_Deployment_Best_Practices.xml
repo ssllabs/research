@@ -498,7 +498,8 @@
                 TLS: it was designed to ensure that security remains intact even in the case of
                 configuration problems and implementation errors. To activate HSTS protection, you
                 set a single response header in your web sites. After that, browsers that support
-                HSTS (at this time, Chrome, Firefox, and Opera) will enforce it.</para>
+                HSTS (at this time, Chrome, Firefox, Safari and Opera; IE soon) will enforce
+                it.</para>
             <para>The goal of HSTS is simple: after activation, it does not allow any insecure
                 communication with the web site that uses it. It achieves this goal by automatically
                 converting all plain-text links to secure ones. As a bonus, it also disables
