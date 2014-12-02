@@ -79,8 +79,8 @@
                 have <emphasis>www.example.net</emphasis> configured. Your goal is to avoid invalid
                 certificate warnings, which will confuse your users and weaken their trust.</para>
             <para>Even when there is only one name configured on your servers, remember that you
-                cannot control how your users arrive at the site or how others link to the site. In
-                most cases, you should ensure that the certificate works with and without the
+                cannot control how your users arrive at the site or how others link to it. In most
+                cases, you should ensure that the certificate works with and without the
                     <emphasis>www</emphasis> prefix (e.g., for both <emphasis>example.com</emphasis>
                 and <emphasis>www.example.com</emphasis>). The rule of thumb is this: a secure web
                 server should have a certificate that is valid for every DNS name configured to
@@ -88,7 +88,9 @@
             <para>Wildcard certificates have their uses, but should be avoided if using them means
                 exposing the underlying keys to a larger group of people, and especially if crossing
                 organizational boundaries. In other words, the fewer people who have access to the
-                private keys, the better.</para>
+                private keys, the better. Further, be aware that certificate sharing creates a bond
+                that can be abused to transfer vulnerabilities from one web site to all other sites
+                that use the same certificate.</para>
         </section>
         <section renderas="sect3">
             <title>1.4. Obtain Certificates from a Reliable CA</title>
