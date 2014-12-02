@@ -397,6 +397,22 @@
                             environment and its threat model.</para>
                     </listitem>
                 </varlistentry>
+                <varlistentry>
+                    <term>Disable SSL v3</term>
+                    <listitem>
+                        <para>SSL v3 is vulnerable against the POODLE attack, which was disclosed in
+                            October 2014.<footnote>
+                                <para><link
+                                        xlink:href="http://googleonlinesecurity.blogspot.co.uk/2014/10/this-poodle-bites-exploiting-ssl-30.html"
+                                        >This POODLE bites: exploiting the SSL 3.0 fallback</link>
+                                    (Google Online Security Blog, 14 October 2014)</para>
+                            </footnote> This attack is easy to carry out against HTTP clients, which
+                            can be tricked to execute JavaScript malware. They can also usually be
+                            tricked into downgrading from a better protocol (e.g., TLS 1.2) down to
+                            the vulnerable SSL v3. The best way to mitigate POODLE is to disable SSL
+                            v3, which most sites can do safely.</para>
+                    </listitem>
+                </varlistentry>
             </variablelist>
         </section>
     </section>
@@ -653,6 +669,9 @@
             <title>Version 1.4 (8 December 2014)</title>
             <para>The following changes were made in this version:</para>
             <itemizedlist>
+                <listitem>
+                    <para>Recommend that SSL v3 is disabled and mention the POODLE attack.</para>
+                </listitem>
                 <listitem>
                     <para>Expand Section 3.1 to cover the strength of the DHE and ECDHE key
                         exchanges.</para>
