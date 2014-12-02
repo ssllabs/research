@@ -398,13 +398,15 @@
             overall performance impact, we are limiting the discussion in this section to the common
             configuration problems that result in serious performance degradation.</para>
         <section renderas="sect3">
-            <title>3.1. Do Not Use Too Strong Private Keys</title>
+            <title>3.1. Do Not Use Too Much Security</title>
             <para>The cryptographic handshake, which is used to establish secure connections, is an
                 operation whose cost is highly influenced by private key size. Using a key that is
                 too short is insecure, but using a key that is too long will result in &#x201c;too
-                much&#x201d; security and slow operation. For most web sites, using keys stronger
-                than 2048 bits is a waste of CPU power and is likely to impair user
-                experience.</para>
+                much&#x201d; security and slow operation. For most web sites, using RSA keys
+                stronger than 2048 bits and ECDSA keys stronger than 256 bits is a waste of CPU
+                power and might impair user experience. Similarly, there is little benefit to
+                increasing the strength of the ephemeral key exchange beyond 2048 bits for DHE and
+                256 bits for ECDHE.</para>
         </section>
         <section renderas="sect3">
             <title>3.2. Ensure That Session Resumption Works Correctly</title>
@@ -641,6 +643,10 @@
             <title>Version 1.4 (8 December 2014)</title>
             <para>The following changes were made in this version:</para>
             <itemizedlist>
+                <listitem>
+                    <para>Expand Section 3.1 to cover the strength of the DHE and ECDHE key
+                        exchanges.</para>
+                </listitem>
                 <listitem>
                     <para>Recommend OCSP Stapling as a performance-improvement measure, promoting it
                         to Section 3.5.</para>
