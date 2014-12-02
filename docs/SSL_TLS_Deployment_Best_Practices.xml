@@ -243,8 +243,8 @@
                             <para><link xlink:href="http://www.isg.rhul.ac.uk/tls/">On the Security
                                     of RC4 in TLS and WPA</link> (Kenny Paterson et al.; 13 March
                                 2013)</para>
-                        </footnote> You should remove support for this cipher in the near
-                        future.</para>
+                        </footnote> You should remove support for this cipher as soon as possible,
+                        but after checking for potential negative interoperability impact.</para>
                 </listitem>
                 <listitem>
                     <para>3DES provides about 112 bits of security. This is below the recommended
