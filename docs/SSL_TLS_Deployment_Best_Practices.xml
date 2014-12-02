@@ -61,14 +61,17 @@
                 </listitem>
                 <listitem>
                     <para>Password-protect keys to prevent compromise when they are stored in backup
-                        systems.</para>
+                        systems. Private key passwords don’t help much in production because a
+                        knowledgeable attacker can always retrieve the keys from process memory.
+                        There are hardware devices that can protect private keys even in the case of
+                        server compromise, but they are expensive and thus justifiable only by
+                        organizations with strict security requirements.</para>
                 </listitem>
                 <listitem>
-                    <para>After compromise, revoke old certificates and generate new keys to use
-                        with new certificates.</para>
+                    <para>After compromise, revoke old certificates and generate new keys.</para>
                 </listitem>
                 <listitem>
-                    <para>Renew certificates every year and always with new private keys.</para>
+                    <para>Renew certificates every year, always with new private keys.</para>
                 </listitem>
             </itemizedlist>
         </section>
