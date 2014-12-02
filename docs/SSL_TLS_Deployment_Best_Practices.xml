@@ -185,10 +185,8 @@
                         <para>SSL v2 is insecure and must not be used.</para>
                     </listitem>
                     <listitem>
-                        <para>SSL v3 is very old and obsolete. Because it lacks some key features
-                            and because virtually all clients support TLS 1.0 and better, you should
-                            not support SSL v3 unless you have a <emphasis>very</emphasis> good
-                            reason.</para>
+                        <para>SSL v3 is insecure when used with HTTP and weak when used with other
+                            protocols. It’s also obsolete, which is why it shouldn’t be used.</para>
                     </listitem>
                     <listitem>
                         <para>TLS v1.0 is largely still secure; we do not know of major security
