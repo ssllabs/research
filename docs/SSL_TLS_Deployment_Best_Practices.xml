@@ -637,6 +637,16 @@
                 </listitem>
             </itemizedlist>
         </section>
+        <section>
+            <title>Version 1.4 (8 December 2014)</title>
+            <para>The following changes were made in this version:</para>
+            <itemizedlist>
+                <listitem>
+                    <para>Recommend OCSP Stapling as a performance-improvement measure, promoting it
+                        to Section 3.5.</para>
+                </listitem>
+            </itemizedlist>
+        </section>
     </section>
     <section renderas="sect2">
         <title>Acknowledgments</title>
