@@ -5,7 +5,7 @@
     version="5.0">
     <info>
         <title>SSL Server Rating Guide</title>
-        <releaseinfo>version 2009e (21 January 2014)</releaseinfo>
+        <releaseinfo>version 2009i (8 December 2014)</releaseinfo>
         <copyright>
             <year>2009-2014</year>
             <holder>Qualys SSL Labs (www.ssllabs.com)</holder>
@@ -448,7 +448,7 @@
     </section>
     <section>
         <title>Changes</title>
-        <para>We are planning to release a completely new version of the rating guide in Q1 2014,
+        <para>We are planning to release a completely new version of the rating guide in Q1 2015,
             building on what we have learned from the current version. In the meantime, we are
             making small revisions in order to react to the threats as they come and go.</para>
         <section>
@@ -540,6 +540,49 @@
                 </listitem>
             </itemizedlist>
         </section>
+        <section>
+            <title>Changes in 2009f (4 September 2014)</title>
+            <para>Changes in this version:</para>
+            <itemizedlist>
+                <listitem>
+                    <para>Don’t award A+ to servers that use SHA1 certificates.</para>
+                </listitem>
+            </itemizedlist>
+        </section>
+        <section>
+            <title>Changes in 2009g (15 October 2014)</title>
+            <para>Changes in this version:</para>
+            <itemizedlist>
+                <listitem>
+                    <para>Cap to C if vulnerable to POODLE.</para>
+                </listitem>
+            </itemizedlist>
+        </section>
+        <section>
+            <title>Changes in 2009h (30 October 2014)</title>
+            <para>Changes in this version:</para>
+            <itemizedlist>
+                <listitem>
+                    <para>Don’t award A+ to servers that don’t support
+                            <literal>TLS_FALLBACK_SCSV</literal>.</para>
+                </listitem>
+                <listitem>
+                    <para>Cap to B if SSL 3 is supported.</para>
+                </listitem>
+            </itemizedlist>
+        </section>
+        <section>
+            <title>Changes in 2009i (8 December 2014)</title>
+            <para>Changes in this version:</para>
+            <itemizedlist>
+                <listitem>
+                    <para>Cap to B if RC4 is supported.</para>
+                </listitem>
+                <listitem>
+                    <para>Cap to B if the chain is incomplete.</para>
+                </listitem>
+            </itemizedlist>
+        </section>
     </section>
     <section>
         <title>About SSL</title>
@@ -564,17 +607,17 @@
     <section>
         <title>About Qualys</title>
         <para><link xlink:href="http://www.qualys.com">Qualys, Inc.</link> (NASDAQ: QLYS), is a
-            pioneer and leading provider of cloud security and compliance solutions with over 6,000
+            pioneer and leading provider of cloud security and compliance solutions with over 6,700
             customers in more than 100 countries, including a majority of each of the Forbes Global
             100 and Fortune 100. The QualysGuard Cloud Platform and integrated suite of solutions
             help organizations simplify security operations and lower the cost of compliance by
             delivering critical security intelligence on demand and automating the full spectrum of
             auditing, compliance, and protection for IT systems and web applications. Founded in
             1999, Qualys has established strategic partnerships with leading managed service
-            providers and consulting organizations, including Accuvant, BT, Dell SecureWorks,
-            Fujitsu, NTT, Symantec, Verizon, and Wipro. The company is also a founding member of the
-                <link xlink:href="http://www.cloudsecurityalliance.org">Cloud Security
-                Alliance</link> (CSA).</para>
+            providers and consulting organizations, including BT, Dell SecureWorks, Fujitsu, IBM,
+            NTT, Symantec, Verizon, and Wipro. The company is also a founding member of the <link
+                xlink:href="http://www.cloudsecurityalliance.org">Cloud Security Alliance</link>
+            (CSA).</para>
         <para>Qualys, the Qualys logo and QualysGuard are proprietary trademarks of Qualys, Inc. All
             other products or names may be trademarks of their respective companies.</para>
     </section>
