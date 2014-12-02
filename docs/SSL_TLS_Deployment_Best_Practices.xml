@@ -15,22 +15,21 @@
         </author>
         <abstract>
             <para>SSL/TLS is a deceptively simple technology. It is easy to deploy, and it just
-                works&#x2026; except that it does not, really. The first part is true—TLS is easy to
-                deploy—but it turns out that it is not easy to deploy
-                <emphasis>correctly</emphasis>. To ensure that TLS provides the necessary security,
-                users must put extra effort into properly configuring their servers.</para>
+                works&#x2026; except when it does not. The main problem is that encryption is not
+                often easy to deploy <emphasis>correctly</emphasis>. To ensure that TLS provides the
+                necessary security, system administrators and developers must put extra effort into
+                properly configuring their servers and developing their applications.</para>
             <para>In 2009, we began our work on <link xlink:href="https://www.ssllabs.com/">SSL
                     Labs</link> because we wanted to understand how TLS was used and to remedy the
                 lack of easy-to-use TLS tools and documentation. We have achieved some of our goals
                 through our global surveys of TLS usage, as well as the online assessment tool, but
-                the lack of documentation is still evident. This document is a first step toward
+                the lack of documentation is still evident. This document is a step toward
                 addressing that problem.</para>
             <para>Our aim here is to provide clear and concise instructions to help overworked
                 administrators and programmers spend the minimum time possible to deploy a secure
                 site or web application. In pursuit of clarity, we sacrifice completeness, foregoing
                 certain advanced topics. The focus is on advice that is practical and easy to
-                understand. For those who want more information, Section 6 gives useful
-                pointers.</para>
+                follow. For those who want more information, Section 6 gives useful pointers.</para>
         </abstract>
     </info>
     <section renderas="sect2">
@@ -54,9 +53,9 @@
                 Recommended policies include the following:</para>
             <itemizedlist>
                 <listitem>
-                    <para>Generate private keys and Certificate Signing Requests (CSRs) on a trusted
-                        computer. Some CAs offer to generate keys and a CSRs for you, but that's
-                        inappropriate.</para>
+                    <para>Generate private keys and <firstterm>Certificate Signing
+                            Requests</firstterm> (CSRs) on a trusted computer. Some CAs offer to
+                        generate keys and CSRs for you, but that's inappropriate.</para>
                 </listitem>
                 <listitem>
                     <para>Password-protect keys to prevent compromise when they are stored in backup
@@ -91,7 +90,7 @@
         </section>
         <section renderas="sect3">
             <title>1.4. Obtain Certificates from a Reliable CA</title>
-            <para>Select a <firstterm>Certificate Authority</firstterm> (CA) that is reliable and
+            <para>Select a <firstterm>Certification Authority</firstterm> (CA) that is reliable and
                 serious about its certificate business and about security. Consider the following
                 criteria when selecting your CA:</para>
             <variablelist>
@@ -127,26 +126,28 @@
                     <term>Services offered</term>
                     <listitem>
                         <para>At minimum, your selected CA should provide support for both
-                            Certificate Revocation List (CRL) and Online Certificate Status Protocol
-                            (OCSP) revocation and provide an OCSP service with good performance.
-                            They should offer both domain-validated and Extended Validation
-                            certificates, ideally with your choice of public key algorithm. (Most
-                            web sites use RSA today, but ECDSA may become important in the future
-                            because of its performance advantages.)</para>
+                                <firstterm>Certificate Revocation List</firstterm> (CRL) and
+                                <firstterm>Online Certificate Status Protocol</firstterm> (OCSP)
+                            revocation and provide an OCSP service with good performance. They
+                            should offer both domain-validated and <firstterm>Extended
+                                Validation</firstterm> (EV) certificates, ideally with your choice of
+                            public key algorithm. (Most web sites use RSA today, but ECDSA may
+                            become important in the future because of its performance
+                            advantages.)</para>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
                     <term>Certificate management options</term>
                     <listitem>
                         <para>If you need a large number of certificates and operate in a complex
-                            environment, choose a business that will give you good tools to manage
+                            environment, choose a CA that will give you good tools to manage
                             them.</para>
                     </listitem>
                 </varlistentry>
                 <varlistentry>
                     <term>Support</term>
                     <listitem>
-                        <para>Choose a business that will give you good support if and when you need
+                        <para>Choose a CA that will give you good support if and when you need
                             it.</para>
                     </listitem>
                 </varlistentry>
@@ -252,15 +253,15 @@
         </section>
         <section renderas="sect3">
             <title>2.4. Control Cipher Suite Selection</title>
-            <para>In SSL v3 and later versions, clients submit a list of cipher suites that they
-                support, and servers choose one suite from the list to negotiate a secure
+            <para>In SSL v3 and later protocol versions, clients submit a list of cipher suites that
+                they support, and servers choose one suite from the list to negotiate a secure
                 communication channel. Not all servers do this well, however—some will select the
                 first supported suite from the list. Having servers select the right cipher suite is
                 critical for security (more about that in Section 2.7).</para>
         </section>
         <section renderas="sect3">
             <title>2.5. Support Forward Secrecy</title>
-            <para><emphasis>Forward Secrecy</emphasis><footnote>
+            <para><firstterm>Forward Secrecy</firstterm><footnote>
                     <para><link
                             xlink:href="https://community.qualys.com/blogs/securitylabs/2013/06/25/ssl-labs-deploying-forward-secrecy"
                             >Deploying Forward Secrecy</link> (Qualys Security Labs; 25 June
@@ -311,8 +312,8 @@
                             </footnote> Most vendors have issued patches by now or, at the very
                             least, provided workarounds for the problem. Insecure renegotiation is
                             dangerous because it is easy to exploit and has effects similar to
-                            Cross-Site Request Forgery (CSRF) and, in some cases, Cross-Site
-                            Scripting (XSS).</para>
+                                <firstterm>Cross-Site Request Forgery</firstterm> (CSRF) and, in some
+                            cases, <firstterm>Cross-Site Scripting</firstterm> (XSS).</para>
                     </listitem>
                 </varlistentry>                
                 <varlistentry>
@@ -491,7 +492,7 @@
         </section>        
         <section renderas="sect3">
             <title>4.5. Deploy HTTP Strict Transport Security</title>
-            <para><emphasis>HTTP Strict Transport Security</emphasis> (HSTS) is a safety net for
+            <para><firstterm>HTTP Strict Transport Security</firstterm> (HSTS) is a safety net for
                 TLS: it was designed to ensure that security remains intact even in the case of
                 configuration problems and implementation errors. To activate HSTS protection, you
                 set a single response header in your web sites. After that, browsers that support
@@ -540,13 +541,13 @@
     <section renderas="sect2">
         <title>6. Advanced Topics</title>
         <para>The following advanced topics are outside the scope of our guide. They require a
-            deeper understanding of SSL/TLS and Public Key Infrastructure (PKI), and they are still
+            deeper understanding of SSL/TLS and <firstterm>Public Key Infrastructure</firstterm> (PKI), and they are still
             being debated by experts.</para>
         <variablelist>
             <varlistentry>
                 <term>Extended Validation certificates</term>
                 <listitem>
-                    <para><emphasis>Extended Validation</emphasis> (EV) certificates are
+                    <para>EV certificates are
                         high-assurance certificates issued only after thorough offline checks.<footnote>
                             <para><link xlink:href="https://www.cabforum.org/certificates.html"
                                     >About EV SSL Certificates</link> (CA/B Forum web site)</para>
@@ -557,15 +558,15 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>Public key pinning</term>
+                <term>Public Key Pinning</term>
                 <listitem>
-                    <para><emphasis>Public key pinning</emphasis> is designed to give web site
-                        operators the means to restrict which Certificate Authorities can issue
+                    <para><firstterm>Public Key Pinning</firstterm> is designed to give web site
+                        operators the means to restrict which Certification Authorities can issue
                         certificates for their web sites. This feature has been deployed by Google
                         for some time now (it's hard-coded into their browser, Chrome) and has
                         proven to be very useful in preventing attacks and making the public aware
                         of them. Two proposals are currently being developed: <emphasis><link
-                                xlink:href="http://tools.ietf.org/html/draft-ietf-websec-key-pinning"
+                            xlink:href="https://datatracker.ietf.org/doc/draft-ietf-websec-key-pinning/"
                                 >Public Key Pinning Extension for HTTP</link></emphasis>, by the Web
                         Security Working Group, and <emphasis><link
                                 xlink:href="http://tack.io/draft.html">Trust Assertions for
@@ -590,7 +591,7 @@
             <varlistentry>
                 <term>OCSP Stapling</term>
                 <listitem>
-                    <para><emphasis>OCSP Stapling</emphasis> is a modification of the OCSP protocol
+                    <para><firstterm>OCSP Stapling</firstterm> is a modification of the OCSP protocol
                         that allows revocation information to be bundled with the certificate itself
                         and thus served directly from the server to the browser. As a result, the
                         browser does not need to contact OCSP servers for out-of-band validation,
@@ -601,8 +602,8 @@
     </section>
     <section renderas="sect2">
         <title>Changes</title>
-        <para>The first release of this guide was on 24 February 2012. This section tracks document
-            changes over time, starting with version 1.3.</para>
+        <para>The first release of this guide was on 24 February 2012. This section tracks the
+            document changes over time, starting with version 1.3.</para>
         <section renderas="sect3">
             <title>Version 1.3 (17 September 2013)</title>
             <para>The following changes were made in this version:</para>
