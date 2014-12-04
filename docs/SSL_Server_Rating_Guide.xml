@@ -453,7 +453,7 @@
             making small revisions in order to react to the threats as they come and go.</para>
         <section>
             <title>Changes in 2009c (7 February 2013)</title>
-            <para>In 2009c we have introduced the following changes:</para>
+            <para>Changes to the grading criteria:</para>
             <itemizedlist>
                 <listitem>
                     <para>SSL 2.0 is not allowed (F). </para>
@@ -479,13 +479,14 @@
         </section>
         <section>
             <title>Changes in 2009d (9 September 2013)</title>
-            <para>We no longer require server-side mitigation for the BEAST attack, because we now
-                believe that this attack has been sufficiently addressed client-side.</para>
+            <itemizedlist>
+                <listitem>
+                    <para>No longer require server-side mitigation for the BEAST attack.</para>
+                </listitem>
+            </itemizedlist>
         </section>
         <section>
             <title>Changes in 2009e (21 January 2014)</title>
-            <para>This update incorporates several ideas that we were planning for the next major
-                release. The changes are as follows:</para>
             <itemizedlist>
                 <listitem>
                     <para>Support for TLS 1.2 is now required to get the A grade. Without, the grade
@@ -542,7 +543,6 @@
         </section>
         <section>
             <title>Changes in 2009f (4 September 2014)</title>
-            <para>Changes in this version:</para>
             <itemizedlist>
                 <listitem>
                     <para>Don’t award A+ to servers that use SHA1 certificates.</para>
@@ -551,7 +551,6 @@
         </section>
         <section>
             <title>Changes in 2009g (15 October 2014)</title>
-            <para>Changes in this version:</para>
             <itemizedlist>
                 <listitem>
                     <para>Cap to C if vulnerable to POODLE.</para>
@@ -560,7 +559,6 @@
         </section>
         <section>
             <title>Changes in 2009h (30 October 2014)</title>
-            <para>Changes in this version:</para>
             <itemizedlist>
                 <listitem>
                     <para>Don’t award A+ to servers that don’t support
@@ -573,7 +571,6 @@
         </section>
         <section>
             <title>Changes in 2009i (8 December 2014)</title>
-            <para>Changes in this version:</para>
             <itemizedlist>
                 <listitem>
                     <para>Cap to B if RC4 is supported.</para>
