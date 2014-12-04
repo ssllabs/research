@@ -581,6 +581,9 @@
                 <listitem>
                     <para>Cap to B if the chain is incomplete.</para>
                 </listitem>
+                <listitem>
+                    <para>Fail servers that have SSL3 as their best protocol.</para>
+                </listitem>
             </itemizedlist>
         </section>
     </section>
