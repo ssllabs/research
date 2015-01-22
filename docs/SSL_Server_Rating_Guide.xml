@@ -519,7 +519,7 @@
                 </listitem>
                 <listitem>
                     <para>New grade A- is introduced for servers with generally good configuration
-                        that have one ore more warnings.</para>
+                        that have one or more warnings.</para>
                 </listitem>
                 <listitem>
                     <para>New grade A+ is introduced for servers with exceptional configurations. At
@@ -591,7 +591,7 @@
             release. SSL was later upgraded to 3.0, and, with further minor improvements,
             standardized under the name TLS (<firstterm>Transport Layer Security</firstterm>). TLS
             v1.2, the most recent version, is defined by <link
-                xlink:href="http://www.ietf.org/rfc/rfc5246.txt">RFC 5246</link>.</para>
+                xlink:href="https://www.ietf.org/rfc/rfc5246.txt">RFC 5246</link>.</para>
     </section>
     <section>
         <title>About SSL Labs</title>
@@ -606,7 +606,7 @@
     </section>
     <section>
         <title>About Qualys</title>
-        <para><link xlink:href="http://www.qualys.com">Qualys, Inc.</link> (NASDAQ: QLYS), is a
+        <para><link xlink:href="https://www.qualys.com">Qualys, Inc.</link> (NASDAQ: QLYS), is a
             pioneer and leading provider of cloud security and compliance solutions with over 6,700
             customers in more than 100 countries, including a majority of each of the Forbes Global
             100 and Fortune 100. The QualysGuard Cloud Platform and integrated suite of solutions
@@ -616,7 +616,7 @@
             1999, Qualys has established strategic partnerships with leading managed service
             providers and consulting organizations, including BT, Dell SecureWorks, Fujitsu, IBM,
             NTT, Symantec, Verizon, and Wipro. The company is also a founding member of the <link
-                xlink:href="http://www.cloudsecurityalliance.org">Cloud Security Alliance</link>
+                xlink:href="https://www.cloudsecurityalliance.org">Cloud Security Alliance</link>
             (CSA).</para>
         <para>Qualys, the Qualys logo and QualysGuard are proprietary trademarks of Qualys, Inc. All
             other products or names may be trademarks of their respective companies.</para>

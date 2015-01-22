@@ -389,7 +389,7 @@
                     <listitem>
                         <para>The RC4 cipher is insecure and should be disabled.<footnote>
                                 <para><link
-                                        xlink:href="http://datatracker.ietf.org/doc/draft-ietf-tls-prohibiting-rc4/"
+                                        xlink:href="https://datatracker.ietf.org/doc/draft-ietf-tls-prohibiting-rc4/"
                                         >Internet-Draft: Prohibiting RC4 Cipher Suites</link> (A.
                                     Popov, 1 October 2014)</para>
                             </footnote> At the moment, the best attacks we know require millions of
@@ -433,7 +433,7 @@
                         <para>SSL v3 is vulnerable against the POODLE attack, which was disclosed in
                             October 2014.<footnote>
                                 <para><link
-                                        xlink:href="http://googleonlinesecurity.blogspot.co.uk/2014/10/this-poodle-bites-exploiting-ssl-30.html"
+                                        xlink:href="http://googleonlinesecurity.blogspot.com/2014/10/this-poodle-bites-exploiting-ssl-30.html"
                                         >This POODLE bites: exploiting the SSL 3.0 fallback</link>
                                     (Google Online Security Blog, 14 October 2014)</para>
                             </footnote> This attack is easy to carry out against HTTP clients, which
@@ -738,7 +738,7 @@
     </section>
     <section renderas="sect2">
         <title>About Qualys</title>
-        <para><link xlink:href="http://www.qualys.com">Qualys, Inc.</link> (NASDAQ: QLYS), is a
+        <para><link xlink:href="https://www.qualys.com">Qualys, Inc.</link> (NASDAQ: QLYS), is a
             pioneer and leading provider of cloud security and compliance solutions with over 6,700
             customers in more than 100 countries, including a majority of each of the Forbes Global
             100 and Fortune 100. The QualysGuard Cloud Platform and integrated suite of solutions
@@ -749,7 +749,7 @@
             providers and consulting organizations, including BT, Dell SecureWorks, Fujitsu, IBM,
             NTT, Symantec, Verizon, and Wipro. The company is also a founding member of the <link
                 xlink:href="http://www.counciloncybersecurity.org/">Council on CyberSecurity</link>
-            and the <link xlink:href="http://www.cloudsecurityalliance.org">Cloud Security
+            and the <link xlink:href="https://www.cloudsecurityalliance.org">Cloud Security
                 Alliance</link> (CSA).</para>
         <para>Qualys, the Qualys logo and QualysGuard are proprietary trademarks of Qualys, Inc. All
             other products or names may be trademarks of their respective companies.</para>
