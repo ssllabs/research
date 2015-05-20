@@ -5,9 +5,9 @@
     version="5.0">
     <info>
         <title>SSL Server Rating Guide</title>
-        <releaseinfo>version 2009i (8 December 2014)</releaseinfo>
+        <releaseinfo>version 2009j (20 May 2015)</releaseinfo>
         <copyright>
-            <year>2009-2014</year>
+            <year>2009-2015</year>
             <holder>Qualys SSL Labs (www.ssllabs.com)</holder>
         </copyright>
         <abstract>
@@ -580,6 +580,23 @@
                 </listitem>
                 <listitem>
                     <para>Fail servers that have SSL3 as their best protocol.</para>
+                </listitem>
+            </itemizedlist>
+        </section>
+        <section>
+            <title>Changes in 2009j (20 May 2015)</title>
+            <itemizedlist>
+                <listitem>
+                    <para>Cap to B if using weak DH parameters (less than 2048 bits).</para>
+                </listitem>
+                <listitem>
+                    <para>Increase CRIME penalty to C (was B).</para>
+                </listitem>
+                <listitem>
+                    <para>Cap to C if RC4 is used with TLS 1.1+.</para>
+                </listitem>
+                <listitem>
+                    <para>Cap to C if not supporting TLS 1.2.</para>
                 </listitem>
             </itemizedlist>
         </section>
