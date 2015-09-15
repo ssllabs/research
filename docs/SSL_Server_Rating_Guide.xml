@@ -555,6 +555,10 @@
                 <listitem>
                     <para>Cap to C if vulnerable to POODLE.</para>
                 </listitem>
+                <listitem>
+                    <para>Note: POODLE TLS is treated as a patchable and exploitable vulnerability,
+                        which means it gets an F.</para>
+                </listitem>
             </itemizedlist>
         </section>
         <section>
