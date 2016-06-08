@@ -5,7 +5,7 @@
     version="5.0">
     <info>
         <title>SSL/TLS Deployment Best Practices</title>
-        <releaseinfo>version 1.5 (6 June 2016)</releaseinfo>
+        <releaseinfo>version 1.5 (8 June 2016)</releaseinfo>
         <copyright>
             <year>2012-2016</year>
             <holder>Qualys SSL Labs</holder>
@@ -33,14 +33,14 @@
         </abstract>
     </info>
     <section renderas="sect2">
-        <title> Private Key and Certificate</title>
+        <title>1 Private Key and Certificate</title>
         <para>In TLS, all security starts with the server's cryptographic identity; a strong private
             key is needed to prevent attackers from carrying out impersonation attacks. Equally
             important is to have a valid and strong certificate, which grants the private key the
             right to represent a particular hostname. Without these two fundamental building blocks,
             nothing else can be secure.</para>
         <section renderas="sect3">
-            <title> Use 2048-Bit Private Keys</title>
+            <title>1.1 Use 2048-Bit Private Keys</title>
             <para>For most web sites, security provided by 2,048-bit RSA keys is sufficient. The RSA
                 public key algorithm is  widely supported, which makes keys of this type a safe
                 default choice. At 2,048 bits, such keys provide about 112 bits of security. If you
@@ -53,7 +53,7 @@
                 overhead of managing such a setup.</para>
         </section>
         <section renderas="sect3">
-            <title> Protect Private Keys</title>
+            <title>1.2 Protect Private Keys</title>
             <para>Treat your private keys as an important asset, restricting access to the smallest
                 possible group of employees while still keeping your arrangements practical.
                 Recommended policies include the following:</para>
@@ -88,7 +88,7 @@
             </itemizedlist>
         </section>
         <section renderas="sect3">
-            <title> Ensure Sufficient Hostname Coverage</title>
+            <title>1.3 Ensure Sufficient Hostname Coverage</title>
             <para>Ensure that your certificates cover all the names you wish to use with a site.
                 Your goal is to avoid invalid certificate warnings, which confuse users and weaken
                 their confidence.</para>
@@ -108,7 +108,7 @@
                 underlying private keys are different).</para>
         </section>
         <section renderas="sect3">
-            <title> Obtain Certificates from a Reliable CA</title>
+            <title>1.4 Obtain Certificates from a Reliable CA</title>
             <para>Select a <firstterm>Certification Authority</firstterm> (CA) that is reliable and
                 serious about its certificate business and security. Consider the following criteria
                 when selecting your CA:</para>
@@ -173,7 +173,7 @@
             </note>
         </section>
         <section renderas="sect3">
-            <title> Use Strong Certificate Signature Algorithms</title>
+            <title>1.5 Use Strong Certificate Signature Algorithms</title>
             <para>Certificate security depends <emphasis role="all-small-caps">(1)</emphasis> on the
                 strength of the private key that was used to sign the certificate and <emphasis
                     role="all-small-caps">(2)</emphasis> the strength of the hashing function used
@@ -185,12 +185,12 @@
         </section>
     </section>
     <section renderas="sect2">
-        <title> Configuration</title>
+        <title>2 Configuration</title>
         <para>With correct TLS server configuration, you ensure that your credentials are properly
             presented to the site’s visitors, that only secure cryptographic primitives are used,
             and that all known weaknesses are mitigated.</para>
         <section renderas="sect3">
-            <title> Use Complete Certificate Chains</title>
+            <title>2.1 Use Complete Certificate Chains</title>
             <para>In most deployments, the server certificate alone is insufficient; two or more
                 certificates are needed to build a complete chain of trust. A common configuration
                 problem occurs when deploying a server with a valid certificate, but without all the
@@ -202,7 +202,7 @@
                 browsers tend to cache and reuse intermediate certificates.</para>
         </section>
         <section renderas="sect3">
-            <title> Use Secure Protocols</title>
+            <title>2.2 Use Secure Protocols</title>
             <para>There are five protocols in the SSL/TLS family: SSL v2, SSL v3, TLS v1.0, TLS
                 v1.1, and TLS v1.2:</para>
             <itemizedlist>
@@ -237,7 +237,7 @@
                 communication secure in the following decades.</para>
         </section>
         <section renderas="sect3">
-            <title> Use Secure Cipher Suites</title>
+            <title>2.3 Use Secure Cipher Suites</title>
             <para>To communicate securely, you must first ascertain that you are communicating
                 directly with the desired party (and not through someone else who will eavesdrop)
                 and exchanging data securely. In SSL and TLS, cipher suites define how secure
@@ -307,7 +307,7 @@ EDH-RSA-DES-CBC3-SHA</programlisting></para>
             </note>
         </section>
         <section renderas="sect3">
-            <title>Select Best Cipher Suites</title>
+            <title>2.4 Select Best Cipher Suites</title>
             <para>In SSL v3 and later protocol versions, clients submit a list of cipher suites that
                 they support, and servers choose one suite from the list to use for the connection.
                 Not all servers do this well, however; some will select the first supported suite
@@ -315,7 +315,7 @@ EDH-RSA-DES-CBC3-SHA</programlisting></para>
                 suite is critical for achieving the best security.</para>
         </section>
         <section renderas="sect3">
-            <title>Use Forward Secrecy</title>
+            <title>2.5 Use Forward Secrecy</title>
             <para><firstterm>Forward secrecy</firstterm> (sometimes also called <firstterm>perfect
                     forward secrecy</firstterm>) is a protocol feature that enables secure
                 conversations that are not dependent on the server’s private key. With cipher suites
@@ -328,7 +328,7 @@ EDH-RSA-DES-CBC3-SHA</programlisting></para>
                 that provide forward secrecy.</para>
         </section>
         <section renderas="sect3">
-            <title>Use Strong Key Exchange</title>
+            <title>2.6 Use Strong Key Exchange</title>
             <para>For the key exchange, public sites can typically choose between the classic
                     <firstterm>ephemeral Diffie-Hellman</firstterm> key exchange (DHE) and its
                 elliptic curve variant, ECDHE. There are other key exchange algorithms, but they're
@@ -347,7 +347,7 @@ EDH-RSA-DES-CBC3-SHA</programlisting></para>
                 curve (also known as <literal>P-256</literal>) is a good choice in this case.</para>
         </section>
         <section renderas="sect3">
-            <title>Mitigate Known Problems</title>
+            <title>2.7 Mitigate Known Problems</title>
             <para>There have been several serious attacks against SSL and TLS in recent years, but
                 they should generally not concern you if you're running up-to-date software and
                 following the advice in this guide. (If you're not, I'd advise testing your systems
@@ -358,13 +358,13 @@ EDH-RSA-DES-CBC3-SHA</programlisting></para>
         </section>
     </section>
     <section renderas="sect2">
-        <title>Performance</title>
+        <title>3 Performance</title>
         <para>Security is our main focus in this guide, but we must also pay attention to
             performance; a secure service that does not satisfy performance criteria will no doubt
             be dropped. With proper configuration, TLS can be quite fast. With modern protocols—for
             example, HTTP/2—it might even be faster than plaintext communication.</para>
         <section renderas="sect3">
-            <title>Avoid Too Much Security</title>
+            <title>3.1 Avoid Too Much Security</title>
             <para>The cryptographic handshake, which is used to establish secure connections, is an
                 operation for which the cost is highly influenced by private key size. Using a key
                 that is too short is insecure, but using a key that is too long will result in
@@ -376,14 +376,14 @@ EDH-RSA-DES-CBC3-SHA</programlisting></para>
                 bits.</para>
         </section>
         <section renderas="sect3">
-            <title>Use Session Resumption</title>
+            <title>3.2 Use Session Resumption</title>
             <para>Session resumption is a performance-optimization technique that makes it possible
                 to save the results of costly cryptographic operations and to reuse them for a
                 period of time. A disabled or nonfunctional session resumption mechanism may
                 introduce a significant performance penalty.</para>
         </section>
         <section renderas="sect3">
-            <title>Use WAN Optimization and HTTP/2</title>
+            <title>3.3 Use WAN Optimization and HTTP/2</title>
             <para>These days, TLS overhead doesn't come from CPU-hungry cryptographic operations,
                 but from network latency. A TLS handshake, which can start only after the TCP
                 handshake completes, requires a further exchange of packets and is more expensive
@@ -394,7 +394,7 @@ EDH-RSA-DES-CBC3-SHA</programlisting></para>
                 content delivery networks).</para>
         </section>
         <section renderas="sect3">
-            <title> Cache Public Content</title>
+            <title>3.4 Cache Public Content</title>
             <para>When communicating over TLS, browsers might assume that all traffic is sensitive.
                 They will typically use the memory to cache certain resources, but once you close
                 the browser, all the content may be lost. To gain a performance boost and enable
@@ -402,7 +402,7 @@ EDH-RSA-DES-CBC3-SHA</programlisting></para>
                 public.</para>
         </section>
         <section renderas="sect3">
-            <title> Use OCSP Stapling</title>
+            <title>3.5 Use OCSP Stapling</title>
             <para><firstterm>OCSP stapling</firstterm> is an extension of the OCSP protocol that
                 delivers revocation information as part of the TLS handshake, directly from the
                 server. As a result, the client does not need to contact OCSP servers for
@@ -414,7 +414,7 @@ EDH-RSA-DES-CBC3-SHA</programlisting></para>
                 might impact your availability.</para>
         </section>
         <section renderas="sect3">
-            <title> Use Fast Cryptographic Primitives</title>
+            <title>3.6 Use Fast Cryptographic Primitives</title>
             <para>In addition to providing the best security, my recommended cipher suite
                 configuration also provides the best performance. Whenever possible, use CPUs that
                 support hardware-accelerated AES. After that, if you really want a further
@@ -423,13 +423,13 @@ EDH-RSA-DES-CBC3-SHA</programlisting></para>
         </section>
     </section>
     <section renderas="sect2">
-        <title> HTTP and Application Security</title>
+        <title>4 HTTP and Application Security</title>
         <para>The HTTP protocol and the surrounding platform for web application delivery continued
             to evolve rapidly after SSL was born. As a result of that evolution, the platform now
             contains features that can be used to defeat encryption. In this section, we list those
             features, along with ways to use them securely.</para>
         <section renderas="sect3">
-            <title> Encrypt Everything</title>
+            <title>4.1 Encrypt Everything</title>
             <para>The fact that encryption is optional is probably one of the biggest security
                 problems today. We see the following problems:</para>
             <itemizedlist>
@@ -452,7 +452,7 @@ EDH-RSA-DES-CBC3-SHA</programlisting></para>
                 encryption throughout—without exception.</para>
         </section>
         <section renderas="sect3">
-            <title> Eliminate Mixed Content</title>
+            <title>4.2 Eliminate Mixed Content</title>
             <para>Mixed-content pages are those that are transmitted over TLS but include resources
                 (e.g., JavaScript files, images, CSS files) that are not transmitted over TLS. Such
                 pages are not secure. An active man-in-the-middle (MITM) attacker can piggyback on a
@@ -462,7 +462,7 @@ EDH-RSA-DES-CBC3-SHA</programlisting></para>
                 third-party web sites.</para>
         </section>
         <section renderas="sect3">
-            <title> Understand and Acknowledge Third-Party Trust</title>
+            <title>4.3 Understand and Acknowledge Third-Party Trust</title>
             <para>Web sites often use third-party services activated via JavaScript code downloaded
                 from another server. A good example of such a service is Google Analytics, which is
                 used on large parts of the Web. Such inclusion of third-party code creates an
@@ -484,7 +484,7 @@ EDH-RSA-DES-CBC3-SHA</programlisting></para>
                 </footnote></para>
         </section>
         <section renderas="sect3">
-            <title> Secure Cookies</title>
+            <title>4.4 Secure Cookies</title>
             <para>To be properly secure, a web site requires TLS, but also that all its cookies are
                 explicitly marked as secure when they are created. Failure to secure the cookies
                 makes it possible for an active MITM attacker to tease some information out through
@@ -492,7 +492,7 @@ EDH-RSA-DES-CBC3-SHA</programlisting></para>
                 adding cryptographic integrity validation or even encryption to your cookies.</para>
         </section>
         <section>
-            <title> Secure HTTP Compression</title>
+            <title>4.5 Secure HTTP Compression</title>
             <para>The 2012 CRIME attack showed that TLS compression can't be implemented securely.
                 The only solution was to disable TLS compression altogether. The following year, two
                 further attack variations followed. TIME and BREACH focused on secrets in HTTP
@@ -509,7 +509,7 @@ EDH-RSA-DES-CBC3-SHA</programlisting></para>
                     <firstterm>Cross-Site Request Forgery</firstterm> (CSRF) attack.</para>
         </section>
         <section renderas="sect3">
-            <title> Deploy HTTP Strict Transport Security</title>
+            <title>4.6 Deploy HTTP Strict Transport Security</title>
             <para><firstterm>HTTP Strict Transport Security</firstterm> (HSTS) is a safety net for
                 TLS. It was designed to ensure that security remains intact even in the case of
                 configuration problems and implementation errors. To activate HSTS protection, you
@@ -534,7 +534,7 @@ EDH-RSA-DES-CBC3-SHA</programlisting></para>
             <programlisting>Strict-Transport-Security: max-age=31536000; includeSubDomains; preload</programlisting>
         </section>
         <section renderas="sect3">
-            <title> Deploy Content Security Policy</title>
+            <title>4.7 Deploy Content Security Policy</title>
             <para><firstterm>Content Security Policy</firstterm> (CSP) is a security mechanism that
                 web sites can use to restrict browser operation. Although initially designed to
                 address <firstterm>Cross-Site Scripting</firstterm> (XSS), CSP is constantly
@@ -553,7 +553,7 @@ EDH-RSA-DES-CBC3-SHA</programlisting></para>
             </note>
         </section>
         <section renderas="sect3">
-            <title> Do Not Cache Sensitive Content</title>
+            <title>4.8 Do Not Cache Sensitive Content</title>
             <para>All sensitive content must be communicated only to the intended parties and
                 treated accordingly by all devices. Although proxies do not see encrypted traffic
                 and cannot share content among users, the use of cloud-based application delivery
@@ -561,7 +561,7 @@ EDH-RSA-DES-CBC3-SHA</programlisting></para>
                 what is public and what is not.</para>
         </section>
         <section renderas="sect3">
-            <title> Consider Other Threats</title>
+            <title>4.9 Consider Other Threats</title>
             <para>TLS is designed to address only one aspect of security—confidentiality and
                 integrity of the communication between you and your users—but there are many other
                 threats that you need to deal with. In most cases, that means ensuring that your web
@@ -569,7 +569,7 @@ EDH-RSA-DES-CBC3-SHA</programlisting></para>
         </section>
     </section>
     <section renderas="sect2">
-        <title>5. Validation</title>
+        <title>5 Validation</title>
         <para>With many configuration parameters available for tweaking, it is difficult to know in
             advance what impact certain changes will have. Further, changes are sometimes made
             accidentally; software upgrades can introduce changes silently. For that reason, we
@@ -581,7 +581,7 @@ EDH-RSA-DES-CBC3-SHA</programlisting></para>
             </footnote></para>
     </section>
     <section renderas="sect2">
-        <title> Advanced Topics</title>
+        <title>6 Advanced Topics</title>
         <para>The following advanced topics are currently outside the scope of our guide. They
             require a deeper understanding of SSL/TLS and <firstterm>Public Key
                 Infrastructure</firstterm> (PKI), and they are still being debated by
@@ -631,7 +631,7 @@ EDH-RSA-DES-CBC3-SHA</programlisting></para>
         </variablelist>
     </section>
     <section renderas="sect2">
-        <title>Changes</title>
+        <title>7 Changes</title>
         <para>The first release of this guide was on 24 February 2012. This section tracks the
             document changes over time, starting with version 1.3.</para>
         <section renderas="sect3">
@@ -687,7 +687,7 @@ EDH-RSA-DES-CBC3-SHA</programlisting></para>
             </itemizedlist>
         </section>
         <section>
-            <title>Version 1.5 (18 March 2016)</title>
+            <title>Version 1.5 (8 June 2016)</title>
             <para>The following changes were made in this version:</para>
             <itemizedlist>
                 <listitem>
