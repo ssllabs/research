@@ -341,10 +341,18 @@ EDH-RSA-DES-CBC3-SHA</programlisting></para>
                 </footnote> The researchers discovered that lower-strength DH key exchanges (e.g.,
                 768 bits) can easily be broken and that some well-known 1,024-bit DH groups can be
                 broken by state agencies. To be on the safe side, if deploying DHE, configure it
-                with at least 2,048 bits of security. Some older clients (e.g., Java 6) might not
-                support this level of strength. For performance reasons, most servers should prefer
-                ECDHE, which is both stronger and faster. The <literal>secp256r1</literal> named
-                curve (also known as <literal>P-256</literal>) is a good choice in this case.</para>
+                with at least 2,048 bits of security. Ideally, using one of the DH groups specified
+                in <literal>RFC7919</literal>: Negotiated Finite Field Diffie-Hellman Ephemeral Parameters for 
+                Transport Layer Security (TLS)
+                <footnote>
+                    <para><link xlink:href="https://tools.ietf.org/html/rfc7919">RFC7919: Negotiated 
+                        Finite Field Diffie-Hellman Ephemeral Parameters for Transport Layer 
+                        Security (TLS)</link> (retrieved 9 June 2020)</para>
+                </footnote>
+                Some older clients (e.g., Java 6) might not support this level of strength. For 
+                performance reasons, most servers should prefer ECDHE, which is both stronger and 
+                faster. The <literal>secp256r1</literal> named curve (also known as <literal>P-256</literal>) 
+                is a good choice in this case.</para>
         </section>
         <section renderas="sect3">
             <title>2.7 Mitigate Known Problems</title>
